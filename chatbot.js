@@ -1,6 +1,6 @@
 (function () {
   // ── Config ──────────────────────────────────────────────────────────────────
-  const API_URL = 'https://YOUR_PROJECT.supabase.co/functions/v1/chat';
+  const API_URL = 'https://akyumepusmke.supabase.co/functions/v1/chat';
 
   const SYSTEM = `Tu es l'assistant de Jean-Li Sek, disponible sur son portfolio joliment.fr. Tu réponds en français par défaut, en anglais si on te parle en anglais. Tu es concis, naturel et professionnel. Maximum 3 phrases par réponse sauf si on te demande plus de détails.
 
