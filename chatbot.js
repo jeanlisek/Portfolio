@@ -1,6 +1,7 @@
 (function () {
   // ── Config ──────────────────────────────────────────────────────────────────
   const API_URL = 'https://wpfsrkzhakyumepusmke.supabase.co/functions/v1/chat';
+  const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZnNya3poYWt5dW1lcHVzbWtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NjExNDAsImV4cCI6MjA5MDEzNzE0MH0.yvX67uCTorUwttc-OQ9LEcBouK8zsOL0A_DfazpXhow';
 
   const SYSTEM = `Tu es l'assistant de Jean-Li Sek, disponible sur son portfolio joliment.fr. Tu réponds en français par défaut, en anglais si on te parle en anglais. Tu es concis, naturel et professionnel. Maximum 3 phrases par réponse sauf si on te demande plus de détails.
 
@@ -156,7 +157,7 @@ Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, orien
     try {
       const res = await fetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON_KEY },
         body: JSON.stringify({ messages: messages, system: SYSTEM })
       });
       if (!res.ok) throw new Error('API error ' + res.status);
