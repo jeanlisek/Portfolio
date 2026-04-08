@@ -3,7 +3,7 @@
   const API_URL = 'https://wpfsrkzhakyumepusmke.supabase.co/functions/v1/chat';
   const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwZnNya3poYWt5dW1lcHVzbWtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1NjExNDAsImV4cCI6MjA5MDEzNzE0MH0.yvX67uCTorUwttc-OQ9LEcBouK8zsOL0A_DfazpXhow';
 
-  const SYSTEM = `Tu es l'assistant de Jean-Li Sek, disponible sur son portfolio joliment.fr. Tu réponds en français par défaut, en anglais si on te parle en anglais. Tu es concis, naturel et professionnel. Maximum 3 phrases par réponse sauf si on te demande plus de détails.
+  const SYSTEM = `Tu es l'assistant de Jean-Li Sek sur joliment.fr. Règles STRICTES : réponds en 2-3 phrases maximum, toujours. Pas de listes à puces sauf si explicitement demandé. Pas de markdown (pas de ** ni de ##). Langage naturel, conversationnel. Français par défaut, anglais si on te parle en anglais.
 
 Ton rôle : aider les visiteurs à comprendre le profil, les projets et les compétences de Jean-Li, et les orienter vers une collaboration si pertinent.
 
@@ -115,11 +115,25 @@ Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, orien
   }
 
   // ── Messages ─────────────────────────────────────────────────────────────────
+  function cleanText(text) {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '$1')   // strip **bold**
+      .replace(/\*(.*?)\*/g, '$1')        // strip *italic*
+      .replace(/#{1,6}\s/g, '')           // strip ## headings
+      .replace(/^[-•]\s/gm, '· ')        // normalize bullet points
+      .trim();
+  }
+
   function addMessage(role, content) {
     const container = document.getElementById('chatbotMessages');
     const div = document.createElement('div');
     div.className = 'chatbot-msg chatbot-msg--' + (role === 'user' ? 'user' : 'bot');
-    div.textContent = content;
+    const clean = role === 'bot' ? cleanText(content) : content;
+    // Render line breaks
+    clean.split('\n').filter(l => l.trim()).forEach((line, i, arr) => {
+      div.appendChild(document.createTextNode(line));
+      if (i < arr.length - 1) div.appendChild(document.createElement('br'));
+    });
     container.appendChild(div);
     container.scrollTop = container.scrollHeight;
   }
