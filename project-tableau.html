@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Viz Tableau - Olist Brasil — jl. · joliment.fr</title>
+  <meta name="description" content="Dashboard interactif Tableau Desktop analysant 99 441 commandes e-commerce brésiliennes — dataset Olist 2016-2018." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">jl<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="projects.html" class="nav-link-active">projets</a>
+      <a href="blog.html">blog</a>
+      <a href="collab.html">collab</a>
+      <a href="about.html">à propos</a>
+      <a href="contact.html" class="nav-cta">me contacter</a>
+    </div>
+    <button class="nav-burger" id="burger"><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="projects.html">projets</a>
+    <a href="blog.html">blog</a>
+    <a href="collab.html">collab</a>
+    <a href="about.html">à propos</a>
+    <a href="contact.html">me contacter</a>
+  </div>
+
+  <div class="project-detail-header">
+    <div class="container">
+      <a href="projects.html" class="project-back">← tous les projets</a>
+      <div class="project-detail-num">11 — data & visualisation</div>
+      <h1 class="project-detail-title">Data Viz Tableau<br/><em>Olist Brasil</em></h1>
+      <div class="project-detail-meta">
+        <div class="card-tags">
+          <span class="tag">tableau desktop</span>
+          <span class="tag">data visualisation</span>
+          <span class="tag">e-commerce</span>
+          <span class="tag">dashboard</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-visual">
+    <div class="container">
+      <div class="project-visual-placeholder">
+        <span>— visuel à venir —</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-content">
+    <div class="container">
+      <div class="project-blocks">
+        <div class="project-block">
+          <div class="project-block-label">Contexte</div>
+          <p>Dataset public Olist — <strong>99 441 commandes e-commerce brésiliennes</strong> réparties sur 3 tables CSV (orders, customers, payments), couvrant la période 2016-2018.</p>
+        </div>
+        <div class="project-block">
+          <div class="project-block-label">Objectif</div>
+          <p>Concevoir un <strong>dashboard analytique complet</strong> sur Tableau Desktop — jointure multi-tables, création de champs calculés, production de 8 vues distinctes (cartes, séries temporelles, bar charts) consolidées avec filtres liés cross-vues.</p>
+        </div>
+        <div class="project-block">
+          <div class="project-block-label">Résultat</div>
+          <p><strong>Dashboard interactif en 8 vues</strong> avec filtres liés par période, état et type de paiement. Insights clés : São Paulo = 42% des commandes, 97% livrées, pic Black Friday nov. 2017 (7 863 commandes), revenu total <strong>R$ 16 008 872</strong>.</p>
+        </div>
+      </div>
+
+      <div class="project-stack" style="margin-bottom: 48px;">
+        <div class="project-stack-title">stack technique</div>
+        <div class="project-stack-tags">
+          <span class="tag">Tableau Desktop</span>
+          <span class="tag">CSV multi-tables</span>
+          <span class="tag">Champs calculés</span>
+          <span class="tag">DATEDIFF</span>
+          <span class="tag">Carte choroplèthe</span>
+          <span class="tag">Filtres liés</span>
+        </div>
+      </div>
+
+      <div class="project-stack">
+        <div class="project-stack-title">8 vues produites</div>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 4px;">
+          <div style="display: flex; gap: 16px; align-items: baseline;">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); min-width: 24px;">01</span>
+            <span style="font-size: 14px; color: var(--text-muted);">Carte — Nombre de commandes par état brésilien</span>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: baseline;">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); min-width: 24px;">02</span>
+            <span style="font-size: 14px; color: var(--text-muted);">Bar chart — Commandes par statut (delivered, shipped, canceled…)</span>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: baseline;">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); min-width: 24px;">03</span>
+            <span style="font-size: 14px; color: var(--text-muted);">Bar chart — Modes de paiement (credit card, boleto, voucher…)</span>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: baseline;">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); min-width: 24px;">04</span>
+            <span style="font-size: 14px; color: var(--text-muted);">Bar chart — Montant moyen par type de paiement (en R$)</span>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: baseline;">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); min-width: 24px;">05</span>
+            <span style="font-size: 14px; color: var(--text-muted);">Série temporelle — Évolution mensuelle des commandes 2016-2018</span>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: baseline;">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); min-width: 24px;">06</span>
+            <span style="font-size: 14px; color: var(--text-muted);">Bar chart — Top 10 villes avec le plus de commandes</span>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: baseline;">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); min-width: 24px;">07</span>
+            <span style="font-size: 14px; color: var(--text-muted);">Graphique lignes — Délai de livraison réel vs estimé par état</span>
+          </div>
+          <div style="display: flex; gap: 16px; align-items: baseline;">
+            <span style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); min-width: 24px;">08</span>
+            <span style="font-size: 14px; color: var(--text-muted);">Carte choroplèthe — Valeur totale des paiements par état</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-logo">jl<span class="dot">.</span></span>
+          <p>build · learn · collab</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/byjoliment" target="_blank">Instagram ↗</a>
+          <a href="https://www.linkedin.com/company/joliment" target="_blank">LinkedIn ↗</a>
+          <a href="https://github.com/jeanlisek" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 By Joliment</span>
+        <span>Fait avec intention.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
