@@ -919,7 +919,7 @@ img { display: block; max-width: 100%; }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 28px;
+  overflow: hidden;
   transition: border-color 0.3s, transform 0.3s;
   cursor: pointer;
   color: inherit;
@@ -928,6 +928,17 @@ img { display: block; max-width: 100%; }
 .project-item:hover {
   border-color: var(--border-hover);
   transform: translateY(-3px);
+}
+.project-item-thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-bottom: 1px solid var(--border);
+}
+.project-item-body {
+  padding: 28px;
 }
 
 .project-item-header {
