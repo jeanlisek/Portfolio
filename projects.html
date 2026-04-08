@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projets — jl. · joliment.fr</title>
+  <meta name="description" content="Projets data, IA, jeux et automatisation — ZigZag, agents Dust, RAG, dashboards financiers. Ce qu'on a construit et appris." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">jl<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="projects.html" class="nav-link-active">projets</a>
+      <a href="blog.html">blog</a>
+      <a href="collab.html">collab</a>
+      <a href="about.html">à propos</a>
+      <a href="contact.html" class="nav-cta">me contacter</a>
+    </div>
+    <button class="nav-burger" id="burger"><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="projects.html">projets</a>
+    <a href="blog.html">blog</a>
+    <a href="collab.html">collab</a>
+    <a href="about.html">à propos</a>
+    <a href="contact.html">me contacter</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <div class="page-header-inner">
+        <span class="section-label">tous les projets</span>
+        <h1>Ce qu'<br/><em>on construit</em></h1>
+        <p>Des projets de natures très différentes — jeux, outils de données, agents IA, automatisations. Ce qui les relie : chaque projet a été une occasion d'apprendre.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER + GRID -->
+  <section class="section section--projects">
+    <div class="container">
+
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">tout</button>
+        <button class="filter-btn" data-filter="ia">ia & agents</button>
+        <button class="filter-btn" data-filter="data">data & sql</button>
+        <button class="filter-btn" data-filter="finance">finance</button>
+        <button class="filter-btn" data-filter="automation">automatisation</button>
+        <button class="filter-btn" data-filter="dev">développement</button>
+        <button class="filter-btn" data-filter="hackathon">hackathon</button>
+      </div>
+
+      <div class="all-projects-grid" id="projectsGrid">
+
+        <div class="project-item" data-tags="dev,hackathon" id="zigzag">
+          <div class="project-item-header">
+            <h3>Vibe Coding - ZigZag</h3>
+            <span class="project-item-arrow live">↗</span>
+          </div>
+          <p>Un jeu multijoueur en ligne créé avec des amis, de zéro — conception, développement, mise en ligne. Le projet qui a tout déclenché.</p>
+          <div class="project-item-tags">
+            <span class="tag">game dev</span>
+            <span class="tag">multiplayer</span>
+            <span class="tag">web</span>
+          </div>
+          <div class="project-item-links">
+            <a href="https://zig-zag.fun" target="_blank" class="project-link">zig-zag.fun ↗</a>
+          </div>
+        </div>
+
+        <div class="project-item" data-tags="finance,data,automation" id="dashboard">
+          <div class="project-item-header">
+            <h3>Google Sheet - Dashboard Financier</h3>
+            <span class="project-item-arrow">↗</span>
+          </div>
+          <p>Portefeuille financier automatisé via Python & Google Sheets avec App Script. Objectif : surpasser les performances du S&P500 avec une vision data.</p>
+          <div class="project-item-tags">
+            <span class="tag">finance</span>
+            <span class="tag">python</span>
+            <span class="tag">google sheets</span>
+            <span class="tag">app script</span>
+          </div>
+        </div>
+
+        <div class="project-item" data-tags="data,sql" id="sql">
+          <div class="project-item-header">
+            <h3>SQL - Accidents de la route</h3>
+            <span class="project-item-arrow">↗</span>
+          </div>
+          <p>Analyse d'une base de données data.gouv.fr sur les accidents routiers. Recommandations conseil et création d'un outil de pilotage interactif.</p>
+          <div class="project-item-tags">
+            <span class="tag">sql</span>
+            <span class="tag">data analyse</span>
+            <span class="tag">datagouv</span>
+            <span class="tag">visualisation</span>
+          </div>
+        </div>
+
+        <div class="project-item" data-tags="data,dev" id="discogs">
+          <div class="project-item-header">
+            <h3>Scraping Python - Projet Discogs</h3>
+            <span class="project-item-arrow">↗</span>
+          </div>
+          <p>Scraping du site Discogs via Python pour explorer la valeur du matérialisme musical. Analyse de la corrélation entre format physique et valeur perçue du vinyle.</p>
+          <div class="project-item-tags">
+            <span class="tag">python</span>
+            <span class="tag">scraping</span>
+            <span class="tag">analyse</span>
+            <span class="tag">musique</span>
+          </div>
+          <div class="project-item-links">
+            <a href="https://github.com/jeanlisek/Python-Scrapping-Project-DISCOGS" target="_blank" class="project-link">GitHub ↗</a>
+          </div>
+        </div>
+
+        <div class="project-item" data-tags="ia,automation" id="dust">
+          <div class="project-item-header">
+            <h3>Dust - Agent IA</h3>
+            <span class="project-item-arrow">↗</span>
+          </div>
+          <p>Création d'un hub agentique avec orchestration multi-agents sur Dust. Architecture d'agents IA spécialisés qui collaborent autour d'une tâche centrale.</p>
+          <div class="project-item-tags">
+            <span class="tag">ia</span>
+            <span class="tag">agents</span>
+            <span class="tag">orchestration</span>
+            <span class="tag">dust</span>
+          </div>
+        </div>
+
+        <div class="project-item" data-tags="automation" id="make">
+          <div class="project-item-header">
+            <h3>Make — Automatisation</h3>
+            <span class="project-item-arrow">↗</span>
+          </div>
+          <p>Conception et déploiement de workflows d'automatisation via Make (ex-Integromat). Connexion d'applications, déclencheurs, gestion de données sans code.</p>
+          <div class="project-item-tags">
+            <span class="tag">make</span>
+            <span class="tag">automatisation</span>
+            <span class="tag">no-code</span>
+            <span class="tag">workflows</span>
+          </div>
+        </div>
+
+        <div class="project-item" data-tags="hackathon,dev" id="kitchy">
+          <div class="project-item-header">
+            <h3>Hackathon - Kitchy</h3>
+            <span class="project-item-arrow live">↗</span>
+          </div>
+          <p>Projet startup construit en mode hackathon. Concept produit, pitch et prototypage rapide en équipe.</p>
+          <div class="project-item-tags">
+            <span class="tag">hackathon</span>
+            <span class="tag">startup</span>
+            <span class="tag">produit</span>
+          </div>
+          <div class="project-item-links">
+            <a href="https://www.canva.com/design/DAG4qQRhAzQ/W-aHmdQvHQveG55Bc83fHw/edit" target="_blank" class="project-link">Voir le deck ↗</a>
+          </div>
+        </div>
+
+        <div class="project-item" data-tags="data,ia" id="dataiku">
+          <div class="project-item-header">
+            <h3>Dataiku — Cdiscount</h3>
+            <span class="project-item-arrow">↗</span>
+          </div>
+          <p>Analyse de données Cdiscount via Dataiku. Exploration, modélisation et restitution des insights dans une logique métier orientée e-commerce.</p>
+          <div class="project-item-tags">
+            <span class="tag">dataiku</span>
+            <span class="tag">analyse</span>
+            <span class="tag">e-commerce</span>
+            <span class="tag">data</span>
+          </div>
+        </div>
+
+        <div class="project-item" data-tags="ia" id="synapse">
+          <div class="project-item-header">
+            <h3>RAG - Projet Synapse</h3>
+            <span class="project-item-arrow">↗</span>
+          </div>
+          <p>Chatbot IA basé sur du RAG (Retrieval-Augmented Generation) connecté à thèses.fr. Sectorisation des données via embeddings pour une recherche sémantique précise.</p>
+          <div class="project-item-tags">
+            <span class="tag">rag</span>
+            <span class="tag">nlp</span>
+            <span class="tag">embeddings</span>
+            <span class="tag">ia</span>
+          </div>
+          <div class="project-item-links">
+            <a href="https://github.com/jeanlisek/Synapse" target="_blank" class="project-link">GitHub ↗</a>
+          </div>
+        </div>
+
+        <div class="project-item" data-tags="ia,hackathon,automation" id="payfit">
+          <div class="project-item-header">
+            <h3>Hackathon - PayFit</h3>
+            <span class="project-item-arrow">↗</span>
+          </div>
+          <p>Pipeline de 9 agents IA sur Dust avec Claude Sonnet pour générer en masse des articles RH & Paie de qualité. SEO-ready, légalement conformes, publiables directement.</p>
+          <div class="project-item-tags">
+            <span class="tag">ia</span>
+            <span class="tag">agents</span>
+            <span class="tag">seo</span>
+            <span class="tag">rh & paie</span>
+            <span class="tag">hackathon</span>
+          </div>
+          <div class="project-item-links">
+            <a href="https://docs.google.com/presentation/d/1v8I7LnIgwaD9GxyT_sakakkhFcZudv7n/edit?usp=drive_link&ouid=102040317823571698021&rtpof=true&sd=true" target="_blank" class="project-link">Voir le deck ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-logo">jl<span class="dot">.</span></span>
+          <p>build · learn · collab</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/byjoliment" target="_blank">Instagram ↗</a>
+          <a href="https://www.linkedin.com/company/joliment" target="_blank">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 By Joliment</span>
+        <span>Fait avec intention.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

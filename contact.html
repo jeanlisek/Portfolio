@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — jl. · joliment.fr</title>
+  <meta name="description" content="Envoie un message, propose un projet ou juste échange. On répond à tout — contact@joliment.fr." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">jl<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="projects.html">projets</a>
+      <a href="blog.html">blog</a>
+      <a href="collab.html">collab</a>
+      <a href="about.html">à propos</a>
+      <a href="contact.html" class="nav-cta">me contacter</a>
+    </div>
+    <button class="nav-burger" id="burger"><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="projects.html">projets</a>
+    <a href="blog.html">blog</a>
+    <a href="collab.html">collab</a>
+    <a href="about.html">à propos</a>
+    <a href="contact.html">me contacter</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <div class="page-header-inner">
+        <span class="section-label">contact</span>
+        <h1>On se<br/><em>parle ?</em></h1>
+        <p>Une idée, une proposition, une question, ou juste l'envie d'échanger.<br/>Je réponds à tout.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- LEFT -->
+        <div class="contact-info">
+          <h3>Quelques raisons<br/>de m'écrire</h3>
+          <p>Tu veux collaborer sur un projet, parler IA ou data, proposer une mission, ou simplement discuter de ce que tu construis ? Je suis là.</p>
+
+          <div class="contact-links">
+            <a class="contact-link" href="mailto:contact@joliment.fr">
+              <span class="contact-link-icon">@</span>
+              <div class="contact-link-text">
+                <span>email</span>
+                <p>contact@joliment.fr</p>
+              </div>
+            </a>
+            <a class="contact-link" href="https://www.linkedin.com/in/jeanlisek/" target="_blank">
+              <span class="contact-link-icon">in</span>
+              <div class="contact-link-text">
+                <span>linkedin</span>
+                <p>Jean-Li Sek</p>
+              </div>
+            </a>
+            <a class="contact-link" href="https://github.com/jeanlisek" target="_blank">
+              <span class="contact-link-icon">gh</span>
+              <div class="contact-link-text">
+                <span>github</span>
+                <p>@jeanlisek</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="disponible-card">
+            <div class="disponible-header">
+              <div class="disponible-dot"></div>
+              <span class="disponible-label">DISPONIBLE</span>
+            </div>
+            <p class="disponible-desc">Ouvert à des missions freelance, des collaborations sur des projets IA/data, et des échanges avec des builders curieux.</p>
+          </div>
+        </div>
+
+        <!-- RIGHT — FORM -->
+        <div>
+          <div class="propose-form">
+            <h3>Envoie un message</h3>
+            <p>Je réponds en général sous 24-48h.</p>
+
+            <form class="contact-form" id="contactForm">
+              <div class="form-field">
+                <label>Ton prénom</label>
+                <input type="text" name="prenom" placeholder="Alex" />
+              </div>
+              <div class="form-field">
+                <label>Ton email</label>
+                <input type="email" name="email" placeholder="alex@email.com" />
+              </div>
+              <div class="form-field">
+                <label>Sujet</label>
+                <select name="sujet">
+                  <option value="">Choisir...</option>
+                  <option>Collaboration / Projet</option>
+                  <option>Mission freelance</option>
+                  <option>Question sur un article</option>
+                  <option>Espace collab</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label>Message</label>
+                <textarea name="message" placeholder="Dis-moi tout..."></textarea>
+              </div>
+              <button type="submit" class="btn-primary btn-full">Envoyer →</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-logo">jl<span class="dot">.</span></span>
+          <p>build · learn · collab</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/byjoliment" target="_blank">Instagram ↗</a>
+          <a href="https://www.linkedin.com/company/joliment" target="_blank">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 By Joliment</span>
+        <span>Fait avec intention.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-forms.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — jl. · joliment.fr</title>
+  <meta name="description" content="Des articles techniques reproductibles sur Docker, n8n, les agents IA et l'automatisation. Ce qu'on apprend, on le documente." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">jl<span class="dot">.</span></a>
+    <div class="nav-links">
+      <a href="projects.html">projets</a>
+      <a href="blog.html" class="nav-link-active">blog</a>
+      <a href="collab.html">collab</a>
+      <a href="about.html">à propos</a>
+      <a href="contact.html" class="nav-cta">me contacter</a>
+    </div>
+    <button class="nav-burger" id="burger"><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="projects.html">projets</a>
+    <a href="blog.html">blog</a>
+    <a href="collab.html">collab</a>
+    <a href="about.html">à propos</a>
+    <a href="contact.html">me contacter</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <div class="page-header-inner">
+        <span class="section-label">blog & découvertes</span>
+        <h1>Découvrir,<br/><em>transmettre</em></h1>
+        <p>Des articles pour ceux qui veulent comprendre et reproduire. Docker, n8n, IA, automatisation — ce qu'on apprend, on le documente.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANIFESTO -->
+  <section class="blog-manifesto">
+    <div class="container">
+      <div class="blog-manifesto-grid">
+        <div class="blog-manifesto-item">
+          <span class="blog-manifesto-icon">→</span>
+          <div>
+            <h4>Reproductible</h4>
+            <p>Chaque article inclut les étapes pour que tu puisses faire pareil sur ton ordi.</p>
+          </div>
+        </div>
+        <div class="blog-manifesto-item">
+          <span class="blog-manifesto-icon">→</span>
+          <div>
+            <h4>Honnête</h4>
+            <p>On documente ce qu'on a vraiment compris — et ce qu'on n'a pas encore compris.</p>
+          </div>
+        </div>
+        <div class="blog-manifesto-item">
+          <span class="blog-manifesto-icon">→</span>
+          <div>
+            <h4>Concret</h4>
+            <p>Des outils réels, des cas d'usage réels, pas des exemples abstraits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARTICLES -->
+  <section class="section blog-articles">
+    <div class="container">
+
+      <div class="blog-articles-header">
+        <span class="section-label">prochains articles</span>
+        <span class="blog-articles-status">En cours de rédaction</span>
+      </div>
+
+      <div class="blog-grid">
+
+        <div class="blog-card">
+          <span class="blog-card-tag">infrastructure · docker</span>
+          <h3>Docker expliqué simplement — et comment l'installer chez toi</h3>
+          <p>Comprendre Docker, pourquoi c'est utile — et comment le faire tourner sur ta machine en moins de 10 minutes.</p>
+          <div class="blog-card-footer">
+            <span class="soon-badge">Bientôt</span>
+            <span>~8 min de lecture</span>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <span class="blog-card-tag">automatisation · n8n</span>
+          <h3>n8n : automatise ta vie sans être développeur</h3>
+          <p>n8n c'est comme Make ou Zapier, mais open-source et auto-hébergeable. Installation et premier workflow utile — de zéro.</p>
+          <div class="blog-card-footer">
+            <span class="soon-badge">Bientôt</span>
+            <span>~12 min de lecture</span>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <span class="blog-card-tag">ia · agents</span>
+          <h3>Les agents IA, c'est quoi concrètement ?</h3>
+          <p>Derrière le buzzword "agentique", il y a quelque chose de simple et de puissant. Ce que c'est, comment ça fonctionne, et comment en construire un.</p>
+          <div class="blog-card-footer">
+            <span class="soon-badge">Bientôt</span>
+            <span>~10 min de lecture</span>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <span class="blog-card-tag">finance · outils</span>
+          <h3>Dashboard financier maison — Python, Google Sheets & App Script</h3>
+          <p>Pas besoin d'un outil payant pour suivre ton portefeuille. Comment connecter Python, l'API Google Sheets et App Script pour un dashboard en temps réel.</p>
+          <div class="blog-card-footer">
+            <span class="soon-badge">Bientôt</span>
+            <span>~15 min de lecture</span>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <span class="blog-card-tag">python · scraping</span>
+          <h3>Scraper un site avec Python — l'exemple Discogs</h3>
+          <p>Le web scraping c'est une compétence sous-estimée. Comment récupérer des milliers de données depuis Discogs et les analyser.</p>
+          <div class="blog-card-footer">
+            <span class="soon-badge">Bientôt</span>
+            <span>~10 min de lecture</span>
+          </div>
+        </div>
+
+        <div class="blog-card">
+          <span class="blog-card-tag">ia · rag</span>
+          <h3>RAG — Construire un chatbot qui lit des thèses</h3>
+          <p>Le Retrieval-Augmented Generation c'est l'un des patterns les plus utiles de l'IA actuelle. Walkthrough complet du projet Synapse, de l'embedding à la réponse finale.</p>
+          <div class="blog-card-footer">
+            <span class="soon-badge">Bientôt</span>
+            <span>~14 min de lecture</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER / NOTIF -->
+  <section class="blog-newsletter">
+    <div class="container">
+      <div class="blog-newsletter-inner">
+        <span class="section-label blog-newsletter-label">notifié en premier</span>
+        <h2>Les articles arrivent bientôt.</h2>
+        <p>Laisse ton email pour être notifié dès la sortie du premier article.</p>
+        <div class="blog-newsletter-form">
+          <input type="email" class="blog-newsletter-input" placeholder="ton@email.com" />
+          <button class="btn-primary">Me notifier</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span class="footer-logo">jl<span class="dot">.</span></span>
+          <p>build · learn · collab</p>
+        </div>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/byjoliment" target="_blank">Instagram ↗</a>
+          <a href="https://www.linkedin.com/company/joliment" target="_blank">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 By Joliment</span>
+        <span>Fait avec intention.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
