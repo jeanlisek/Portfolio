@@ -44,6 +44,65 @@ Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, orien
   let messages = [];
   let isOpen = false;
   let isLoading = false;
+  let isMuted = false;
+  let isRecording = false;
+  let recognition = null;
+
+  // ── TTS ──────────────────────────────────────────────────────────────────────
+  function speak(text) {
+    if (isMuted || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'fr-FR';
+    utter.rate = 1.05;
+    utter.pitch = 1.0;
+    window.speechSynthesis.speak(utter);
+  }
+
+  function toggleMute() {
+    isMuted = !isMuted;
+    if (isMuted) window.speechSynthesis && window.speechSynthesis.cancel();
+    const btn = document.getElementById('chatbotMuteBtn');
+    if (btn) btn.classList.toggle('muted', isMuted);
+  }
+
+  // ── STT ──────────────────────────────────────────────────────────────────────
+  function initRecognition() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return null;
+    const rec = new SR();
+    rec.lang = 'fr-FR';
+    rec.continuous = false;
+    rec.interimResults = false;
+    rec.onresult = function (e) {
+      const transcript = e.results[0][0].transcript;
+      document.getElementById('chatbotInput').value = transcript;
+      stopRecording();
+      sendMessage();
+    };
+    rec.onerror = function () { stopRecording(); };
+    rec.onend = function () { stopRecording(); };
+    return rec;
+  }
+
+  function toggleRecording() {
+    isRecording ? stopRecording() : startRecording();
+  }
+
+  function startRecording() {
+    if (!recognition) recognition = initRecognition();
+    if (!recognition) return;
+    isRecording = true;
+    document.getElementById('chatbotMic').classList.add('recording');
+    recognition.start();
+  }
+
+  function stopRecording() {
+    isRecording = false;
+    const btn = document.getElementById('chatbotMic');
+    if (btn) btn.classList.remove('recording');
+    try { if (recognition) recognition.stop(); } catch (e) {}
+  }
 
   // ── Init ─────────────────────────────────────────────────────────────────────
   function init() {
@@ -70,12 +129,24 @@ Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, orien
               <span class="chatbot-header-sub">assistant · joliment.fr</span>
             </div>
           </div>
-          <button class="chatbot-close" id="chatbotClose" aria-label="Fermer">✕</button>
+          <div class="chatbot-header-actions">
+            <button class="chatbot-mute" id="chatbotMuteBtn" aria-label="Activer/désactiver la voix" title="Couper la voix">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              </svg>
+            </button>
+            <button class="chatbot-close" id="chatbotClose" aria-label="Fermer">✕</button>
+          </div>
         </div>
         <div class="chatbot-messages" id="chatbotMessages">
           <div class="chatbot-msg chatbot-msg--bot">Bonjour ! Je suis l'assistant de Jean-Li. Posez-moi vos questions sur son profil, ses projets ou une collaboration.</div>
         </div>
         <div class="chatbot-input-wrap">
+          <button class="chatbot-mic" id="chatbotMic" aria-label="Parler" title="Parler">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </button>
           <input type="text" id="chatbotInput" placeholder="Posez votre question…" autocomplete="off" maxlength="500" />
           <button class="chatbot-send" id="chatbotSend" aria-label="Envoyer">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -93,12 +164,18 @@ Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, orien
     document.getElementById('chatbotToggle').addEventListener('click', toggleChat);
     document.getElementById('chatbotClose').addEventListener('click', closeChat);
     document.getElementById('chatbotSend').addEventListener('click', sendMessage);
+    document.getElementById('chatbotMuteBtn').addEventListener('click', toggleMute);
+    document.getElementById('chatbotMic').addEventListener('click', toggleRecording);
     document.getElementById('chatbotInput').addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         sendMessage();
       }
     });
+    // Hide mic button if STT not supported
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+      document.getElementById('chatbotMic').style.display = 'none';
+    }
   }
 
   function toggleChat() { isOpen ? closeChat() : openChat(); }
@@ -189,6 +266,7 @@ Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, orien
       hideLoading();
       addMessage('bot', reply);
       messages.push({ role: 'assistant', content: reply });
+      speak(cleanText(reply));
     } catch (err) {
       hideLoading();
       addMessage('bot', "Désolé, une erreur s'est produite. Contactez Jean-Li directement : jeanlisek@yahoo.fr");
