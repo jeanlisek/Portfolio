@@ -169,11 +169,20 @@ Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, orien
     showLoading();
 
     try {
-      const res = await fetch(API_URL, {
+      const payload = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON_KEY },
         body: JSON.stringify({ messages: messages, system: SYSTEM })
-      });
+      };
+
+      let res = await fetch(API_URL, payload);
+
+      // Retry once on cold-start 5xx errors
+      if (!res.ok && res.status >= 500) {
+        await new Promise(r => setTimeout(r, 1800));
+        res = await fetch(API_URL, payload);
+      }
+
       if (!res.ok) throw new Error('API error ' + res.status);
       const data = await res.json();
       const reply = data.choices[0].message.content;
