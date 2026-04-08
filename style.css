@@ -1961,6 +1961,27 @@ img { display: block; max-width: 100%; }
   display: block;
   line-height: 1.2;
 }
+.chatbot-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.chatbot-mute {
+  background: none;
+  border: none;
+  color: var(--text);
+  opacity: 0.4;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: opacity 0.15s;
+  display: flex;
+  align-items: center;
+}
+.chatbot-mute:hover { opacity: 1; }
+.chatbot-mute.muted { opacity: 1; color: var(--accent); }
+.chatbot-mute.muted svg path:last-child,
+.chatbot-mute.muted svg path:nth-child(2) { display: none; }
 .chatbot-close {
   background: none;
   border: none;
@@ -2056,6 +2077,31 @@ img { display: block; max-width: 100%; }
 .chatbot-input-wrap input::placeholder { color: rgba(232,227,220,0.28); }
 .chatbot-input-wrap input:focus { border-color: rgba(200,184,154,0.45); }
 
+.chatbot-mic {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+}
+.chatbot-mic:hover { background: rgba(255,255,255,0.09); }
+.chatbot-mic.recording {
+  background: rgba(220, 60, 60, 0.18);
+  border-color: rgba(220, 60, 60, 0.5);
+  color: #e05555;
+  animation: micPulse 1s ease-in-out infinite;
+}
+@keyframes micPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 60, 60, 0.3); }
+  50% { box-shadow: 0 0 0 5px rgba(220, 60, 60, 0); }
+}
 .chatbot-send {
   background: var(--accent);
   border: none;
