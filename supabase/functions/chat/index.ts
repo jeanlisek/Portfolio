@@ -41,9 +41,15 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Sanitize: strip any attempt to inject system-level instructions in user messages
+    const sanitized = messages.slice(-10).map((m: { role: string; content: string }) => ({
+      role: m.role,
+      content: typeof m.content === 'string' ? m.content.slice(0, 1000) : '',
+    }));
+
     const mistralMessages = [
       { role: 'system', content: system ?? '' },
-      ...messages.slice(-10),
+      ...sanitized,
     ];
 
     const res = await fetch('https://api.mistral.ai/v1/chat/completions', {
