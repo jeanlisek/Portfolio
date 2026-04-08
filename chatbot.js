@@ -161,7 +161,7 @@ Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, orien
       });
       if (!res.ok) throw new Error('API error ' + res.status);
       const data = await res.json();
-      const reply = data.content[0].text;
+      const reply = data.choices[0].message.content;
       hideLoading();
       addMessage('bot', reply);
       messages.push({ role: 'assistant', content: reply });

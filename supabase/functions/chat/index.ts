@@ -1,4 +1,4 @@
-import Anthropic from 'npm:@anthropic-ai/sdk';
+// @ts-nocheck — Deno runtime, types not available in VSCode without Deno extension
 
 const ALLOWED_ORIGINS = [
   'https://joliment.fr',
@@ -23,7 +23,6 @@ Deno.serve(async (req) => {
   const origin = req.headers.get('origin');
   const headers = corsHeaders(origin);
 
-  // Preflight
   if (req.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers });
   }
@@ -42,18 +41,34 @@ Deno.serve(async (req) => {
       });
     }
 
-    const client = new Anthropic({
-      apiKey: Deno.env.get('ANTHROPIC_API_KEY')!,
+    const mistralMessages = [
+      { role: 'system', content: system ?? '' },
+      ...messages.slice(-10),
+    ];
+
+    const res = await fetch('https://api.mistral.ai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${Deno.env.get('MISTRAL_API_KEY')}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: 'mistral-small-latest',
+        messages: mistralMessages,
+        max_tokens: 400,
+        temperature: 0.6,
+      }),
     });
 
-    const response = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 400,
-      system: system ?? '',
-      messages: messages.slice(-10), // keep last 10 messages to limit context size
-    });
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Mistral error:', err);
+      throw new Error('Mistral API error: ' + res.status);
+    }
 
-    return new Response(JSON.stringify(response), {
+    const data = await res.json();
+
+    return new Response(JSON.stringify(data), {
       headers: { ...headers, 'Content-Type': 'application/json' },
     });
   } catch (err) {
