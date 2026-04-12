@@ -39,7 +39,7 @@ PROJETS :
 CENTRES D'INTÉRÊT : Bénévole AFEV depuis 2024 (accompagnement d'un enfant en zone prioritaire). Programme DiscoverEU (exploration de plusieurs pays d'Europe en train). Piano et guitare. Gestion d'une page YouTube d'un groupe de Blues cambodgien (35 000 abonnés).
 
 CONTACT ET COLLABORATION :
-Pour collaborer ou contacter Jean-Li : formulaire sur la page contact du site, ou email jeanlisek@yahoo.fr.
+Pour collaborer ou contacter Jean-Li : formulaire sur la page contact du site, ou email jean-li.sek@joliment.fr.
 Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, oriente-le vers la page contact ou l'email. Reste dans le scope du portfolio (profil, projets, compétences, collaborations). Si tu ne sais pas quelque chose, dis-le honnêtement.`;
 
   // ── State ────────────────────────────────────────────────────────────────────
@@ -271,7 +271,7 @@ Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, orien
       speak(cleanText(reply));
     } catch (err) {
       hideLoading();
-      addMessage('bot', "Désolé, une erreur s'est produite. Contactez Jean-Li directement : jeanlisek@yahoo.fr");
+      addMessage('bot', "Désolé, une erreur s'est produite. Contactez Jean-Li directement : jean-li.sek@joliment.fr");
     }
 
     isLoading = false;
