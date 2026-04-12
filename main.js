@@ -96,6 +96,35 @@ revealEls.forEach(el => {
   observer.observe(el);
 });
 
+// Testimonials carousel
+(function () {
+  const track = document.getElementById('testimonialsTrack');
+  if (!track) return;
+  const slides = track.querySelectorAll('.testimonial-slide');
+  const dots = document.querySelectorAll('.testimonials-dot');
+  const total = slides.length;
+  let current = 0;
+  let timer;
+
+  function goTo(index) {
+    current = (index + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function startAuto() { timer = setInterval(next, 5000); }
+  function stopAuto() { clearInterval(timer); }
+
+  document.getElementById('testimonialsNext')?.addEventListener('click', () => { stopAuto(); next(); startAuto(); });
+  document.getElementById('testimonialsPrev')?.addEventListener('click', () => { stopAuto(); prev(); startAuto(); });
+  dots.forEach((d, i) => d.addEventListener('click', () => { stopAuto(); goTo(i); startAuto(); }));
+
+  startAuto();
+})();
+
 // Projects filter
 const filterBtns = document.querySelectorAll('.filter-btn');
 if (filterBtns.length) {
