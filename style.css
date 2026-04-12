@@ -1865,10 +1865,9 @@ img { display: block; max-width: 100%; }
 
 /* ===== SKILLS LOGOS ======================================================= */
 .skills-logos {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  justify-content: center;
   margin: 48px 0 40px;
 }
 .skill-logo-item {
@@ -2013,8 +2012,8 @@ img { display: block; max-width: 100%; }
 
 @media (max-width: 768px) {
   .testimonial-quote { padding: 24px 24px 24px 32px; font-size: 17px; }
-  .skills-logos { gap: 10px; }
-  .skill-logo-item { min-width: 76px; padding: 14px 16px; }
+  .skills-logos { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .skill-logo-item { padding: 14px 16px; }
 }
 
 /* ===== CHATBOT WIDGET ===================================================== */
