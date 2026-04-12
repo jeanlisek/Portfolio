@@ -1865,9 +1865,10 @@ img { display: block; max-width: 100%; }
 
 /* ===== SKILLS LOGOS ======================================================= */
 .skills-logos {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
   margin: 48px 0 40px;
 }
 .skill-logo-item {
@@ -1879,7 +1880,7 @@ img { display: block; max-width: 100%; }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
-  min-width: 90px;
+  width: 120px;
   transition: border-color 0.2s, transform 0.2s;
 }
 .skill-logo-item:hover {
@@ -1897,6 +1898,7 @@ img { display: block; max-width: 100%; }
   font-size: 11px;
   color: rgba(232,227,220,0.5);
   white-space: nowrap;
+  text-align: center;
 }
 
 /* ===== TESTIMONIALS CAROUSEL ============================================== */
@@ -2012,8 +2014,8 @@ img { display: block; max-width: 100%; }
 
 @media (max-width: 768px) {
   .testimonial-quote { padding: 24px 24px 24px 32px; font-size: 17px; }
-  .skills-logos { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .skill-logo-item { padding: 14px 16px; }
+  .skills-logos { gap: 8px; }
+  .skill-logo-item { width: 100px; padding: 14px 12px; }
 }
 
 /* ===== CHATBOT WIDGET ===================================================== */
