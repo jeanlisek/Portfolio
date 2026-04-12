@@ -1502,6 +1502,32 @@ img { display: block; max-width: 100%; }
 .propose-section { margin-top: 80px; }
 .about-section-block { margin-top: 48px; }
 .about-section-block h2 { margin-bottom: 24px; }
+.about-languages {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.about-languages-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: rgba(232,227,220,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  width: 100%;
+}
+.about-languages span:not(.about-languages-label) {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: rgba(232,227,220,0.6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
 .about-support-desc {
   font-size: 15px;
   color: var(--text-muted);
