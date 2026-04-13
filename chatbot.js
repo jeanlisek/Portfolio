@@ -50,20 +50,33 @@ Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, orien
   let isRecording = false;
   let recognition = null;
 
-  // ── TTS ──────────────────────────────────────────────────────────────────────
-  function speak(text) {
-    if (isMuted || !window.speechSynthesis) return;
-    window.speechSynthesis.cancel();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'fr-FR';
-    utter.rate = 1.05;
-    utter.pitch = 1.0;
-    window.speechSynthesis.speak(utter);
+  // ── TTS (Cartesia) ───────────────────────────────────────────────────────────
+  const TTS_URL = 'https://wpfsrkzhakyumepusmke.supabase.co/functions/v1/tts';
+  let currentAudio = null;
+
+  async function speak(text) {
+    if (isMuted) return;
+    try {
+      if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+      const res = await fetch(TTS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + ANON_KEY },
+        body: JSON.stringify({ text }),
+      });
+      if (!res.ok) return;
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      currentAudio = new Audio(url);
+      currentAudio.play();
+      currentAudio.onended = () => URL.revokeObjectURL(url);
+    } catch (e) {
+      // TTS non-critique, on ignore silencieusement
+    }
   }
 
   function toggleMute() {
     isMuted = !isMuted;
-    if (isMuted) window.speechSynthesis && window.speechSynthesis.cancel();
+    if (isMuted && currentAudio) { currentAudio.pause(); currentAudio = null; }
     const btn = document.getElementById('chatbotMuteBtn');
     if (btn) btn.classList.toggle('muted', isMuted);
   }
