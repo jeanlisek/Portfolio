@@ -40,6 +40,9 @@ CENTRES D'INTÉRÊT : Bénévole AFEV depuis 2024 (accompagnement d'un enfant en
 
 CONTACT ET COLLABORATION :
 Pour collaborer ou contacter Jean-Li : formulaire sur la page contact du site, ou email jean-li.sek@joliment.fr.
+LinkedIn : https://www.linkedin.com/in/jeanlisek/
+GitHub : https://github.com/jeanlisek
+Instagram : https://www.instagram.com/byjoliment
 Ne partage JAMAIS le numéro de téléphone. Si quelqu'un veut collaborer, oriente-le vers la page contact ou l'email. Reste dans le scope du portfolio (profil, projets, compétences, collaborations). Si tu ne sais pas quelque chose, dis-le honnêtement.`;
 
   // ── State ────────────────────────────────────────────────────────────────────
