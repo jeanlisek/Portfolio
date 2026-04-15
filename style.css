@@ -1996,6 +1996,16 @@ img { display: block; max-width: 100%; }
   font-weight: 700;
   color: var(--bg);
   flex-shrink: 0;
+  overflow: hidden;
+}
+.testimonial-avatar--logo {
+  background: #fff;
+  padding: 4px;
+}
+.testimonial-avatar--logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .testimonial-name {
   display: block;
