@@ -551,6 +551,21 @@ img { display: block; max-width: 100%; }
   margin-top: auto;
   padding-top: 16px;
 }
+.card-distinction {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 5px 12px;
+  background: rgba(180, 227, 167, 0.08);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+}
 
 /* ============================================
    BLOG TEASER
