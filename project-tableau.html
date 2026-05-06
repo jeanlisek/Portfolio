@@ -56,7 +56,11 @@
   <div class="project-visual">
     <div class="container">
       <div class="project-visual-iframe">
-        <iframe src="https://public.tableau.com/views/AnalyseOlist-Brsil2026-2018/AnalyseOlistBrsil2016-2018?:embed=y&:display_count=yes&:showVizHome=no&:toolbar=no&:device=desktop&:size=auto" title="Dashboard Olist Brasil — Tableau Public" allowfullscreen></iframe>
+        <div class="tableau-fit-wrap">
+          <div class="tableau-fit-inner">
+            <iframe src="https://public.tableau.com/views/AnalyseOlist-Brsil2026-2018/AnalyseOlistBrsil2016-2018?:embed=y&:display_count=no&:showVizHome=no&:toolbar=no&:device=desktop&:size=1300,1000" title="Dashboard Olist Brasil — Tableau Public" allowfullscreen></iframe>
+          </div>
+        </div>
         <a href="https://public.tableau.com/app/profile/jean.li.sek/viz/AnalyseOlist-Brsil2026-2018/AnalyseOlistBrsil2016-2018" target="_blank" class="project-visual-cta">Voir sur Tableau Public ↗</a>
       </div>
     </div>
@@ -154,5 +158,20 @@
 
   <script src="main.js"></script>
   <script src="chatbot.js"></script>
+  <script src="analytics.js"></script>
+  <script>
+    (function () {
+      const wrap = document.querySelector('.tableau-fit-wrap');
+      const inner = wrap && wrap.querySelector('.tableau-fit-inner');
+      if (!wrap || !inner) return;
+      const NATIVE_W = 1300;
+      const fit = () => {
+        const scale = wrap.offsetWidth / NATIVE_W;
+        inner.style.transform = 'scale(' + scale + ')';
+      };
+      fit();
+      new ResizeObserver(fit).observe(wrap);
+    })();
+  </script>
 </body>
 </html>

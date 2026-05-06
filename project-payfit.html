@@ -106,7 +106,21 @@
           <span class="tag">SEO</span>
         </div>
       </div>
+
+      <div class="project-moments">
+        <div class="project-moments-title">moments — hackathon payfit</div>
+        <div class="moments-grid">
+          <a class="moments-item" data-photo="payfit-photos/01.jpg" aria-label="Photo 1 du hackathon Payfit"><img src="payfit-photos/01.jpg" alt="Hackathon Payfit — moment 1" loading="lazy"/></a>
+          <a class="moments-item" data-photo="payfit-photos/02.jpg" aria-label="Photo 2 du hackathon Payfit"><img src="payfit-photos/02.jpg" alt="Hackathon Payfit — moment 2" loading="lazy"/></a>
+          <a class="moments-item" data-photo="payfit-photos/03.jpg" aria-label="Photo 3 du hackathon Payfit"><img src="payfit-photos/03.jpg" alt="Hackathon Payfit — moment 3" loading="lazy"/></a>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div class="moments-lightbox" id="momentsLightbox" role="dialog" aria-modal="true" aria-label="Photo agrandie">
+    <button class="moments-lightbox-close" id="momentsLightboxClose" aria-label="Fermer">×</button>
+    <img id="momentsLightboxImg" src="" alt="" />
   </div>
 
   <footer class="footer">
@@ -131,6 +145,7 @@
 
   <script src="main.js"></script>
   <script src="chatbot.js"></script>
+  <script src="analytics.js"></script>
   <script>
     const track = document.getElementById('carouselTrack');
     const dots = document.querySelectorAll('.carousel-dot');
@@ -146,6 +161,20 @@
     document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
     document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
     dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.index)));
+
+    const lb = document.getElementById('momentsLightbox');
+    const lbImg = document.getElementById('momentsLightboxImg');
+    document.querySelectorAll('.moments-item').forEach(el => {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        lbImg.src = el.dataset.photo;
+        lb.classList.add('active');
+      });
+    });
+    lb.addEventListener('click', () => lb.classList.remove('active'));
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') lb.classList.remove('active');
+    });
   </script>
 </body>
 </html>

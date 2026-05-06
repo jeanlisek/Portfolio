@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cdiscount — Analyse de la Valeur Client · Dashboard CLV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cd-blue:#3732FF;--cd-blue-dk:#1A17CC;--cd-blue-dp:#100E99;--cd-blue-lt:#EEEDFF;
+  --cd-red:#E51A2D;--cd-red-dk:#C41425;--cd-orange:#FF6600;--cd-orange-lt:#FFE6D9;
+  --cd-green:#00A651;--cd-yellow:#FFC107;
+  --cd-bg:#F5F5F7;--cd-white:#FFF;--cd-ink:#1A1A2E;--cd-ink-s:#4A4A68;
+  --cd-ink-m:#8E8EA9;--cd-border:#E0E0E8;--cd-card:#FFF;
+  --sh-sm:0 1px 3px rgba(26,26,46,.06);--sh-md:0 4px 12px rgba(26,26,46,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Open Sans',-apple-system,sans-serif;font-size:14px;line-height:1.5;color:var(--cd-ink);background:var(--cd-bg);-webkit-font-smoothing:antialiased}
+code{background:var(--cd-blue-lt);padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace;font-size:11px}
+
+/* PROMO BAR */
+.promo-bar{background:var(--cd-red);color:#fff;text-align:center;padding:7px 16px;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
+.promo-bar .flash{background:var(--cd-yellow);color:var(--cd-red-dk);padding:2px 8px;border-radius:3px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.promo-bar a{color:#fff;text-decoration:underline}
+
+/* HEADER */
+.cd-header{background:var(--cd-blue);padding:0 24px;display:flex;align-items:center;height:64px;position:sticky;top:0;z-index:100}
+.cd-header-inner{max-width:1320px;margin:0 auto;width:100%;display:flex;align-items:center;gap:20px}
+.cd-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
+.cd-search{flex:1;max-width:580px;display:flex;align-items:center;background:#fff;border-radius:6px;overflow:hidden;height:40px}
+.cd-search input{flex:1;border:none;outline:none;padding:0 14px;font-size:14px;font-family:inherit;color:var(--cd-ink);height:100%;background:transparent}
+.cd-search input::placeholder{color:var(--cd-ink-m)}
+.cd-search-btn{background:var(--cd-red);border:none;color:#fff;width:48px;height:100%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.cd-search-btn svg{width:20px;height:20px}
+.cd-actions{display:flex;align-items:center;gap:18px;margin-left:auto;flex-shrink:0}
+.cd-action{display:flex;flex-direction:column;align-items:center;gap:2px;color:#fff;text-decoration:none;font-size:11px;font-weight:600;opacity:.92;cursor:pointer}
+.cd-action:hover{opacity:1}
+.cd-action svg{width:22px;height:22px}
+
+/* NAV */
+.cd-nav{background:#fff;border-bottom:1px solid var(--cd-border);box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.cd-nav-inner{max-width:1320px;margin:0 auto;display:flex;align-items:center;height:44px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.cd-nav-item{padding:0 16px;height:100%;display:flex;align-items:center;font-size:13px;font-weight:700;color:var(--cd-ink);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;cursor:pointer}
+.cd-nav-item:hover,.cd-nav-item.active{color:var(--cd-blue);border-bottom-color:var(--cd-blue)}
+.cd-nav-item.cta{color:var(--cd-red);font-weight:800}
+.cd-nav-item.cta:hover{color:var(--cd-red-dk);border-bottom-color:var(--cd-red)}
+
+/* BREADCRUMB */
+.cd-bc{max-width:1320px;margin:0 auto;padding:14px 24px 6px;font-size:12px;color:var(--cd-ink-m)}
+.cd-bc a{color:var(--cd-blue);text-decoration:none}.cd-bc a:hover{text-decoration:underline}
+.cd-bc span{margin:0 6px}
+
+/* MAIN */
+.cd-main{max-width:1320px;margin:0 auto;padding:0 24px 48px}
+
+/* PAGE TITLE */
+.ptb{background:var(--cd-blue);border-radius:12px;padding:48px 52px 56px;margin-bottom:28px;position:relative;overflow:hidden;color:#fff}
+.ptb::after{content:'';position:absolute;right:-80px;top:-60px;width:360px;height:360px;background:radial-gradient(circle,rgba(255,255,255,.1) 0%,transparent 65%)}
+.ptb::before{content:'';position:absolute;right:60px;bottom:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,102,0,.2) 0%,transparent 60%)}
+.ptb .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-bottom:16px;border:1px solid rgba(255,255,255,.2)}
+.ptb .dot{width:6px;height:6px;border-radius:50%;background:var(--cd-green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.ptb h1{font-size:44px;font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-bottom:8px;position:relative;z-index:2}
+.ptb .sub{font-size:20px;font-weight:700;color:var(--cd-orange)}
+.ptb .intro{color:rgba(255,255,255,.78);font-size:15px;max-width:720px;margin-top:16px;line-height:1.6;position:relative;z-index:2}
+.ptb .intro strong{color:#fff}.ptb .intro b{color:var(--cd-orange)}
+.ptb .meta{margin-top:20px;display:flex;gap:16px;font-size:12px;opacity:.8;font-family:'JetBrains Mono',monospace;position:relative;z-index:2;flex-wrap:wrap}
+
+/* KPI */
+.kpi-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px}
+.kpi-c{background:var(--cd-card);border:1px solid var(--cd-border);border-radius:8px;padding:18px 16px;text-align:center;position:relative;overflow:hidden}
+.kpi-c::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-c:nth-child(1)::before{background:var(--cd-blue)}
+.kpi-c:nth-child(2)::before{background:var(--cd-orange)}
+.kpi-c:nth-child(3)::before{background:var(--cd-green)}
+.kpi-c:nth-child(4)::before{background:var(--cd-red)}
+.kpi-c:nth-child(5)::before{background:var(--cd-yellow)}
+.kpi-c:nth-child(6)::before{background:#9B59B6}
+.kpi-c .kl{font-size:11px;font-weight:700;color:var(--cd-ink-m);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.kpi-c .kv{font-size:32px;font-weight:800;color:var(--cd-ink);line-height:1;letter-spacing:-.02em}
+.kpi-c .ku{font-size:16px;color:var(--cd-ink-m);font-weight:700}
+.kpi-c .kd{font-size:11px;color:var(--cd-ink-m);margin-top:4px}
+
+/* CARDS */
+.cd-card{background:var(--cd-card);border:1px solid var(--cd-border);border-radius:8px;padding:28px 28px 24px;box-shadow:var(--sh-sm);transition:box-shadow .25s,transform .25s;margin-bottom:20px}
+.cd-card:hover{box-shadow:var(--sh-md);transform:translateY(-1px)}
+.cd-card .eye{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--cd-blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.cd-card h3{font-size:18px;font-weight:800;color:var(--cd-ink);margin-bottom:4px;line-height:1.25}
+.cd-card .csub{font-size:12px;color:var(--cd-ink-m);margin-bottom:18px;font-style:italic}
+
+/* TAKEAWAY */
+.tk{background:var(--cd-blue-lt);border-left:4px solid var(--cd-blue);padding:14px 16px;border-radius:0 6px 6px 0;margin-top:18px}
+.tk .tl{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--cd-blue);text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px;display:block}
+.tk p{font-size:13px;color:var(--cd-ink);line-height:1.55;font-weight:500}
+.tk p b{color:var(--cd-blue);font-weight:800}
+
+/* CONTEXT */
+.ctx{background:var(--cd-card);border:1px solid var(--cd-border);border-radius:8px;padding:32px;margin-bottom:24px}
+.ctx h2{font-size:22px;font-weight:800;margin-bottom:12px}
+.ctx .desc{font-size:15px;color:var(--cd-ink-s);line-height:1.65;margin-bottom:20px}
+.ctx .desc strong{color:var(--cd-blue);font-weight:700}
+.ctx-pills{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ctx-pill{background:var(--cd-blue-lt);border-radius:8px;padding:18px 16px;border:1px solid rgba(55,50,255,.1)}
+.ctx-pill .cn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--cd-blue);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.ctx-pill .ct{font-weight:800;color:var(--cd-ink);font-size:15px;margin-bottom:4px}
+.ctx-pill .cd{font-size:12px;color:var(--cd-ink-s);line-height:1.5}
+
+/* PIPELINE */
+.pipe{background:var(--cd-bg);border:1px solid var(--cd-border);border-radius:8px;padding:24px 28px;margin-bottom:24px}
+.pipe h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cd-ink-m);font-family:'JetBrains Mono',monospace;margin-bottom:16px}
+.pipe-flow{display:flex;align-items:center;gap:6px}
+.pipe-node{flex:1;background:var(--cd-card);border:1px solid var(--cd-border);border-radius:6px;padding:12px}
+.pipe-node .pt{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;color:#fff;background:var(--cd-blue);padding:2px 6px;border-radius:3px;display:inline-block;margin-bottom:4px}
+.pipe-node.out .pt{background:var(--cd-orange)}
+.pipe-node .pn{font-weight:800;font-size:12px;color:var(--cd-ink);font-family:'JetBrains Mono',monospace;word-break:break-all}
+.pipe-node .pd{font-size:10px;color:var(--cd-ink-m);margin-top:2px}
+.pipe-arrow{color:var(--cd-blue);font-size:18px;font-weight:800;flex-shrink:0}
+
+/* INCIDENT */
+.incident{background:linear-gradient(90deg,#FFF4EC,#FFFBF6);border-left:4px solid var(--cd-orange);border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:24px;display:flex;gap:14px;align-items:flex-start}
+.incident .ic{width:32px;height:32px;background:var(--cd-orange);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:16px;flex-shrink:0}
+.incident h4{font-size:13px;color:var(--cd-orange);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:4px}
+.incident p{font-size:13px;color:var(--cd-ink-s);line-height:1.55}
+
+/* AXIS */
+.axis-s{margin-bottom:40px}
+.axis-h{display:flex;align-items:flex-start;gap:24px;margin-bottom:24px}
+.axis-n{font-size:72px;font-weight:800;color:var(--cd-blue);line-height:.85;font-style:italic;letter-spacing:-.04em;flex-shrink:0;width:80px}
+.axis-c{flex:1}
+.axis-c .at{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--cd-blue);text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px;display:block}
+.axis-c h2{font-size:32px;font-weight:800;color:var(--cd-ink);line-height:1.1;margin-bottom:8px}
+.axis-c h2 em{font-style:normal;color:var(--cd-blue)}
+.axis-c .aq{font-size:15px;color:var(--cd-ink-s);line-height:1.55;max-width:720px}
+
+/* VIZ */
+.viz{margin:8px 0 14px;overflow-x:auto}
+.viz svg{width:100%;height:auto;display:block;overflow:visible}
+.viz .axis-line{stroke:#D5D5ED;stroke-width:1}
+.viz .grid-line{stroke:#EDEDF9;stroke-width:1;stroke-dasharray:3 3}
+.viz .axis-label{fill:var(--cd-ink-m);font-size:11px;font-family:'Open Sans',sans-serif}
+.viz .axis-title{fill:var(--cd-ink-s);font-size:12px;font-weight:600;font-family:'Open Sans',sans-serif}
+.viz .value-label{fill:var(--cd-ink);font-size:11px;font-weight:700;font-family:'Open Sans',sans-serif}
+
+/* DATASET CARDS */
+.ds-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px}
+.ds-card{background:var(--cd-card);border:1px solid var(--cd-border);border-radius:8px;padding:20px 22px}
+.ds-card .ds-eye{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--cd-blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.ds-card h3{font-size:15px;font-weight:800;margin-bottom:8px}
+.ds-card .ds-body{font-size:12px;color:var(--cd-ink-s);line-height:1.6}
+
+/* RECOS */
+.reco{background:var(--cd-blue);border-radius:12px;padding:48px 44px;color:#fff;margin-bottom:40px;position:relative;overflow:hidden}
+.reco::after{content:'';position:absolute;right:-60px;bottom:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,102,0,.25) 0%,transparent 60%)}
+.reco .re{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
+.reco h2{font-size:36px;font-weight:800;color:#fff;margin-bottom:8px;line-height:1.1;max-width:700px;position:relative;z-index:2}
+.reco .rl{font-size:16px;color:rgba(255,255,255,.8);max-width:680px;margin-bottom:32px}
+.reco-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;position:relative;z-index:2}
+.rc{background:rgba(255,255,255,.08);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:28px 22px;transition:transform .25s}
+.rc:hover{transform:translateY(-3px)}
+.rc .rn{font-size:42px;font-weight:800;font-style:italic;color:var(--cd-orange);line-height:.9;margin-bottom:8px}
+.rc .rt{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--cd-orange);font-weight:700;margin-bottom:6px}
+.rc h3{color:#fff;font-size:18px;font-weight:800;margin-bottom:8px;line-height:1.2}
+.rc p{color:rgba(255,255,255,.78);font-size:13px;line-height:1.55;margin-bottom:10px}
+.rc .rp{display:inline-block;background:var(--cd-orange);color:#fff;padding:4px 10px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700}
+
+/* FOOTER */
+.cd-footer{background:#1A1A2E;color:rgba(255,255,255,.7);padding:48px 24px 0}
+.cd-footer-inner{max-width:1320px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.1)}
+.footer-col h4{color:#fff;font-size:14px;font-weight:800;margin-bottom:14px;text-transform:uppercase;letter-spacing:.04em}
+.footer-col ul{list-style:none}.footer-col ul li{margin-bottom:8px}
+.footer-col ul li a{color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;transition:color .2s}
+.footer-col ul li a:hover{color:#fff}
+.footer-badges{display:flex;gap:12px;align-items:center;padding:20px 0 28px;border-top:1px solid rgba(255,255,255,.06);margin-top:12px;flex-wrap:wrap}
+.footer-badge{background:#2A2A44;padding:6px 14px;border-radius:4px;font-size:11px;color:rgba(255,255,255,.6);font-weight:600;display:flex;align-items:center;gap:6px}
+.footer-badge svg{width:16px;height:16px;fill:currentColor}
+.footer-bottom{padding:24px 0;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(255,255,255,.4)}
+.footer-bottom .fb-logo{font-weight:800;font-style:italic;font-size:18px;color:#fff;letter-spacing:-.02em}
+.footer-bottom a{color:var(--cd-orange);text-decoration:none}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .kpi-strip{grid-template-columns:repeat(3,1fr)}.ctx-pills,.reco-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:repeat(2,1fr)}.ptb h1{font-size:32px}.axis-n{font-size:52px}
+  .axis-c h2{font-size:24px}.pipe-flow{flex-direction:column}.pipe-arrow{transform:rotate(90deg)}
+  .ds-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .cd-header{padding:0 12px}.cd-search{display:none}.cd-main{padding:0 12px 32px}
+  .kpi-strip{grid-template-columns:repeat(2,1fr)}.ptb{padding:28px 24px 32px}.ptb h1{font-size:26px}
+  .axis-h{flex-direction:column;gap:8px}.footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:12px}.reco{padding:28px 20px}.reco h2{font-size:24px}
+  .ptb .meta{flex-direction:column;gap:6px}
+}
+</style>
+</head>
+<body>
+
+<div class="promo-bar"><span class="flash">PROJET DATA</span> Hackathon Dataiku · Customer Lifetime Value · Groupe D — <a href="https://joliment.fr/project-dataiku" target="_blank">joliment.fr</a></div>
+
+<header class="cd-header"><div class="cd-header-inner">
+  <a href="#" class="cd-logo"><svg viewBox="0 0 320 50" height="36" xmlns="http://www.w3.org/2000/svg"><text x="0" y="38" font-family="'Open Sans',sans-serif" font-weight="800" font-style="italic" font-size="42" fill="white" letter-spacing="-1.5">Cdiscount</text><g transform="translate(262,4)"><path d="M2 14 L2 28 L14 28 L28 38 L28 4 L14 14 Z" fill="white" opacity=".95"/><rect x="31" y="11" width="4" height="20" rx="2" fill="white" opacity=".7"/><rect x="37" y="15" width="4" height="12" rx="2" fill="white" opacity=".5"/><rect x="43" y="18" width="3" height="6" rx="1.5" fill="white" opacity=".35"/></g></svg></a>
+  <div class="cd-search"><input type="text" placeholder="Rechercher un produit, une marque..." disabled><button class="cd-search-btn" disabled><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></button></div>
+  <div class="cd-actions">
+    <a class="cd-action" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Mon compte</span></a>
+    <a class="cd-action" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 22c.6 0 1-.4 1-1s-.4-1-1-1-1 .4-1 1 .4 1 1 1zm11 0c.6 0 1-.4 1-1s-.4-1-1-1-1 .4-1 1 .4 1 1 1z"/><path d="M1 1h4l2.7 13.4a1 1 0 0 0 1 .8h9.7a1 1 0 0 0 1-.8L23 6H6"/></svg><span>Panier</span></a>
+  </div>
+</div></header>
+
+<nav class="cd-nav"><div class="cd-nav-inner">
+  <a class="cd-nav-item cta" href="#">🔥 Ventes Flash</a>
+  <a class="cd-nav-item" href="#">Informatique</a><a class="cd-nav-item" href="#">Téléphones</a>
+  <a class="cd-nav-item" href="#">TV &amp; Son</a><a class="cd-nav-item" href="#">Électroménager</a>
+  <a class="cd-nav-item" href="#">Maison</a><a class="cd-nav-item" href="#">Mode</a>
+  <a class="cd-nav-item" href="#">Sport</a><a class="cd-nav-item" href="#">Beauté</a>
+  <a class="cd-nav-item" href="#">Alimentation</a>
+  <a class="cd-nav-item active" href="#">📊 Dashboard CLV</a>
+  <a class="cd-nav-item" href="#">Marketplace</a>
+</div></nav>
+
+<div class="cd-bc"><a href="#">Accueil</a><span>›</span><a href="#">Projets Data</a><span>›</span><a href="#">Hackathon Dataiku</a><span>›</span><strong>Analyse CLV — Profilage &amp; Macro</strong></div>
+
+<main class="cd-main">
+
+<div class="ptb">
+  <div class="badge"><span class="dot"></span> LIVE DASHBOARD · Projet Final M1/M2 · Groupe D</div>
+  <h1>Audit de la base clients :<br>maximiser la Customer Lifetime Value</h1>
+  <div class="sub">Profilage &amp; Macro — OÙ cibler, QUI prioriser, QUOI activer ?</div>
+  <p class="intro">Ce dashboard restitue l'analyse de <strong>65 000 profils clients</strong> d'un acteur e-commerce généraliste, croisés avec leurs données transactionnelles, comportementales et macro-économiques. L'objectif : dresser le <b>portrait-robot du client à forte valeur</b> et identifier les leviers d'investissement marketing les plus rentables — en répondant à trois questions : <strong>OÙ</strong> cibler géographiquement, <strong>QUI</strong> prioriser démographiquement, et <strong>QUOI</strong> activer comme levier.</p>
+  <div class="meta"><span>PROJET ecommerce_clv_cdiscount</span><span>·</span><span>JOIN customers × orders × web × gdp</span><span>·</span><span>65 000 records · 25 features</span><span>·</span><span>RECETTES Join + Group + Filter</span></div>
+</div>
+
+<div class="kpi-strip">
+  <div class="kpi-c"><div class="kl">Base clients</div><div class="kv">65<span class="ku">k</span></div><div class="kd">clients uniques analysés</div></div>
+  <div class="kpi-c"><div class="kl">LTV moyenne</div><div class="kv">318<span class="ku">€</span></div><div class="kd">médiane 295€ · P90 499€</div></div>
+  <div class="kpi-c"><div class="kl">Marchés</div><div class="kv">188</div><div class="kd">pays couverts (GeoIP)</div></div>
+  <div class="kpi-c"><div class="kl">Panier moyen</div><div class="kv">78<span class="ku">€</span></div><div class="kd">sur la 1ʳᵉ commande</div></div>
+  <div class="kpi-c"><div class="kl">NPS moyen</div><div class="kv">7.2<span class="ku">/10</span></div><div class="kd">qualité perçue client</div></div>
+  <div class="kpi-c"><div class="kl">Taux de retour</div><div class="kv">9.5<span class="ku">%</span></div><div class="kd">remise moy. 10.2%</div></div>
+</div>
+
+<div class="ctx">
+  <h2>Contexte business</h2>
+  <p class="desc">L'entreprise souhaite <strong>mieux comprendre les déterminants de la valeur client</strong> afin d'optimiser trois leviers stratégiques dans un marché e-commerce de plus en plus concurrentiel, où la fidélisation coûte 5× moins cher que l'acquisition.</p>
+  <div class="ctx-pills">
+    <div class="ctx-pill"><div class="cn">Levier 01</div><div class="ct">Investissements marketing</div><div class="cd">Identifier les segments qui répondent réellement aux campagnes pour réallouer le budget d'acquisition.</div></div>
+    <div class="ctx-pill"><div class="cn">Levier 02</div><div class="ct">Expérience d'achat</div><div class="cd">Mesurer l'impact du NPS, des délais de livraison et des retours sur la rétention long terme.</div></div>
+    <div class="ctx-pill"><div class="cn">Levier 03</div><div class="ct">Rentabilité long terme</div><div class="cd">Construire un portrait-robot du client le plus rentable pour orienter les priorités produit et CRM.</div></div>
+  </div>
+</div>
+
+<div class="pipe">
+  <h4>Pipeline de données · Join master dataset</h4>
+  <div class="pipe-flow">
+    <div class="pipe-node"><span class="pt">INPUT</span><div class="pn">customers_prepared</div><div class="pd">CRM · âge, genre, LTV</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node"><span class="pt">INPUT</span><div class="pn">first_orders_prepared</div><div class="pd">transac · panier, NPS, retours</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node"><span class="pt">INPUT</span><div class="pn">web_data_prepared</div><div class="pd">nav · IP, campagne marketing</div></div>
+    <div class="pipe-arrow">→</div>
+    <div class="pipe-node"><span class="pt">INPUT</span><div class="pn">country_gdp_prepared</div><div class="pd">macro · PIB par habitant</div></div>
+    <div class="pipe-arrow">⇒</div>
+    <div class="pipe-node out"><span class="pt">OUTPUT</span><div class="pn">customers_prepared_joined</div><div class="pd">65 000 lignes · 25 colonnes</div></div>
+  </div>
+</div>
+
+<div class="ds-grid">
+  <div class="ds-card"><div class="ds-eye">📋 customers.csv · 65 000 lignes</div><h3>Données CRM</h3><div class="ds-body"><code>customer_id</code> identifiant unique · <code>birth_date</code> → calculé en <code>customer_age</code> (19-113 ans, filtré &lt;90) · <code>gender</code> (M/F) · <code>lifetime_value</code> <b style="color:var(--cd-blue)">CIBLE</b> (26€ — 4 660€, moy. 318€)</div></div>
+  <div class="ds-card"><div class="ds-eye">📋 first_orders.csv · 65 000 lignes</div><h3>Données Transactionnelles</h3><div class="ds-body"><code>basket_amount</code> (6€-515€) · <code>category_main</code> (6 cat. : fashion, electronics, home, sports, beauty, groceries) · <code>discount_pct</code> (0-46%) · <code>nps</code> (0-10) · <code>delivery_delay_days</code> · <code>return_flag</code> · <code>acquisition_channel</code> (9 canaux) · <code>device_type</code> (desktop/mobile/tablet)</div></div>
+  <div class="ds-card"><div class="ds-eye">📋 web_data.csv · 65 000 lignes</div><h3>Données de Navigation</h3><div class="ds-body"><code>ip_address</code> → résolu en <code>country</code> via GeoIP (MaxMind) · <code>pages_visited</code> (0-15 pages) · <code>marketing_campaign</code> flag binaire d'exposition (25.3% exposés)</div></div>
+  <div class="ds-card"><div class="ds-eye">📋 country_gdp.csv · 188 lignes</div><h3>Référentiel Macro-économique</h3><div class="ds-body"><code>Country</code> (188 pays) · <code>GDP_cap</code> PIB par habitant en USD (365$ – 100 889$)<br><br><b style="color:var(--cd-blue);font-size:11px">JOIN</b> <span style="font-size:11px">→ Left Join sur <code>customer_id</code> + lookup <code>country → GDP_cap</code></span></div></div>
+</div>
+
+<div class="incident"><div class="ic">!</div><div><h4>Gestion de l'incident technique</h4><p>Le projet initial a été supprimé par erreur en cours de route. L'équipe a pivoté en redémarrant directement depuis les datasets <code>_prepared</code> plutôt que les données brutes, concentrant l'effort sur la modélisation (Left Join multi-tables), les recettes <code>Group</code> et la restitution visuelle.</p></div></div>
+
+<!-- §0 OVERVIEW -->
+<div class="axis-s">
+  <div class="axis-h"><div class="axis-n" style="color:var(--cd-ink-m);font-size:56px">§</div><div class="axis-c"><span class="at">Vue d'ensemble</span><h2>Comment se distribue la valeur client ?</h2><p class="aq">Avant de segmenter, posons le décor : la distribution de la LTV est fortement asymétrique, avec une longue traîne de clients premium au-delà du P90 (499€).</p></div></div>
+  <div class="cd-card"><div class="eye">Graphique 0 · Histogramme</div><h3>Distribution de la Lifetime Value sur 65 000 clients</h3><div class="csub">Bins de 50€ · Médiane et P90 marqués</div><div class="viz"><svg viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Distribution LTV">
+<defs><linearGradient id="g0b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3732FF"/><stop offset="100%" stop-color="#1A17CC"/></linearGradient></defs>
+<line class="grid-line" x1="58" y1="234.6" x2="660" y2="234.6"/>
+<text class="axis-label" x="52" y="238.6" text-anchor="end">2k</text>
+<line class="grid-line" x1="58" y1="177.2" x2="660" y2="177.2"/>
+<text class="axis-label" x="52" y="181.2" text-anchor="end">4k</text>
+<line class="grid-line" x1="58" y1="119.8" x2="660" y2="119.8"/>
+<text class="axis-label" x="52" y="123.8" text-anchor="end">6k</text>
+<line class="grid-line" x1="58" y1="62.4" x2="660" y2="62.4"/>
+<text class="axis-label" x="52" y="66.4" text-anchor="end">8k</text>
+<rect x="61.4" y="288.5" width="30.9" height="3.5" fill="url(#g0b)" rx="2" opacity=".88" data-label="0-50€" data-value="122 clients" data-count=""><title>0-50€ — 122 clients</title></rect>
+<text class="axis-label" x="76.8" y="308.0" text-anchor="middle" font-size="9">0</text>
+<rect x="99.0" y="238.8" width="30.9" height="53.2" fill="url(#g0b)" rx="2" opacity=".88" data-label="50-100€" data-value="1,855 clients" data-count=""><title>50-100€ — 1,855 clients</title></rect>
+<text class="value-label" x="114.4" y="233.8" text-anchor="middle" font-size="10">1k</text>
+<text class="axis-label" x="114.4" y="308.0" text-anchor="middle" font-size="9">50</text>
+<rect x="136.6" y="177.9" width="30.9" height="114.1" fill="url(#g0b)" rx="2" opacity=".88" data-label="100-150€" data-value="3,975 clients" data-count=""><title>100-150€ — 3,975 clients</title></rect>
+<text class="value-label" x="152.1" y="172.9" text-anchor="middle" font-size="10">3k</text>
+<text class="axis-label" x="152.1" y="308.0" text-anchor="middle" font-size="9">100</text>
+<rect x="174.3" y="113.0" width="30.9" height="179.0" fill="url(#g0b)" rx="2" opacity=".88" data-label="150-200€" data-value="6,236 clients" data-count=""><title>150-200€ — 6,236 clients</title></rect>
+<text class="value-label" x="189.7" y="108.0" text-anchor="middle" font-size="10">6k</text>
+<text class="axis-label" x="189.7" y="308.0" text-anchor="middle" font-size="9">150</text>
+<rect x="211.9" y="43.2" width="30.9" height="248.8" fill="url(#g0b)" rx="2" opacity=".88" data-label="200-250€" data-value="8,667 clients" data-count=""><title>200-250€ — 8,667 clients</title></rect>
+<text class="value-label" x="227.3" y="38.2" text-anchor="middle" font-size="10">8k</text>
+<text class="axis-label" x="227.3" y="308.0" text-anchor="middle" font-size="9">200</text>
+<rect x="249.5" y="24.0" width="30.9" height="268.0" fill="url(#g0b)" rx="2" opacity=".88" data-label="250-300€" data-value="9,336 clients" data-count=""><title>250-300€ — 9,336 clients</title></rect>
+<text class="value-label" x="264.9" y="19.0" text-anchor="middle" font-size="10">9k</text>
+<text class="axis-label" x="264.9" y="308.0" text-anchor="middle" font-size="9">250</text>
+<rect x="287.1" y="50.6" width="30.9" height="241.4" fill="url(#g0b)" rx="2" opacity=".88" data-label="300-350€" data-value="8,408 clients" data-count=""><title>300-350€ — 8,408 clients</title></rect>
+<text class="value-label" x="302.6" y="45.6" text-anchor="middle" font-size="10">8k</text>
+<text class="axis-label" x="302.6" y="308.0" text-anchor="middle" font-size="9">300</text>
+<rect x="324.8" y="104.2" width="30.9" height="187.8" fill="url(#g0b)" rx="2" opacity=".88" data-label="350-400€" data-value="6,542 clients" data-count=""><title>350-400€ — 6,542 clients</title></rect>
+<text class="value-label" x="340.2" y="99.2" text-anchor="middle" font-size="10">6k</text>
+<text class="axis-label" x="340.2" y="308.0" text-anchor="middle" font-size="9">350</text>
+<rect x="362.4" y="160.5" width="30.9" height="131.5" fill="url(#g0b)" rx="2" opacity=".88" data-label="400-450€" data-value="4,582 clients" data-count=""><title>400-450€ — 4,582 clients</title></rect>
+<text class="value-label" x="377.8" y="155.5" text-anchor="middle" font-size="10">4k</text>
+<text class="axis-label" x="377.8" y="308.0" text-anchor="middle" font-size="9">400</text>
+<rect x="400.0" y="205.6" width="30.9" height="86.4" fill="url(#g0b)" rx="2" opacity=".88" data-label="450-500€" data-value="3,009 clients" data-count=""><title>450-500€ — 3,009 clients</title></rect>
+<text class="value-label" x="415.4" y="200.6" text-anchor="middle" font-size="10">3k</text>
+<text class="axis-label" x="415.4" y="308.0" text-anchor="middle" font-size="9">450</text>
+<rect x="437.6" y="198.3" width="30.9" height="93.7" fill="url(#g0b)" rx="2" opacity=".88" data-label="500-600€" data-value="3,264 clients" data-count=""><title>500-600€ — 3,264 clients</title></rect>
+<text class="value-label" x="453.1" y="193.3" text-anchor="middle" font-size="10">3k</text>
+<text class="axis-label" x="453.1" y="308.0" text-anchor="middle" font-size="9">500</text>
+<rect x="475.3" y="254.7" width="30.9" height="37.3" fill="url(#g0b)" rx="2" opacity=".88" data-label="600-700€" data-value="1,301 clients" data-count=""><title>600-700€ — 1,301 clients</title></rect>
+<text class="axis-label" x="490.7" y="308.0" text-anchor="middle" font-size="9">600</text>
+<rect x="512.9" y="275.6" width="30.9" height="16.4" fill="url(#g0b)" rx="2" opacity=".88" data-label="700-800€" data-value="570 clients" data-count=""><title>700-800€ — 570 clients</title></rect>
+<text class="axis-label" x="528.3" y="308.0" text-anchor="middle" font-size="9">700</text>
+<rect x="550.5" y="280.9" width="30.9" height="11.1" fill="url(#g0b)" rx="2" opacity=".88" data-label="800-1000€" data-value="388 clients" data-count=""><title>800-1000€ — 388 clients</title></rect>
+<text class="axis-label" x="565.9" y="308.0" text-anchor="middle" font-size="9">800</text>
+<rect x="588.1" y="284.9" width="30.9" height="7.1" fill="url(#g0b)" rx="2" opacity=".88" data-label="1000-2000€" data-value="247 clients" data-count=""><title>1000-2000€ — 247 clients</title></rect>
+<text class="axis-label" x="603.6" y="308.0" text-anchor="middle" font-size="9">1000</text>
+<rect x="625.8" y="291.3" width="30.9" height="0.7" fill="url(#g0b)" rx="2" opacity=".88" data-label="2000-5000€" data-value="26 clients" data-count=""><title>2000-5000€ — 26 clients</title></rect>
+<text class="axis-label" x="641.2" y="308.0" text-anchor="middle" font-size="9">2000</text>
+<line class="axis-line" x1="58" y1="292" x2="660" y2="292"/>
+<text class="axis-title" x="340" y="334" text-anchor="middle">Lifetime Value (€)</text>
+<text class="axis-title" x="14" y="158" text-anchor="middle" transform="rotate(-90 14 158)">Nb clients</text>
+<line x1="265" y1="24" x2="265" y2="292" stroke="#FF6600" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="269" y="36" fill="#FF6600" font-size="10" font-weight="700" font-family="JetBrains Mono">Médiane 295€</text>
+<line x1="415" y1="24" x2="415" y2="292" stroke="#E51A2D" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="419" y="36" fill="#E51A2D" font-size="10" font-weight="700" font-family="JetBrains Mono">P90 499€</text>
+</svg></div><div class="tk"><span class="tl">⬣ Takeaway</span><p>Distribution <b>log-normale typique du e-commerce</b> : la masse se concentre entre 150€ et 400€, les <b>10% supérieurs dépassent 499€</b> et les top 1% franchissent 1 000€. C'est cette population que nos 3 axes cherchent à agrandir.</p></div></div>
+</div>
+
+<!-- AXE 1 — OÙ -->
+<div class="axis-s" id="axe-1">
+  <div class="axis-h"><div class="axis-n">01</div><div class="axis-c"><span class="at">Axe 1 · Le "OÙ"</span><h2>La valeur se cache <em>dans les économies matures</em></h2><p class="aq">Existe-t-il une corrélation entre le niveau de richesse d'un pays et la valeur de ses clients ?</p></div></div>
+  <div class="cd-card"><div class="eye">Graphique 1 · Scatter plot</div><h3>PIB par habitant vs LTV moyenne par pays</h3><div class="csub">Taille des bulles = nombre de clients · filtre : count &gt; 10 · seuil OCDE à 30k$ en pointillé</div><div class="viz"><svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Scatter PIB vs LTV">
+<defs><linearGradient id="g1b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF6600" stop-opacity=".75"/><stop offset="100%" stop-color="#1A17CC" stop-opacity=".55"/></linearGradient></defs>
+<line class="grid-line" x1="62" y1="282.1" x2="660" y2="282.1"/>
+<text class="axis-label" x="54" y="286.1" text-anchor="end">250€</text>
+<line class="grid-line" x1="62" y1="238.4" x2="660" y2="238.4"/>
+<text class="axis-label" x="54" y="242.4" text-anchor="end">275€</text>
+<line class="grid-line" x1="62" y1="194.7" x2="660" y2="194.7"/>
+<text class="axis-label" x="54" y="198.7" text-anchor="end">300€</text>
+<line class="grid-line" x1="62" y1="151.1" x2="660" y2="151.1"/>
+<text class="axis-label" x="54" y="155.1" text-anchor="end">325€</text>
+<line class="grid-line" x1="62" y1="107.4" x2="660" y2="107.4"/>
+<text class="axis-label" x="54" y="111.4" text-anchor="end">350€</text>
+<line class="grid-line" x1="62" y1="63.7" x2="660" y2="63.7"/>
+<text class="axis-label" x="54" y="67.7" text-anchor="end">375€</text>
+<line class="grid-line" x1="62" y1="20.0" x2="660" y2="20.0"/>
+<text class="axis-label" x="54" y="24.0" text-anchor="end">400€</text>
+<line class="grid-line" x1="62.0" y1="20" x2="62.0" y2="352"/>
+<text class="axis-label" x="62.0" y="370" text-anchor="middle">0$</text>
+<line class="grid-line" x1="175.9" y1="20" x2="175.9" y2="352"/>
+<text class="axis-label" x="175.9" y="370" text-anchor="middle">20k$</text>
+<line class="grid-line" x1="289.8" y1="20" x2="289.8" y2="352"/>
+<text class="axis-label" x="289.8" y="370" text-anchor="middle">40k$</text>
+<line class="grid-line" x1="403.7" y1="20" x2="403.7" y2="352"/>
+<text class="axis-label" x="403.7" y="370" text-anchor="middle">60k$</text>
+<line class="grid-line" x1="517.6" y1="20" x2="517.6" y2="352"/>
+<text class="axis-label" x="517.6" y="370" text-anchor="middle">80k$</text>
+<line class="grid-line" x1="631.5" y1="20" x2="631.5" y2="352"/>
+<text class="axis-label" x="631.5" y="370" text-anchor="middle">100k$</text>
+<line x1="232.9" y1="20" x2="232.9" y2="352" stroke="#FF6600" stroke-width="1.5" stroke-dasharray="5 4" opacity=".7"/>
+<text x="238.9" y="32" fill="#FF6600" font-size="11" font-weight="700" font-family="JetBrains Mono">seuil OCDE · 30k$</text>
+<circle cx="356.5" cy="178.9" r="19.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="United States" data-value="LTV 309€" data-count="PIB 51704$ · 4359 clients"><title>United States — PIB 51704$ · LTV 309€ · 4359 clients</title></circle>
+<circle cx="636.6" cy="133.7" r="11.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Qatar" data-value="LTV 335€" data-count="PIB 100889$ · 2301 clients"><title>Qatar — PIB 100889$ · LTV 335€ · 2301 clients</title></circle>
+<circle cx="282.2" cy="152.6" r="11.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Germany" data-value="LTV 324€" data-count="PIB 38666$ · 2207 clients"><title>Germany — PIB 38666$ · LTV 324€ · 2207 clients</title></circle>
+<circle cx="263.0" cy="172.6" r="11.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="France" data-value="LTV 313€" data-count="PIB 35295$ · 2199 clients"><title>France — PIB 35295$ · LTV 313€ · 2199 clients</title></circle>
+<circle cx="270.3" cy="164.3" r="10.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="United Kingdom" data-value="LTV 317€" data-count="PIB 36569$ · 1949 clients"><title>United Kingdom — PIB 36569$ · LTV 317€ · 1949 clients</title></circle>
+<circle cx="266.2" cy="175.4" r="10.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Japan" data-value="LTV 311€" data-count="PIB 35855$ · 1926 clients"><title>Japan — PIB 35855$ · LTV 311€ · 1926 clients</title></circle>
+<circle cx="506.0" cy="128.6" r="9.9" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Luxembourg" data-value="LTV 338€" data-count="PIB 77958$ · 1876 clients"><title>Luxembourg — PIB 77958$ · LTV 338€ · 1876 clients</title></circle>
+<circle cx="408.3" cy="141.4" r="8.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Singapore" data-value="LTV 331€" data-count="PIB 60799$ · 1442 clients"><title>Singapore — PIB 60799$ · LTV 331€ · 1442 clients</title></circle>
+<circle cx="303.0" cy="137.9" r="7.8" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Canada" data-value="LTV 333€" data-count="PIB 42317$ · 1314 clients"><title>Canada — PIB 42317$ · LTV 333€ · 1314 clients</title></circle>
+<circle cx="371.8" cy="132.0" r="7.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Norway" data-value="LTV 336€" data-count="PIB 54397$ · 1298 clients"><title>Norway — PIB 54397$ · LTV 336€ · 1298 clients</title></circle>
+<circle cx="370.2" cy="135.6" r="7.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Brunei" data-value="LTV 334€" data-count="PIB 54114$ · 1279 clients"><title>Brunei — PIB 54114$ · LTV 334€ · 1279 clients</title></circle>
+<circle cx="300.9" cy="158.2" r="7.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Australia" data-value="LTV 321€" data-count="PIB 41954$ · 1185 clients"><title>Australia — PIB 41954$ · LTV 321€ · 1185 clients</title></circle>
+<circle cx="352.1" cy="135.3" r="7.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Hong Kong" data-value="LTV 334€" data-count="PIB 50936$ · 1183 clients"><title>Hong Kong — PIB 50936$ · LTV 334€ · 1183 clients</title></circle>
+<circle cx="317.5" cy="137.0" r="7.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Switzerland" data-value="LTV 333€" data-count="PIB 44864$ · 1165 clients"><title>Switzerland — PIB 44864$ · LTV 333€ · 1165 clients</title></circle>
+<circle cx="298.5" cy="157.2" r="7.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Netherlands" data-value="LTV 321€" data-count="PIB 41527$ · 1090 clients"><title>Netherlands — PIB 41527$ · LTV 321€ · 1090 clients</title></circle>
+<circle cx="233.2" cy="151.4" r="6.9" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Spain" data-value="LTV 325€" data-count="PIB 30058$ · 1069 clients"><title>Spain — PIB 30058$ · LTV 325€ · 1069 clients</title></circle>
+<circle cx="300.7" cy="145.1" r="6.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Austria" data-value="LTV 328€" data-count="PIB 41908$ · 1027 clients"><title>Austria — PIB 41908$ · LTV 328€ · 1027 clients</title></circle>
+<circle cx="305.3" cy="136.7" r="6.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="San Marino" data-value="LTV 333€" data-count="PIB 42724$ · 1014 clients"><title>San Marino — PIB 42724$ · LTV 333€ · 1014 clients</title></circle>
+<circle cx="244.0" cy="135.5" r="6.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="South Korea" data-value="LTV 334€" data-count="PIB 31950$ · 1009 clients"><title>South Korea — PIB 31950$ · LTV 334€ · 1009 clients</title></circle>
+<circle cx="293.9" cy="155.5" r="6.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Ireland" data-value="LTV 322€" data-count="PIB 40716$ · 993 clients"><title>Ireland — PIB 40716$ · LTV 322€ · 993 clients</title></circle>
+<circle cx="291.5" cy="143.2" r="6.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Sweden" data-value="LTV 330€" data-count="PIB 40304$ · 951 clients"><title>Sweden — PIB 40304$ · LTV 330€ · 951 clients</title></circle>
+<circle cx="288.2" cy="118.7" r="6.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Iceland" data-value="LTV 344€" data-count="PIB 39718$ · 950 clients"><title>Iceland — PIB 39718$ · LTV 344€ · 950 clients</title></circle>
+<circle cx="275.3" cy="125.6" r="6.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Belgium" data-value="LTV 340€" data-count="PIB 37459$ · 942 clients"><title>Belgium — PIB 37459$ · LTV 340€ · 942 clients</title></circle>
+<circle cx="289.1" cy="131.8" r="6.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Kuwait" data-value="LTV 336€" data-count="PIB 39874$ · 942 clients"><title>Kuwait — PIB 39874$ · LTV 336€ · 942 clients</title></circle>
+<circle cx="231.8" cy="195.1" r="6.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Italy" data-value="LTV 300€" data-count="PIB 29812$ · 918 clients"><title>Italy — PIB 29812$ · LTV 300€ · 918 clients</title></circle>
+<circle cx="274.6" cy="124.8" r="6.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Denmark" data-value="LTV 340€" data-count="PIB 37324$ · 890 clients"><title>Denmark — PIB 37324$ · LTV 340€ · 890 clients</title></circle>
+<circle cx="280.7" cy="142.9" r="6.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Taiwan" data-value="LTV 330€" data-count="PIB 38400$ · 882 clients"><title>Taiwan — PIB 38400$ · LTV 330€ · 882 clients</title></circle>
+<circle cx="265.7" cy="126.4" r="6.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Finland" data-value="LTV 339€" data-count="PIB 35771$ · 852 clients"><title>Finland — PIB 35771$ · LTV 339€ · 852 clients</title></circle>
+<circle cx="254.9" cy="120.5" r="6.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Israel" data-value="LTV 342€" data-count="PIB 33878$ · 846 clients"><title>Israel — PIB 33878$ · LTV 342€ · 846 clients</title></circle>
+<circle cx="240.4" cy="140.1" r="5.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Bahamas The" data-value="LTV 331€" data-count="PIB 31324$ · 722 clients"><title>Bahamas The — PIB 31324$ · LTV 331€ · 722 clients</title></circle>
+<circle cx="235.6" cy="138.9" r="5.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Saudi Arabia" data-value="LTV 332€" data-count="PIB 30477$ · 719 clients"><title>Saudi Arabia — PIB 30477$ · LTV 332€ · 719 clients</title></circle>
+<circle cx="113.6" cy="193.0" r="5.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="China" data-value="LTV 301€" data-count="PIB 9055$ · 673 clients"><title>China — PIB 9055$ · LTV 301€ · 673 clients</title></circle>
+<circle cx="229.9" cy="214.8" r="4.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="New Zealand" data-value="LTV 288€" data-count="PIB 29481$ · 482 clients"><title>New Zealand — PIB 29481$ · LTV 288€ · 482 clients</title></circle>
+<circle cx="228.2" cy="199.1" r="4.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="United Arab Emirates" data-value="LTV 297€" data-count="PIB 29176$ · 462 clients"><title>United Arab Emirates — PIB 29176$ · LTV 297€ · 462 clients</title></circle>
+<circle cx="225.4" cy="171.8" r="4.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Bahrain" data-value="LTV 313€" data-count="PIB 28691$ · 454 clients"><title>Bahrain — PIB 28691$ · LTV 313€ · 454 clients</title></circle>
+<circle cx="220.5" cy="211.4" r="4.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Slovenia" data-value="LTV 290€" data-count="PIB 27837$ · 447 clients"><title>Slovenia — PIB 27837$ · LTV 290€ · 447 clients</title></circle>
+<circle cx="215.8" cy="185.3" r="4.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Czech Republic" data-value="LTV 305€" data-count="PIB 27000$ · 442 clients"><title>Czech Republic — PIB 27000$ · LTV 305€ · 442 clients</title></circle>
+<circle cx="226.3" cy="182.3" r="4.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Oman" data-value="LTV 307€" data-count="PIB 28843$ · 432 clients"><title>Oman — PIB 28843$ · LTV 307€ · 432 clients</title></circle>
+<circle cx="204.6" cy="208.5" r="4.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Barbados" data-value="LTV 292€" data-count="PIB 25043$ · 431 clients"><title>Barbados — PIB 25043$ · LTV 292€ · 431 clients</title></circle>
+<circle cx="214.6" cy="204.9" r="4.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Cyprus" data-value="LTV 294€" data-count="PIB 26794$ · 423 clients"><title>Cyprus — PIB 26794$ · LTV 294€ · 423 clients</title></circle>
+<circle cx="200.2" cy="179.9" r="4.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Greece" data-value="LTV 308€" data-count="PIB 24260$ · 416 clients"><title>Greece — PIB 24260$ · LTV 308€ · 416 clients</title></circle>
+<circle cx="215.0" cy="192.7" r="4.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Malta" data-value="LTV 301€" data-count="PIB 26857$ · 416 clients"><title>Malta — PIB 26857$ · LTV 301€ · 416 clients</title></circle>
+<circle cx="204.3" cy="195.5" r="4.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Seychelles" data-value="LTV 300€" data-count="PIB 24989$ · 388 clients"><title>Seychelles — PIB 24989$ · LTV 300€ · 388 clients</title></circle>
+<circle cx="199.5" cy="195.7" r="4.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Slovakia" data-value="LTV 299€" data-count="PIB 24142$ · 382 clients"><title>Slovakia — PIB 24142$ · LTV 299€ · 382 clients</title></circle>
+<circle cx="212.8" cy="191.7" r="4.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Equatorial Guinea" data-value="LTV 302€" data-count="PIB 26487$ · 381 clients"><title>Equatorial Guinea — PIB 26487$ · LTV 302€ · 381 clients</title></circle>
+<circle cx="193.3" cy="173.2" r="4.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Portugal" data-value="LTV 312€" data-count="PIB 23047$ · 373 clients"><title>Portugal — PIB 23047$ · LTV 312€ · 373 clients</title></circle>
+<circle cx="183.8" cy="196.3" r="4.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Lithuania" data-value="LTV 299€" data-count="PIB 21383$ · 365 clients"><title>Lithuania — PIB 21383$ · LTV 299€ · 365 clients</title></circle>
+<circle cx="193.3" cy="190.6" r="4.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Palau" data-value="LTV 302€" data-count="PIB 23053$ · 350 clients"><title>Palau — PIB 23053$ · LTV 302€ · 350 clients</title></circle>
+<circle cx="128.9" cy="203.3" r="4.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Brazil" data-value="LTV 295€" data-count="PIB 11747$ · 346 clients"><title>Brazil — PIB 11747$ · LTV 295€ · 346 clients</title></circle>
+<circle cx="179.1" cy="179.7" r="4.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Poland" data-value="LTV 309€" data-count="PIB 20562$ · 344 clients"><title>Poland — PIB 20562$ · LTV 309€ · 344 clients</title></circle>
+<circle cx="185.7" cy="176.4" r="4.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Estonia" data-value="LTV 310€" data-count="PIB 21714$ · 317 clients"><title>Estonia — PIB 21714$ · LTV 310€ · 317 clients</title></circle>
+<circle cx="173.0" cy="175.1" r="4.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Hungary" data-value="LTV 311€" data-count="PIB 19497$ · 313 clients"><title>Hungary — PIB 19497$ · LTV 311€ · 313 clients</title></circle>
+<circle cx="176.5" cy="178.1" r="4.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="East Timor" data-value="LTV 310€" data-count="PIB 20113$ · 311 clients"><title>East Timor — PIB 20113$ · LTV 310€ · 311 clients</title></circle>
+<circle cx="149.5" cy="206.6" r="4.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Mexico" data-value="LTV 293€" data-count="PIB 15363$ · 303 clients"><title>Mexico — PIB 15363$ · LTV 293€ · 303 clients</title></circle>
+<circle cx="174.9" cy="192.5" r="4.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Trinidad And Tobago" data-value="LTV 301€" data-count="PIB 19826$ · 298 clients"><title>Trinidad And Tobago — PIB 19826$ · LTV 301€ · 298 clients</title></circle>
+<circle cx="161.8" cy="195.9" r="4.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Russia" data-value="LTV 299€" data-count="PIB 17518$ · 293 clients"><title>Russia — PIB 17518$ · LTV 299€ · 293 clients</title></circle>
+<circle cx="164.8" cy="180.8" r="4.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Latvia" data-value="LTV 308€" data-count="PIB 18058$ · 289 clients"><title>Latvia — PIB 18058$ · LTV 308€ · 289 clients</title></circle>
+<circle cx="164.0" cy="168.8" r="4.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Argentina" data-value="LTV 315€" data-count="PIB 17917$ · 282 clients"><title>Argentina — PIB 17917$ · LTV 315€ · 282 clients</title></circle>
+<circle cx="165.7" cy="193.1" r="4.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Chile" data-value="LTV 301€" data-count="PIB 18211$ · 280 clients"><title>Chile — PIB 18211$ · LTV 301€ · 280 clients</title></circle>
+<circle cx="164.8" cy="187.1" r="4.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Gabon" data-value="LTV 304€" data-count="PIB 18051$ · 270 clients"><title>Gabon — PIB 18051$ · LTV 304€ · 270 clients</title></circle>
+<circle cx="151.4" cy="166.7" r="3.9" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Botswana" data-value="LTV 316€" data-count="PIB 15706$ · 269 clients"><title>Botswana — PIB 15706$ · LTV 316€ · 269 clients</title></circle>
+<circle cx="162.3" cy="211.8" r="3.9" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Croatia" data-value="LTV 290€" data-count="PIB 17618$ · 269 clients"><title>Croatia — PIB 17618$ · LTV 290€ · 269 clients</title></circle>
+<circle cx="153.5" cy="167.1" r="3.9" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Saint Kitts And Nevis" data-value="LTV 316€" data-count="PIB 16066$ · 267 clients"><title>Saint Kitts And Nevis — PIB 16066$ · LTV 316€ · 267 clients</title></circle>
+<circle cx="142.3" cy="172.7" r="3.9" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Bulgaria" data-value="LTV 313€" data-count="PIB 14103$ · 263 clients"><title>Bulgaria — PIB 14103$ · LTV 313€ · 263 clients</title></circle>
+<circle cx="150.2" cy="189.5" r="3.9" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Belarus" data-value="LTV 303€" data-count="PIB 15479$ · 257 clients"><title>Belarus — PIB 15479$ · LTV 303€ · 257 clients</title></circle>
+<circle cx="157.6" cy="200.6" r="3.9" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Malaysia" data-value="LTV 297€" data-count="PIB 16794$ · 253 clients"><title>Malaysia — PIB 16794$ · LTV 297€ · 253 clients</title></circle>
+<circle cx="149.8" cy="187.7" r="3.8" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Mauritius" data-value="LTV 304€" data-count="PIB 15424$ · 240 clients"><title>Mauritius — PIB 15424$ · LTV 304€ · 240 clients</title></circle>
+<circle cx="150.8" cy="196.0" r="3.8" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Lebanon" data-value="LTV 299€" data-count="PIB 15587$ · 236 clients"><title>Lebanon — PIB 15587$ · LTV 299€ · 236 clients</title></circle>
+<circle cx="152.4" cy="234.0" r="3.8" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Uruguay" data-value="LTV 278€" data-count="PIB 15865$ · 236 clients"><title>Uruguay — PIB 15865$ · LTV 278€ · 236 clients</title></circle>
+<circle cx="138.8" cy="212.6" r="3.8" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Venezuela" data-value="LTV 290€" data-count="PIB 13480$ · 235 clients"><title>Venezuela — PIB 13480$ · LTV 290€ · 235 clients</title></circle>
+<circle cx="163.6" cy="182.3" r="3.8" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Antigua And Barbuda" data-value="LTV 307€" data-count="PIB 17833$ · 235 clients"><title>Antigua And Barbuda — PIB 17833$ · LTV 307€ · 235 clients</title></circle>
+<circle cx="150.0" cy="201.3" r="3.8" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Panama" data-value="LTV 296€" data-count="PIB 15449$ · 234 clients"><title>Panama — PIB 15449$ · LTV 296€ · 234 clients</title></circle>
+<circle cx="139.2" cy="177.1" r="3.8" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Grenada" data-value="LTV 310€" data-count="PIB 13549$ · 219 clients"><title>Grenada — PIB 13549$ · LTV 310€ · 219 clients</title></circle>
+<circle cx="136.0" cy="198.2" r="3.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Iran" data-value="LTV 298€" data-count="PIB 12986$ · 210 clients"><title>Iran — PIB 12986$ · LTV 298€ · 210 clients</title></circle>
+<circle cx="139.0" cy="193.7" r="3.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Kazakhstan" data-value="LTV 301€" data-count="PIB 13526$ · 208 clients"><title>Kazakhstan — PIB 13526$ · LTV 301€ · 208 clients</title></circle>
+<circle cx="134.5" cy="230.9" r="3.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Romania" data-value="LTV 279€" data-count="PIB 12722$ · 203 clients"><title>Romania — PIB 12722$ · LTV 279€ · 203 clients</title></circle>
+<circle cx="141.7" cy="185.9" r="3.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Dominica" data-value="LTV 305€" data-count="PIB 13994$ · 200 clients"><title>Dominica — PIB 13994$ · LTV 305€ · 200 clients</title></circle>
+<circle cx="146.4" cy="178.2" r="3.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Turkey" data-value="LTV 309€" data-count="PIB 14812$ · 195 clients"><title>Turkey — PIB 14812$ · LTV 309€ · 195 clients</title></circle>
+<circle cx="133.4" cy="219.4" r="3.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Costa Rica" data-value="LTV 286€" data-count="PIB 12545$ · 194 clients"><title>Costa Rica — PIB 12545$ · LTV 286€ · 194 clients</title></circle>
+<circle cx="123.1" cy="197.7" r="3.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Serbia" data-value="LTV 298€" data-count="PIB 10722$ · 193 clients"><title>Serbia — PIB 10722$ · LTV 298€ · 193 clients</title></circle>
+<circle cx="136.0" cy="170.2" r="3.7" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Saint Lucia" data-value="LTV 314€" data-count="PIB 13000$ · 191 clients"><title>Saint Lucia — PIB 13000$ · LTV 314€ · 191 clients</title></circle>
+<circle cx="129.0" cy="197.9" r="3.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Saint Vincent And The Grenadines" data-value="LTV 298€" data-count="PIB 11768$ · 185 clients"><title>Saint Vincent And The Grenadines — PIB 11768$ · LTV 298€ · 185 clients</title></circle>
+<circle cx="121.6" cy="241.9" r="3.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Macedonia" data-value="LTV 273€" data-count="PIB 10465$ · 180 clients"><title>Macedonia — PIB 10465$ · LTV 273€ · 180 clients</title></circle>
+<circle cx="132.0" cy="172.0" r="3.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Suriname" data-value="LTV 313€" data-count="PIB 12299$ · 178 clients"><title>Suriname — PIB 12299$ · LTV 313€ · 178 clients</title></circle>
+<circle cx="130.0" cy="186.5" r="3.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Libya" data-value="LTV 305€" data-count="PIB 11936$ · 171 clients"><title>Libya — PIB 11936$ · LTV 305€ · 171 clients</title></circle>
+<circle cx="122.8" cy="192.2" r="3.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Colombia" data-value="LTV 301€" data-count="PIB 10671$ · 167 clients"><title>Colombia — PIB 10671$ · LTV 301€ · 167 clients</title></circle>
+<circle cx="126.2" cy="223.7" r="3.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="South Africa" data-value="LTV 283€" data-count="PIB 11281$ · 166 clients"><title>South Africa — PIB 11281$ · LTV 283€ · 166 clients</title></circle>
+<circle cx="128.1" cy="163.4" r="3.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Montenegro" data-value="LTV 318€" data-count="PIB 11610$ · 163 clients"><title>Montenegro — PIB 11610$ · LTV 318€ · 163 clients</title></circle>
+<circle cx="122.3" cy="174.7" r="3.6" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Peru" data-value="LTV 311€" data-count="PIB 10596$ · 161 clients"><title>Peru — PIB 10596$ · LTV 311€ · 161 clients</title></circle>
+<circle cx="120.2" cy="178.3" r="3.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Ecuador" data-value="LTV 309€" data-count="PIB 10215$ · 158 clients"><title>Ecuador — PIB 10215$ · LTV 309€ · 158 clients</title></circle>
+<circle cx="121.0" cy="203.2" r="3.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Azerbaijan" data-value="LTV 295€" data-count="PIB 10365$ · 157 clients"><title>Azerbaijan — PIB 10365$ · LTV 295€ · 157 clients</title></circle>
+<circle cx="116.1" cy="183.0" r="3.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Thailand" data-value="LTV 307€" data-count="PIB 9503$ · 153 clients"><title>Thailand — PIB 9503$ · LTV 307€ · 153 clients</title></circle>
+<circle cx="117.0" cy="147.6" r="3.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Tunisia" data-value="LTV 327€" data-count="PIB 9650$ · 147 clients"><title>Tunisia — PIB 9650$ · LTV 327€ · 147 clients</title></circle>
+<circle cx="116.4" cy="175.0" r="3.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Dominican Republic" data-value="LTV 311€" data-count="PIB 9547$ · 144 clients"><title>Dominican Republic — PIB 9547$ · LTV 311€ · 144 clients</title></circle>
+<circle cx="112.4" cy="214.5" r="3.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Maldives" data-value="LTV 289€" data-count="PIB 8856$ · 143 clients"><title>Maldives — PIB 8856$ · LTV 289€ · 143 clients</title></circle>
+<circle cx="110.9" cy="195.3" r="3.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Marshall Islands" data-value="LTV 300€" data-count="PIB 8590$ · 142 clients"><title>Marshall Islands — PIB 8590$ · LTV 300€ · 142 clients</title></circle>
+<circle cx="107.5" cy="191.4" r="3.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Tonga" data-value="LTV 302€" data-count="PIB 7987$ · 138 clients"><title>Tonga — PIB 7987$ · LTV 302€ · 138 clients</title></circle>
+<circle cx="106.4" cy="178.7" r="3.5" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Namibia" data-value="LTV 309€" data-count="PIB 7800$ · 137 clients"><title>Namibia — PIB 7800$ · LTV 309€ · 137 clients</title></circle>
+<circle cx="83.9" cy="197.3" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="India" data-value="LTV 299€" data-count="PIB 3843$ · 132 clients"><title>India — PIB 3843$ · LTV 299€ · 132 clients</title></circle>
+<circle cx="111.2" cy="183.9" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Turkmenistan" data-value="LTV 306€" data-count="PIB 8641$ · 132 clients"><title>Turkmenistan — PIB 8641$ · LTV 306€ · 132 clients</title></circle>
+<circle cx="112.8" cy="221.0" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Jamaica" data-value="LTV 285€" data-count="PIB 8916$ · 131 clients"><title>Jamaica — PIB 8916$ · LTV 285€ · 131 clients</title></circle>
+<circle cx="108.3" cy="192.7" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Bosnia And Herzegovina" data-value="LTV 301€" data-count="PIB 8127$ · 129 clients"><title>Bosnia And Herzegovina — PIB 8127$ · LTV 301€ · 129 clients</title></circle>
+<circle cx="111.3" cy="181.6" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Belize" data-value="LTV 308€" data-count="PIB 8659$ · 128 clients"><title>Belize — PIB 8659$ · LTV 308€ · 128 clients</title></circle>
+<circle cx="101.9" cy="144.4" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Iraq" data-value="LTV 329€" data-count="PIB 7004$ · 126 clients"><title>Iraq — PIB 7004$ · LTV 329€ · 126 clients</title></circle>
+<circle cx="103.5" cy="192.2" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Ukraine" data-value="LTV 301€" data-count="PIB 7295$ · 124 clients"><title>Ukraine — PIB 7295$ · LTV 301€ · 124 clients</title></circle>
+<circle cx="103.4" cy="224.1" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Algeria" data-value="LTV 283€" data-count="PIB 7268$ · 123 clients"><title>Algeria — PIB 7268$ · LTV 283€ · 123 clients</title></circle>
+<circle cx="107.4" cy="198.9" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Guyana" data-value="LTV 298€" data-count="PIB 7965$ · 113 clients"><title>Guyana — PIB 7965$ · LTV 298€ · 113 clients</title></circle>
+<circle cx="107.5" cy="211.3" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Albania" data-value="LTV 291€" data-count="PIB 7997$ · 113 clients"><title>Albania — PIB 7997$ · LTV 291€ · 113 clients</title></circle>
+<circle cx="98.9" cy="212.3" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Egypt" data-value="LTV 290€" data-count="PIB 6474$ · 112 clients"><title>Egypt — PIB 6474$ · LTV 290€ · 112 clients</title></circle>
+<circle cx="96.0" cy="211.3" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Jordan" data-value="LTV 291€" data-count="PIB 5977$ · 109 clients"><title>Jordan — PIB 5977$ · LTV 291€ · 109 clients</title></circle>
+<circle cx="99.4" cy="182.8" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Bhutan" data-value="LTV 307€" data-count="PIB 6564$ · 109 clients"><title>Bhutan — PIB 6564$ · LTV 307€ · 109 clients</title></circle>
+<circle cx="102.6" cy="166.2" r="3.4" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Micronesia Fed. Sts." data-value="LTV 316€" data-count="PIB 7123$ · 107 clients"><title>Micronesia Fed. Sts. — PIB 7123$ · LTV 316€ · 107 clients</title></circle>
+<circle cx="104.7" cy="207.8" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Kosovo[4]" data-value="LTV 293€" data-count="PIB 7506$ · 106 clients"><title>Kosovo[4] — PIB 7506$ · LTV 293€ · 106 clients</title></circle>
+<circle cx="96.4" cy="217.4" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Sri Lanka" data-value="LTV 287€" data-count="PIB 6046$ · 102 clients"><title>Sri Lanka — PIB 6046$ · LTV 287€ · 102 clients</title></circle>
+<circle cx="94.6" cy="211.6" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Swaziland" data-value="LTV 290€" data-count="PIB 5719$ · 97 clients"><title>Swaziland — PIB 5719$ · LTV 290€ · 97 clients</title></circle>
+<circle cx="96.5" cy="195.9" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Paraguay" data-value="LTV 299€" data-count="PIB 6053$ · 97 clients"><title>Paraguay — PIB 6053$ · LTV 299€ · 97 clients</title></circle>
+<circle cx="92.3" cy="228.7" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Mongolia" data-value="LTV 281€" data-count="PIB 5314$ · 93 clients"><title>Mongolia — PIB 5314$ · LTV 281€ · 93 clients</title></circle>
+<circle cx="90.7" cy="183.4" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Bolivia" data-value="LTV 307€" data-count="PIB 5041$ · 89 clients"><title>Bolivia — PIB 5041$ · LTV 307€ · 89 clients</title></circle>
+<circle cx="103.7" cy="123.4" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="El Salvador" data-value="LTV 341€" data-count="PIB 7316$ · 89 clients"><title>El Salvador — PIB 7316$ · LTV 341€ · 89 clients</title></circle>
+<circle cx="96.7" cy="187.9" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Angola" data-value="LTV 304€" data-count="PIB 6092$ · 88 clients"><title>Angola — PIB 6092$ · LTV 304€ · 88 clients</title></circle>
+<circle cx="97.1" cy="181.9" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Samoa" data-value="LTV 307€" data-count="PIB 6157$ · 88 clients"><title>Samoa — PIB 6157$ · LTV 307€ · 88 clients</title></circle>
+<circle cx="95.7" cy="195.6" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Armenia" data-value="LTV 299€" data-count="PIB 5924$ · 87 clients"><title>Armenia — PIB 5924$ · LTV 299€ · 87 clients</title></circle>
+<circle cx="97.5" cy="108.1" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Kiribati" data-value="LTV 350€" data-count="PIB 6241$ · 87 clients"><title>Kiribati — PIB 6241$ · LTV 350€ · 87 clients</title></circle>
+<circle cx="91.3" cy="174.4" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Guatemala" data-value="LTV 312€" data-count="PIB 5153$ · 85 clients"><title>Guatemala — PIB 5153$ · LTV 312€ · 85 clients</title></circle>
+<circle cx="95.3" cy="229.7" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Georgia" data-value="LTV 280€" data-count="PIB 5842$ · 85 clients"><title>Georgia — PIB 5842$ · LTV 280€ · 85 clients</title></circle>
+<circle cx="86.9" cy="162.4" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Cape Verde" data-value="LTV 318€" data-count="PIB 4368$ · 83 clients"><title>Cape Verde — PIB 4368$ · LTV 318€ · 83 clients</title></circle>
+<circle cx="88.3" cy="233.3" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Congo Rep." data-value="LTV 278€" data-count="PIB 4616$ · 79 clients"><title>Congo Rep. — PIB 4616$ · LTV 278€ · 79 clients</title></circle>
+<circle cx="89.0" cy="193.5" r="3.3" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Honduras" data-value="LTV 301€" data-count="PIB 4744$ · 79 clients"><title>Honduras — PIB 4744$ · LTV 301€ · 79 clients</title></circle>
+<circle cx="89.0" cy="227.2" r="3.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Fiji" data-value="LTV 281€" data-count="PIB 4740$ · 74 clients"><title>Fiji — PIB 4740$ · LTV 281€ · 74 clients</title></circle>
+<circle cx="89.6" cy="261.7" r="3.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Vanuatu" data-value="LTV 262€" data-count="PIB 4843$ · 74 clients"><title>Vanuatu — PIB 4843$ · LTV 262€ · 74 clients</title></circle>
+<circle cx="86.8" cy="175.5" r="3.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Nicaragua" data-value="LTV 311€" data-count="PIB 4352$ · 72 clients"><title>Nicaragua — PIB 4352$ · LTV 311€ · 72 clients</title></circle>
+<circle cx="90.0" cy="228.9" r="3.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Indonesia" data-value="LTV 280€" data-count="PIB 4923$ · 70 clients"><title>Indonesia — PIB 4923$ · LTV 280€ · 70 clients</title></circle>
+<circle cx="91.6" cy="242.2" r="3.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Morocco" data-value="LTV 273€" data-count="PIB 5193$ · 67 clients"><title>Morocco — PIB 5193$ · LTV 273€ · 67 clients</title></circle>
+<circle cx="86.9" cy="221.0" r="3.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Philippines" data-value="LTV 285€" data-count="PIB 4380$ · 60 clients"><title>Philippines — PIB 4380$ · LTV 285€ · 60 clients</title></circle>
+<circle cx="80.9" cy="204.4" r="3.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Ghana" data-value="LTV 294€" data-count="PIB 3316$ · 55 clients"><title>Ghana — PIB 3316$ · LTV 294€ · 55 clients</title></circle>
+<circle cx="82.1" cy="158.3" r="3.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Uzbekistan" data-value="LTV 321€" data-count="PIB 3523$ · 55 clients"><title>Uzbekistan — PIB 3523$ · LTV 321€ · 55 clients</title></circle>
+<circle cx="81.2" cy="262.3" r="3.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Moldova" data-value="LTV 261€" data-count="PIB 3378$ · 52 clients"><title>Moldova — PIB 3378$ · LTV 261€ · 52 clients</title></circle>
+<circle cx="83.6" cy="206.1" r="3.2" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Vietnam" data-value="LTV 293€" data-count="PIB 3788$ · 52 clients"><title>Vietnam — PIB 3788$ · LTV 293€ · 52 clients</title></circle>
+<circle cx="79.4" cy="193.0" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Pakistan" data-value="LTV 301€" data-count="PIB 3056$ · 49 clients"><title>Pakistan — PIB 3056$ · LTV 301€ · 49 clients</title></circle>
+<circle cx="74.8" cy="196.5" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Yemen" data-value="LTV 299€" data-count="PIB 2251$ · 48 clients"><title>Yemen — PIB 2251$ · LTV 299€ · 48 clients</title></circle>
+<circle cx="80.7" cy="208.2" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Solomon Islands" data-value="LTV 292€" data-count="PIB 3288$ · 46 clients"><title>Solomon Islands — PIB 3288$ · LTV 292€ · 46 clients</title></circle>
+<circle cx="81.6" cy="229.3" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Tuvalu" data-value="LTV 280€" data-count="PIB 3443$ · 44 clients"><title>Tuvalu — PIB 3443$ · LTV 280€ · 44 clients</title></circle>
+<circle cx="77.1" cy="184.2" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Djibouti" data-value="LTV 306€" data-count="PIB 2648$ · 42 clients"><title>Djibouti — PIB 2648$ · LTV 306€ · 42 clients</title></circle>
+<circle cx="77.6" cy="220.0" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Papua New Guinea" data-value="LTV 286€" data-count="PIB 2736$ · 42 clients"><title>Papua New Guinea — PIB 2736$ · LTV 286€ · 42 clients</title></circle>
+<circle cx="74.6" cy="124.2" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Tajikistan" data-value="LTV 340€" data-count="PIB 2205$ · 41 clients"><title>Tajikistan — PIB 2205$ · LTV 340€ · 41 clients</title></circle>
+<circle cx="72.6" cy="159.1" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Gambia The" data-value="LTV 320€" data-count="PIB 1868$ · 38 clients"><title>Gambia The — PIB 1868$ · LTV 320€ · 38 clients</title></circle>
+<circle cx="76.1" cy="233.3" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Chad" data-value="LTV 278€" data-count="PIB 2474$ · 37 clients"><title>Chad — PIB 2474$ · LTV 278€ · 37 clients</title></circle>
+<circle cx="78.2" cy="215.5" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Laos" data-value="LTV 288€" data-count="PIB 2847$ · 37 clients"><title>Laos — PIB 2847$ · LTV 288€ · 37 clients</title></circle>
+<circle cx="74.1" cy="216.4" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Lesotho" data-value="LTV 288€" data-count="PIB 2126$ · 34 clients"><title>Lesotho — PIB 2126$ · LTV 288€ · 34 clients</title></circle>
+<circle cx="70.9" cy="132.0" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Benin" data-value="LTV 336€" data-count="PIB 1556$ · 33 clients"><title>Benin — PIB 1556$ · LTV 336€ · 33 clients</title></circle>
+<circle cx="73.9" cy="253.1" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Mauritania" data-value="LTV 267€" data-count="PIB 2096$ · 33 clients"><title>Mauritania — PIB 2096$ · LTV 267€ · 33 clients</title></circle>
+<circle cx="73.2" cy="221.0" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Bangladesh" data-value="LTV 285€" data-count="PIB 1963$ · 32 clients"><title>Bangladesh — PIB 1963$ · LTV 285€ · 32 clients</title></circle>
+<circle cx="75.3" cy="197.3" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Cameroon" data-value="LTV 299€" data-count="PIB 2338$ · 32 clients"><title>Cameroon — PIB 2338$ · LTV 299€ · 32 clients</title></circle>
+<circle cx="75.6" cy="197.5" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Cambodia" data-value="LTV 298€" data-count="PIB 2395$ · 32 clients"><title>Cambodia — PIB 2395$ · LTV 298€ · 32 clients</title></circle>
+<circle cx="73.4" cy="223.1" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Senegal" data-value="LTV 284€" data-count="PIB 2005$ · 31 clients"><title>Senegal — PIB 2005$ · LTV 284€ · 31 clients</title></circle>
+<circle cx="71.3" cy="115.8" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Tanzania" data-value="LTV 345€" data-count="PIB 1627$ · 30 clients"><title>Tanzania — PIB 1627$ · LTV 345€ · 30 clients</title></circle>
+<circle cx="72.1" cy="286.8" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Kenya" data-value="LTV 247€" data-count="PIB 1781$ · 30 clients"><title>Kenya — PIB 1781$ · LTV 247€ · 30 clients</title></circle>
+<circle cx="76.5" cy="266.4" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Sudan" data-value="LTV 259€" data-count="PIB 2549$ · 30 clients"><title>Sudan — PIB 2549$ · LTV 259€ · 30 clients</title></circle>
+<circle cx="70.1" cy="167.4" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Uganda" data-value="LTV 316€" data-count="PIB 1424$ · 29 clients"><title>Uganda — PIB 1424$ · LTV 316€ · 29 clients</title></circle>
+<circle cx="75.4" cy="75.3" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Kyrgyzstan" data-value="LTV 368€" data-count="PIB 2351$ · 29 clients"><title>Kyrgyzstan — PIB 2351$ · LTV 368€ · 29 clients</title></circle>
+<circle cx="70.2" cy="204.3" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Rwanda" data-value="LTV 295€" data-count="PIB 1441$ · 28 clients"><title>Rwanda — PIB 1441$ · LTV 295€ · 28 clients</title></circle>
+<circle cx="71.7" cy="174.4" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Côte D'Ivoire" data-value="LTV 312€" data-count="PIB 1707$ · 26 clients"><title>Côte D'Ivoire — PIB 1707$ · LTV 312€ · 26 clients</title></circle>
+<circle cx="74.1" cy="130.2" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="São Tomé And Príncipe" data-value="LTV 337€" data-count="PIB 2121$ · 26 clients"><title>São Tomé And Príncipe — PIB 2121$ · LTV 337€ · 26 clients</title></circle>
+<circle cx="77.4" cy="175.3" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Nigeria" data-value="LTV 311€" data-count="PIB 2697$ · 26 clients"><title>Nigeria — PIB 2697$ · LTV 311€ · 26 clients</title></circle>
+<circle cx="68.9" cy="248.2" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Guinea-Bissau" data-value="LTV 269€" data-count="PIB 1210$ · 25 clients"><title>Guinea-Bissau — PIB 1210$ · LTV 269€ · 25 clients</title></circle>
+<circle cx="70.1" cy="127.7" r="3.1" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Burkina Faso" data-value="LTV 338€" data-count="PIB 1415$ · 25 clients"><title>Burkina Faso — PIB 1415$ · LTV 338€ · 25 clients</title></circle>
+<circle cx="70.3" cy="154.2" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Nepal" data-value="LTV 323€" data-count="PIB 1457$ · 24 clients"><title>Nepal — PIB 1457$ · LTV 323€ · 24 clients</title></circle>
+<circle cx="71.2" cy="231.6" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Burma" data-value="LTV 279€" data-count="PIB 1612$ · 23 clients"><title>Burma — PIB 1612$ · LTV 279€ · 23 clients</title></circle>
+<circle cx="68.3" cy="115.7" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Guinea" data-value="LTV 345€" data-count="PIB 1109$ · 22 clients"><title>Guinea — PIB 1109$ · LTV 345€ · 22 clients</title></circle>
+<circle cx="68.4" cy="185.3" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="South Sudan" data-value="LTV 305€" data-count="PIB 1120$ · 21 clients"><title>South Sudan — PIB 1120$ · LTV 305€ · 21 clients</title></circle>
+<circle cx="68.0" cy="53.5" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Afghanistan" data-value="LTV 381€" data-count="PIB 1055$ · 19 clients"><title>Afghanistan — PIB 1055$ · LTV 381€ · 19 clients</title></circle>
+<circle cx="68.2" cy="176.2" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Togo" data-value="LTV 311€" data-count="PIB 1093$ · 19 clients"><title>Togo — PIB 1093$ · LTV 311€ · 19 clients</title></circle>
+<circle cx="69.0" cy="269.4" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Haiti" data-value="LTV 257€" data-count="PIB 1229$ · 19 clients"><title>Haiti — PIB 1229$ · LTV 257€ · 19 clients</title></circle>
+<circle cx="66.8" cy="230.2" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Central African Republic" data-value="LTV 280€" data-count="PIB 851$ · 17 clients"><title>Central African Republic — PIB 851$ · LTV 280€ · 17 clients</title></circle>
+<circle cx="69.2" cy="53.2" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Ethiopia" data-value="LTV 381€" data-count="PIB 1256$ · 17 clients"><title>Ethiopia — PIB 1256$ · LTV 381€ · 17 clients</title></circle>
+<circle cx="66.8" cy="221.2" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Malawi" data-value="LTV 285€" data-count="PIB 848$ · 16 clients"><title>Malawi — PIB 848$ · LTV 285€ · 16 clients</title></circle>
+<circle cx="68.6" cy="301.0" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Mozambique" data-value="LTV 239€" data-count="PIB 1155$ · 16 clients"><title>Mozambique — PIB 1155$ · LTV 239€ · 16 clients</title></circle>
+<circle cx="69.1" cy="269.6" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Comoros" data-value="LTV 257€" data-count="PIB 1251$ · 16 clients"><title>Comoros — PIB 1251$ · LTV 257€ · 16 clients</title></circle>
+<circle cx="71.6" cy="184.5" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Zambia" data-value="LTV 306€" data-count="PIB 1683$ · 16 clients"><title>Zambia — PIB 1683$ · LTV 306€ · 16 clients</title></circle>
+<circle cx="68.2" cy="294.5" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Mali" data-value="LTV 243€" data-count="PIB 1088$ · 14 clients"><title>Mali — PIB 1088$ · LTV 243€ · 14 clients</title></circle>
+<circle cx="67.4" cy="220.8" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Madagascar" data-value="LTV 285€" data-count="PIB 945$ · 13 clients"><title>Madagascar — PIB 945$ · LTV 285€ · 13 clients</title></circle>
+<circle cx="65.5" cy="270.5" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Burundi" data-value="LTV 257€" data-count="PIB 619$ · 11 clients"><title>Burundi — PIB 619$ · LTV 257€ · 11 clients</title></circle>
+<circle cx="65.8" cy="315.6" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Liberia" data-value="LTV 231€" data-count="PIB 665$ · 11 clients"><title>Liberia — PIB 665$ · LTV 231€ · 11 clients</title></circle>
+<circle cx="69.4" cy="266.4" r="3.0" fill="url(#g1b)" stroke="#1A17CC" stroke-width=".6" opacity=".8" data-label="Sierra Leone" data-value="LTV 259€" data-count="PIB 1295$ · 11 clients"><title>Sierra Leone — PIB 1295$ · LTV 259€ · 11 clients</title></circle>
+<text class="value-label" x="380.5" y="181.9">United States</text>
+<text class="value-label" x="653.0" y="136.7">Qatar</text>
+<text class="value-label" x="298.3" y="155.6">Germany</text>
+<text class="value-label" x="279.1" y="175.6">France</text>
+<text class="value-label" x="285.4" y="167.3">United Kingdom</text>
+<line class="axis-line" x1="62" y1="352" x2="660" y2="352"/>
+<line class="axis-line" x1="62" y1="20" x2="62" y2="352"/>
+<text class="axis-title" x="340" y="394" text-anchor="middle">PIB par habitant (USD)</text>
+<text class="axis-title" x="14" y="186" text-anchor="middle" transform="rotate(-90 14 186)">LTV moyenne par pays (€)</text>
+</svg></div><div class="tk"><span class="tl">⬣ Takeaway</span><p>La LTV <b>décolle au-delà de 30 000$ de PIB/habitant</b>. Sous ce seuil : ~298€ ; au-dessus : ~330€ — soit <b>+11%</b>. Concentrer le budget d'acquisition sur les pays OCDE.</p></div></div>
+  <div class="cd-card"><div class="eye">Graphique 2 · Box plot</div><h3>Distribution de la LTV par quintile de PIB</h3><div class="csub">PIB binné en 5 catégories · médiane en orange · moyenne en point</div><div class="viz"><svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Box plot LTV par quintile PIB">
+<line class="grid-line" x1="62" y1="305.1" x2="660" y2="305.1"/>
+<text class="axis-label" x="54" y="309.1" text-anchor="end">100€</text>
+<line class="grid-line" x1="62" y1="258.3" x2="660" y2="258.3"/>
+<text class="axis-label" x="54" y="262.3" text-anchor="end">200€</text>
+<line class="grid-line" x1="62" y1="211.4" x2="660" y2="211.4"/>
+<text class="axis-label" x="54" y="215.4" text-anchor="end">300€</text>
+<line class="grid-line" x1="62" y1="164.6" x2="660" y2="164.6"/>
+<text class="axis-label" x="54" y="168.6" text-anchor="end">400€</text>
+<line class="grid-line" x1="62" y1="117.7" x2="660" y2="117.7"/>
+<text class="axis-label" x="54" y="121.7" text-anchor="end">500€</text>
+<line class="grid-line" x1="62" y1="70.9" x2="660" y2="70.9"/>
+<text class="axis-label" x="54" y="74.9" text-anchor="end">600€</text>
+<line class="grid-line" x1="62" y1="24.0" x2="660" y2="24.0"/>
+<text class="axis-label" x="54" y="28.0" text-anchor="end">700€</text>
+<line x1="121.8" y1="88.3" x2="121.8" y2="178.8" stroke="#8E8EA9" stroke-width="1.5"/>
+<line x1="121.8" y1="258.0" x2="121.8" y2="302.9" stroke="#8E8EA9" stroke-width="1.5"/>
+<line x1="105.1" y1="88.3" x2="138.5" y2="88.3" stroke="#8E8EA9" stroke-width="1.5"/>
+<line x1="105.1" y1="302.9" x2="138.5" y2="302.9" stroke="#8E8EA9" stroke-width="1.5"/>
+<rect x="88.3" y="178.8" width="67.0" height="79.2" fill="#8E8EA9" fill-opacity=".18" stroke="#8E8EA9" stroke-width="1.5" rx="1" data-label="PIB Très faible" data-value="Médiane 279€" data-count="Moy. 300€ · Q1 201€ · Q3 370€"/>
+<line x1="88.3" y1="221.2" x2="155.3" y2="221.2" stroke="#FF6600" stroke-width="3"/>
+<circle cx="121.8" cy="211.3" r="3" fill="#FF6600" stroke="white" stroke-width="1.2"/>
+<text class="axis-label" x="121.8" y="372" text-anchor="middle" font-weight="600">Très faible</text>
+<text class="value-label" x="161.3" y="225.2" fill="#FF6600" font-size="11">279€</text>
+<line x1="241.4" y1="85.6" x2="241.4" y2="175.7" stroke="#9CA9BE" stroke-width="1.5"/>
+<line x1="241.4" y1="254.8" x2="241.4" y2="299.6" stroke="#9CA9BE" stroke-width="1.5"/>
+<line x1="224.7" y1="85.6" x2="258.1" y2="85.6" stroke="#9CA9BE" stroke-width="1.5"/>
+<line x1="224.7" y1="299.6" x2="258.1" y2="299.6" stroke="#9CA9BE" stroke-width="1.5"/>
+<rect x="207.9" y="175.7" width="67.0" height="79.1" fill="#9CA9BE" fill-opacity=".18" stroke="#9CA9BE" stroke-width="1.5" rx="1" data-label="PIB Faible" data-value="Médiane 286€" data-count="Moy. 307€ · Q1 207€ · Q3 376€"/>
+<line x1="207.9" y1="217.9" x2="274.9" y2="217.9" stroke="#FF6600" stroke-width="3"/>
+<circle cx="241.4" cy="208.0" r="3" fill="#FF6600" stroke="white" stroke-width="1.2"/>
+<text class="axis-label" x="241.4" y="372" text-anchor="middle" font-weight="600">Faible</text>
+<text class="value-label" x="280.9" y="221.9" fill="#FF6600" font-size="11">286€</text>
+<line x1="361.0" y1="73.8" x2="361.0" y2="166.2" stroke="#6B68FF" stroke-width="1.5"/>
+<line x1="361.0" y1="248.5" x2="361.0" y2="297.4" stroke="#6B68FF" stroke-width="1.5"/>
+<line x1="344.3" y1="73.8" x2="377.7" y2="73.8" stroke="#6B68FF" stroke-width="1.5"/>
+<line x1="344.3" y1="297.4" x2="377.7" y2="297.4" stroke="#6B68FF" stroke-width="1.5"/>
+<rect x="327.5" y="166.2" width="67.0" height="82.4" fill="#6B68FF" fill-opacity=".18" stroke="#6B68FF" stroke-width="1.5" rx="1" data-label="PIB Moyen" data-value="Médiane 302€" data-count="Moy. 325€ · Q1 221€ · Q3 397€"/>
+<line x1="327.5" y1="210.3" x2="394.5" y2="210.3" stroke="#FF6600" stroke-width="3"/>
+<circle cx="361.0" cy="199.8" r="3" fill="#FF6600" stroke="white" stroke-width="1.2"/>
+<text class="axis-label" x="361.0" y="372" text-anchor="middle" font-weight="600">Moyen</text>
+<text class="value-label" x="400.5" y="214.3" fill="#FF6600" font-size="11">302€</text>
+<line x1="480.6" y1="72.6" x2="480.6" y2="162.7" stroke="#3732FF" stroke-width="1.5"/>
+<line x1="480.6" y1="246.0" x2="480.6" y2="294.6" stroke="#3732FF" stroke-width="1.5"/>
+<line x1="463.9" y1="72.6" x2="497.3" y2="72.6" stroke="#3732FF" stroke-width="1.5"/>
+<line x1="463.9" y1="294.6" x2="497.3" y2="294.6" stroke="#3732FF" stroke-width="1.5"/>
+<rect x="447.1" y="162.7" width="67.0" height="83.2" fill="#3732FF" fill-opacity=".18" stroke="#3732FF" stroke-width="1.5" rx="1" data-label="PIB Élevé" data-value="Médiane 307€" data-count="Moy. 330€ · Q1 226€ · Q3 404€"/>
+<line x1="447.1" y1="208.3" x2="514.1" y2="208.3" stroke="#FF6600" stroke-width="3"/>
+<circle cx="480.6" cy="197.2" r="3" fill="#FF6600" stroke="white" stroke-width="1.2"/>
+<text class="axis-label" x="480.6" y="372" text-anchor="middle" font-weight="600">Élevé</text>
+<text class="value-label" x="520.1" y="212.3" fill="#FF6600" font-size="11">307€</text>
+<line x1="600.2" y1="74.9" x2="600.2" y2="165.3" stroke="#1A17CC" stroke-width="1.5"/>
+<line x1="600.2" y1="247.1" x2="600.2" y2="296.4" stroke="#1A17CC" stroke-width="1.5"/>
+<line x1="583.5" y1="74.9" x2="616.9" y2="74.9" stroke="#1A17CC" stroke-width="1.5"/>
+<line x1="583.5" y1="296.4" x2="616.9" y2="296.4" stroke="#1A17CC" stroke-width="1.5"/>
+<rect x="566.7" y="165.3" width="67.0" height="81.8" fill="#1A17CC" fill-opacity=".18" stroke="#1A17CC" stroke-width="1.5" rx="1" data-label="PIB Très élevé" data-value="Médiane 303€" data-count="Moy. 326€ · Q1 224€ · Q3 398€"/>
+<line x1="566.7" y1="210.0" x2="633.7" y2="210.0" stroke="#FF6600" stroke-width="3"/>
+<circle cx="600.2" cy="199.2" r="3" fill="#FF6600" stroke="white" stroke-width="1.2"/>
+<text class="axis-label" x="600.2" y="372" text-anchor="middle" font-weight="600">Très élevé</text>
+<text class="value-label" x="639.7" y="214.0" fill="#FF6600" font-size="11">303€</text>
+<line class="axis-line" x1="62" y1="352" x2="660" y2="352"/>
+<line class="axis-line" x1="62" y1="24" x2="62" y2="352"/>
+<text class="axis-title" x="340" y="394" text-anchor="middle">Quintile de PIB par habitant</text>
+<text class="axis-title" x="14" y="188" text-anchor="middle" transform="rotate(-90 14 188)">Lifetime Value (€)</text>
+</svg></div><div class="tk"><span class="tl">⬣ Takeaway</span><p>Confirmation : plus le pays est riche, plus la dépense médiane monte et la <b>dispersion se resserre</b>. Le comportement est <b>plus prédictible</b> dans les pays OCDE — critique pour un scoring en production.</p></div></div>
+</div>
+
+<!-- AXE 2 — QUI -->
+<div class="axis-s" id="axe-2">
+  <div class="axis-h"><div class="axis-n">02</div><div class="axis-c"><span class="at">Axe 2 · Le "QUI"</span><h2>La <em>Silver Economy</em> est le vrai moteur de rentabilité</h2><p class="aq">L'idée reçue voudrait que les digital natives soient les meilleurs clients e-commerce. Nos données racontent l'inverse.</p></div></div>
+  <div class="cd-card"><div class="eye">Graphique 3 · Bar chart</div><h3>LTV moyenne par tranche d'âge</h3><div class="csub">Âge binné par décennies · filtre : customer_age &lt; 90 ans · ligne pointillée = moyenne globale</div><div class="viz"><svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LTV par âge">
+<defs><linearGradient id="g3b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF6600"/><stop offset="100%" stop-color="#3732FF"/></linearGradient></defs>
+<line class="grid-line" x1="62" y1="287.2" x2="656" y2="287.2"/>
+<text class="axis-label" x="54" y="291.2" text-anchor="end">100€</text>
+<line class="grid-line" x1="62" y1="222.4" x2="656" y2="222.4"/>
+<text class="axis-label" x="54" y="226.4" text-anchor="end">200€</text>
+<line class="grid-line" x1="62" y1="157.6" x2="656" y2="157.6"/>
+<text class="axis-label" x="54" y="161.6" text-anchor="end">300€</text>
+<line class="grid-line" x1="62" y1="92.8" x2="656" y2="92.8"/>
+<text class="axis-label" x="54" y="96.8" text-anchor="end">400€</text>
+<line class="grid-line" x1="62" y1="28.0" x2="656" y2="28.0"/>
+<text class="axis-label" x="54" y="32.0" text-anchor="end">500€</text>
+<line x1="62" y1="122.1" x2="656" y2="122.1" stroke="#8E8EA9" stroke-width="1" stroke-dasharray="4 4" opacity=".6"/>
+<text class="axis-label" x="652" y="117.1" text-anchor="end" font-size="10" font-style="italic">moy. globale 355€</text>
+<rect x="76.1" y="184.3" width="46.0" height="167.7" fill="url(#g3b)" rx="2" data-label="10-19 ans" data-value="259€ LTV moyenne"/>
+<text class="value-label" x="99.1" y="178.3" text-anchor="middle">259€</text>
+<text class="axis-label" x="99.1" y="372.0" text-anchor="middle" font-weight="600">10-19</text>
+<rect x="150.4" y="170.7" width="46.0" height="181.3" fill="url(#g3b)" rx="2" data-label="20-29 ans" data-value="280€ LTV moyenne"/>
+<text class="value-label" x="173.4" y="164.7" text-anchor="middle">280€</text>
+<text class="axis-label" x="173.4" y="372.0" text-anchor="middle" font-weight="600">20-29</text>
+<rect x="224.6" y="150.8" width="46.0" height="201.2" fill="url(#g3b)" rx="2" data-label="30-39 ans" data-value="310€ LTV moyenne"/>
+<text class="value-label" x="247.6" y="144.8" text-anchor="middle">310€</text>
+<text class="axis-label" x="247.6" y="372.0" text-anchor="middle" font-weight="600">30-39</text>
+<rect x="298.9" y="126.8" width="46.0" height="225.2" fill="url(#g3b)" rx="2" data-label="40-49 ans" data-value="348€ LTV moyenne"/>
+<text class="value-label" x="321.9" y="120.8" text-anchor="middle">348€</text>
+<text class="axis-label" x="321.9" y="372.0" text-anchor="middle" font-weight="600">40-49</text>
+<rect x="373.1" y="106.0" width="46.0" height="246.0" fill="url(#g3b)" rx="2" data-label="50-59 ans" data-value="380€ LTV moyenne"/>
+<text class="value-label" x="396.1" y="100.0" text-anchor="middle">380€</text>
+<text class="axis-label" x="396.1" y="372.0" text-anchor="middle" font-weight="600">50-59</text>
+<rect x="447.4" y="94.0" width="46.0" height="258.0" fill="url(#g3b)" rx="2" data-label="60-69 ans" data-value="398€ LTV moyenne"/>
+<text class="value-label" x="470.4" y="88.0" text-anchor="middle">398€</text>
+<text class="axis-label" x="470.4" y="372.0" text-anchor="middle" font-weight="600">60-69</text>
+<rect x="521.6" y="79.1" width="46.0" height="272.9" fill="url(#g3b)" rx="2" data-label="70-79 ans" data-value="421€ LTV moyenne"/>
+<text class="value-label" x="544.6" y="73.1" text-anchor="middle">421€</text>
+<text class="axis-label" x="544.6" y="372.0" text-anchor="middle" font-weight="600">70-79</text>
+<rect x="595.9" y="65.5" width="46.0" height="286.5" fill="url(#g3b)" rx="2" data-label="80-89 ans" data-value="442€ LTV moyenne"/>
+<text class="value-label" x="618.9" y="59.5" text-anchor="middle">442€</text>
+<text class="axis-label" x="618.9" y="372.0" text-anchor="middle" font-weight="600">80-89</text>
+<line class="axis-line" x1="62" y1="352" x2="656" y2="352"/>
+<line class="axis-line" x1="62" y1="28" x2="62" y2="352"/>
+<text class="axis-title" x="340" y="394" text-anchor="middle">Tranche d'âge (années)</text>
+<text class="axis-title" x="14" y="190" text-anchor="middle" transform="rotate(-90 14 190)">LTV moyenne (€)</text>
+<g transform="translate(82,44)"><rect x="0" y="0" width="170" height="38" fill="#FFE6D9" rx="3"/>
+<text x="10" y="16" fill="#FF6600" font-size="10" font-weight="700" font-family="JetBrains Mono">+71% UPLIFT</text>
+<text x="10" y="30" fill="#1A1A2E" font-size="11" font-weight="600">20 ans → 80 ans</text></g>
+</svg></div><div class="tk"><span class="tl">⬣ Takeaway · Silver Economy</span><p>La valeur client <b>progresse quasi-linéairement avec l'âge</b>. Un 80 ans génère 442€ contre 259€ pour un &lt;20 ans — soit <b>+71%</b>.</p></div></div>
+  <div class="cd-card"><div class="eye">Graphique 4 · Stacked bar 100%</div><h3>Mix catégories d'achat selon l'âge</h3><div class="csub">Répartition (%) des catégories principales · 6 catégories</div><div class="viz"><svg viewBox="0 0 680 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mix catégorie par âge">
+<line class="grid-line" x1="62" y1="330.0" x2="656" y2="330.0"/>
+<text class="axis-label" x="54" y="334.0" text-anchor="end">0%</text>
+<line class="grid-line" x1="62" y1="254.5" x2="656" y2="254.5"/>
+<text class="axis-label" x="54" y="258.5" text-anchor="end">25%</text>
+<line class="grid-line" x1="62" y1="179.0" x2="656" y2="179.0"/>
+<text class="axis-label" x="54" y="183.0" text-anchor="end">50%</text>
+<line class="grid-line" x1="62" y1="103.5" x2="656" y2="103.5"/>
+<text class="axis-label" x="54" y="107.5" text-anchor="end">75%</text>
+<line class="grid-line" x1="62" y1="28.0" x2="656" y2="28.0"/>
+<text class="axis-label" x="54" y="32.0" text-anchor="end">100%</text>
+<rect x="73.9" y="281.4" width="50.5" height="48.6" fill="#6B68FF" data-label="Sports · 10-19" data-value="16.1%"><title>10-19 · sports: 16.1%</title></rect>
+<text x="99.1" y="308.7" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">16%</text>
+<rect x="73.9" y="218.0" width="50.5" height="63.4" fill="#FF6600" data-label="Fashion · 10-19" data-value="21.0%"><title>10-19 · fashion: 21.0%</title></rect>
+<text x="99.1" y="252.7" text-anchor="middle" font-size="10" font-weight="700" fill="white">21%</text>
+<rect x="73.9" y="143.4" width="50.5" height="74.6" fill="#FFC845" data-label="Groceries · 10-19" data-value="24.7%"><title>10-19 · groceries: 24.7%</title></rect>
+<text x="99.1" y="183.7" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">25%</text>
+<rect x="73.9" y="101.7" width="50.5" height="41.7" fill="#F582A8" data-label="Beauty · 10-19" data-value="13.8%"><title>10-19 · beauty: 13.8%</title></rect>
+<text x="99.1" y="125.5" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">14%</text>
+<rect x="73.9" y="64.5" width="50.5" height="37.1" fill="#2EBFB0" data-label="Home · 10-19" data-value="12.3%"><title>10-19 · home: 12.3%</title></rect>
+<text x="99.1" y="86.1" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">12%</text>
+<rect x="73.9" y="28.0" width="50.5" height="36.5" fill="#3732FF" data-label="Electronics · 10-19" data-value="12.1%"><title>10-19 · electronics: 12.1%</title></rect>
+<text x="99.1" y="49.3" text-anchor="middle" font-size="10" font-weight="700" fill="white">12%</text>
+<text class="axis-label" x="99.1" y="350.0" text-anchor="middle" font-weight="600">10-19</text>
+<rect x="148.1" y="282.6" width="50.5" height="47.4" fill="#6B68FF" data-label="Sports · 20-29" data-value="15.7%"><title>20-29 · sports: 15.7%</title></rect>
+<text x="173.4" y="309.3" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">16%</text>
+<rect x="148.1" y="220.4" width="50.5" height="62.2" fill="#FF6600" data-label="Fashion · 20-29" data-value="20.6%"><title>20-29 · fashion: 20.6%</title></rect>
+<text x="173.4" y="254.5" text-anchor="middle" font-size="10" font-weight="700" fill="white">21%</text>
+<rect x="148.1" y="148.2" width="50.5" height="72.2" fill="#FFC845" data-label="Groceries · 20-29" data-value="23.9%"><title>20-29 · groceries: 23.9%</title></rect>
+<text x="173.4" y="187.3" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">24%</text>
+<rect x="148.1" y="105.3" width="50.5" height="42.9" fill="#F582A8" data-label="Beauty · 20-29" data-value="14.2%"><title>20-29 · beauty: 14.2%</title></rect>
+<text x="173.4" y="129.8" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">14%</text>
+<rect x="148.1" y="65.1" width="50.5" height="40.2" fill="#2EBFB0" data-label="Home · 20-29" data-value="13.3%"><title>20-29 · home: 13.3%</title></rect>
+<text x="173.4" y="88.2" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">13%</text>
+<rect x="148.1" y="28.0" width="50.5" height="37.1" fill="#3732FF" data-label="Electronics · 20-29" data-value="12.3%"><title>20-29 · electronics: 12.3%</title></rect>
+<text x="173.4" y="49.6" text-anchor="middle" font-size="10" font-weight="700" fill="white">12%</text>
+<text class="axis-label" x="173.4" y="350.0" text-anchor="middle" font-weight="600">20-29</text>
+<rect x="222.4" y="282.9" width="50.5" height="47.1" fill="#6B68FF" data-label="Sports · 30-39" data-value="15.6%"><title>30-39 · sports: 15.6%</title></rect>
+<text x="247.6" y="309.4" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">16%</text>
+<rect x="222.4" y="222.8" width="50.5" height="60.1" fill="#FF6600" data-label="Fashion · 30-39" data-value="19.9%"><title>30-39 · fashion: 19.9%</title></rect>
+<text x="247.6" y="255.8" text-anchor="middle" font-size="10" font-weight="700" fill="white">20%</text>
+<rect x="222.4" y="153.0" width="50.5" height="69.8" fill="#FFC845" data-label="Groceries · 30-39" data-value="23.1%"><title>30-39 · groceries: 23.1%</title></rect>
+<text x="247.6" y="190.9" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">23%</text>
+<rect x="222.4" y="113.5" width="50.5" height="39.6" fill="#F582A8" data-label="Beauty · 30-39" data-value="13.1%"><title>30-39 · beauty: 13.1%</title></rect>
+<text x="247.6" y="136.2" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">13%</text>
+<rect x="222.4" y="67.0" width="50.5" height="46.5" fill="#2EBFB0" data-label="Home · 30-39" data-value="15.4%"><title>30-39 · home: 15.4%</title></rect>
+<text x="247.6" y="93.2" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">15%</text>
+<rect x="222.4" y="28.0" width="50.5" height="39.0" fill="#3732FF" data-label="Electronics · 30-39" data-value="12.9%"><title>30-39 · electronics: 12.9%</title></rect>
+<text x="247.6" y="50.5" text-anchor="middle" font-size="10" font-weight="700" fill="white">13%</text>
+<text class="axis-label" x="247.6" y="350.0" text-anchor="middle" font-weight="600">30-39</text>
+<rect x="296.6" y="296.8" width="50.5" height="33.2" fill="#6B68FF" data-label="Sports · 40-49" data-value="11.0%"><title>40-49 · sports: 11.0%</title></rect>
+<text x="321.9" y="316.4" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">11%</text>
+<rect x="296.6" y="240.0" width="50.5" height="56.8" fill="#FF6600" data-label="Fashion · 40-49" data-value="18.8%"><title>40-49 · fashion: 18.8%</title></rect>
+<text x="321.9" y="271.4" text-anchor="middle" font-size="10" font-weight="700" fill="white">19%</text>
+<rect x="296.6" y="168.7" width="50.5" height="71.3" fill="#FFC845" data-label="Groceries · 40-49" data-value="23.6%"><title>40-49 · groceries: 23.6%</title></rect>
+<text x="321.9" y="207.4" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">24%</text>
+<rect x="296.6" y="126.8" width="50.5" height="42.0" fill="#F582A8" data-label="Beauty · 40-49" data-value="13.9%"><title>40-49 · beauty: 13.9%</title></rect>
+<text x="321.9" y="150.7" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">14%</text>
+<rect x="296.6" y="72.7" width="50.5" height="54.1" fill="#2EBFB0" data-label="Home · 40-49" data-value="17.9%"><title>40-49 · home: 17.9%</title></rect>
+<text x="321.9" y="102.7" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">18%</text>
+<rect x="296.6" y="28.0" width="50.5" height="44.7" fill="#3732FF" data-label="Electronics · 40-49" data-value="14.8%"><title>40-49 · electronics: 14.8%</title></rect>
+<text x="321.9" y="53.3" text-anchor="middle" font-size="10" font-weight="700" fill="white">15%</text>
+<text class="axis-label" x="321.9" y="350.0" text-anchor="middle" font-weight="600">40-49</text>
+<rect x="370.9" y="300.4" width="50.5" height="29.6" fill="#6B68FF" data-label="Sports · 50-59" data-value="9.8%"><title>50-59 · sports: 9.8%</title></rect>
+<text x="396.1" y="318.2" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">10%</text>
+<rect x="370.9" y="245.1" width="50.5" height="55.3" fill="#FF6600" data-label="Fashion · 50-59" data-value="18.3%"><title>50-59 · fashion: 18.3%</title></rect>
+<text x="396.1" y="275.8" text-anchor="middle" font-size="10" font-weight="700" fill="white">18%</text>
+<rect x="370.9" y="177.8" width="50.5" height="67.3" fill="#FFC845" data-label="Groceries · 50-59" data-value="22.3%"><title>50-59 · groceries: 22.3%</title></rect>
+<text x="396.1" y="214.5" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">22%</text>
+<rect x="370.9" y="135.5" width="50.5" height="42.3" fill="#F582A8" data-label="Beauty · 50-59" data-value="14.0%"><title>50-59 · beauty: 14.0%</title></rect>
+<text x="396.1" y="159.7" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">14%</text>
+<rect x="370.9" y="76.6" width="50.5" height="58.9" fill="#2EBFB0" data-label="Home · 50-59" data-value="19.5%"><title>50-59 · home: 19.5%</title></rect>
+<text x="396.1" y="109.1" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">20%</text>
+<rect x="370.9" y="28.0" width="50.5" height="48.6" fill="#3732FF" data-label="Electronics · 50-59" data-value="16.1%"><title>50-59 · electronics: 16.1%</title></rect>
+<text x="396.1" y="55.3" text-anchor="middle" font-size="10" font-weight="700" fill="white">16%</text>
+<text class="axis-label" x="396.1" y="350.0" text-anchor="middle" font-weight="600">50-59</text>
+<rect x="445.1" y="301.3" width="50.5" height="28.7" fill="#6B68FF" data-label="Sports · 60-69" data-value="9.5%"><title>60-69 · sports: 9.5%</title></rect>
+<text x="470.4" y="318.7" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">10%</text>
+<rect x="445.1" y="246.6" width="50.5" height="54.7" fill="#FF6600" data-label="Fashion · 60-69" data-value="18.1%"><title>60-69 · fashion: 18.1%</title></rect>
+<text x="470.4" y="277.0" text-anchor="middle" font-size="10" font-weight="700" fill="white">18%</text>
+<rect x="445.1" y="181.4" width="50.5" height="65.2" fill="#FFC845" data-label="Groceries · 60-69" data-value="21.6%"><title>60-69 · groceries: 21.6%</title></rect>
+<text x="470.4" y="217.0" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">22%</text>
+<rect x="445.1" y="137.6" width="50.5" height="43.8" fill="#F582A8" data-label="Beauty · 60-69" data-value="14.5%"><title>60-69 · beauty: 14.5%</title></rect>
+<text x="470.4" y="162.5" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">14%</text>
+<rect x="445.1" y="82.7" width="50.5" height="55.0" fill="#2EBFB0" data-label="Home · 60-69" data-value="18.2%"><title>60-69 · home: 18.2%</title></rect>
+<text x="470.4" y="113.1" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">18%</text>
+<rect x="445.1" y="27.7" width="50.5" height="55.0" fill="#3732FF" data-label="Electronics · 60-69" data-value="18.2%"><title>60-69 · electronics: 18.2%</title></rect>
+<text x="470.4" y="58.2" text-anchor="middle" font-size="10" font-weight="700" fill="white">18%</text>
+<text class="axis-label" x="470.4" y="350.0" text-anchor="middle" font-weight="600">60-69</text>
+<rect x="519.4" y="299.5" width="50.5" height="30.5" fill="#6B68FF" data-label="Sports · 70-79" data-value="10.1%"><title>70-79 · sports: 10.1%</title></rect>
+<text x="544.6" y="317.7" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">10%</text>
+<rect x="519.4" y="246.3" width="50.5" height="53.2" fill="#FF6600" data-label="Fashion · 70-79" data-value="17.6%"><title>70-79 · fashion: 17.6%</title></rect>
+<text x="544.6" y="275.9" text-anchor="middle" font-size="10" font-weight="700" fill="white">18%</text>
+<rect x="519.4" y="191.4" width="50.5" height="55.0" fill="#FFC845" data-label="Groceries · 70-79" data-value="18.2%"><title>70-79 · groceries: 18.2%</title></rect>
+<text x="544.6" y="221.9" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">18%</text>
+<rect x="519.4" y="140.3" width="50.5" height="51.0" fill="#F582A8" data-label="Beauty · 70-79" data-value="16.9%"><title>70-79 · beauty: 16.9%</title></rect>
+<text x="544.6" y="168.9" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">17%</text>
+<rect x="519.4" y="87.5" width="50.5" height="52.9" fill="#2EBFB0" data-label="Home · 70-79" data-value="17.5%"><title>70-79 · home: 17.5%</title></rect>
+<text x="544.6" y="116.9" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">18%</text>
+<rect x="519.4" y="28.0" width="50.5" height="59.5" fill="#3732FF" data-label="Electronics · 70-79" data-value="19.7%"><title>70-79 · electronics: 19.7%</title></rect>
+<text x="544.6" y="60.7" text-anchor="middle" font-size="10" font-weight="700" fill="white">20%</text>
+<text class="axis-label" x="544.6" y="350.0" text-anchor="middle" font-weight="600">70-79</text>
+<rect x="593.6" y="301.9" width="50.5" height="28.1" fill="#6B68FF" data-label="Sports · 80-89" data-value="9.3%"><title>80-89 · sports: 9.3%</title></rect>
+<text x="618.9" y="319.0" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">9%</text>
+<rect x="593.6" y="255.1" width="50.5" height="46.8" fill="#FF6600" data-label="Fashion · 80-89" data-value="15.5%"><title>80-89 · fashion: 15.5%</title></rect>
+<text x="618.9" y="281.5" text-anchor="middle" font-size="10" font-weight="700" fill="white">16%</text>
+<rect x="593.6" y="187.5" width="50.5" height="67.6" fill="#FFC845" data-label="Groceries · 80-89" data-value="22.4%"><title>80-89 · groceries: 22.4%</title></rect>
+<text x="618.9" y="224.3" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">22%</text>
+<rect x="593.6" y="144.6" width="50.5" height="42.9" fill="#F582A8" data-label="Beauty · 80-89" data-value="14.2%"><title>80-89 · beauty: 14.2%</title></rect>
+<text x="618.9" y="169.0" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">14%</text>
+<rect x="593.6" y="82.1" width="50.5" height="62.5" fill="#2EBFB0" data-label="Home · 80-89" data-value="20.7%"><title>80-89 · home: 20.7%</title></rect>
+<text x="618.9" y="116.3" text-anchor="middle" font-size="10" font-weight="700" fill="#1A1A2E">21%</text>
+<rect x="593.6" y="28.3" width="50.5" height="53.8" fill="#3732FF" data-label="Electronics · 80-89" data-value="17.8%"><title>80-89 · electronics: 17.8%</title></rect>
+<text x="618.9" y="58.2" text-anchor="middle" font-size="10" font-weight="700" fill="white">18%</text>
+<text class="axis-label" x="618.9" y="350.0" text-anchor="middle" font-weight="600">80-89</text>
+<line class="axis-line" x1="62" y1="330" x2="656" y2="330"/>
+<text class="axis-title" x="340" y="376" text-anchor="middle">Tranche d'âge (années)</text>
+<rect x="62" y="386" width="14" height="14" fill="#6B68FF" rx="2"/>
+<text x="82" y="397" font-size="12" fill="#1A1A2E" font-weight="600">Sport</text>
+<rect x="161" y="386" width="14" height="14" fill="#FF6600" rx="2"/>
+<text x="181" y="397" font-size="12" fill="#1A1A2E" font-weight="600">Mode</text>
+<rect x="260" y="386" width="14" height="14" fill="#FFC845" rx="2"/>
+<text x="280" y="397" font-size="12" fill="#1A1A2E" font-weight="600">Alimentation</text>
+<rect x="359" y="386" width="14" height="14" fill="#F582A8" rx="2"/>
+<text x="379" y="397" font-size="12" fill="#1A1A2E" font-weight="600">Beauté</text>
+<rect x="458" y="386" width="14" height="14" fill="#2EBFB0" rx="2"/>
+<text x="478" y="397" font-size="12" fill="#1A1A2E" font-weight="600">Maison</text>
+<rect x="557" y="386" width="14" height="14" fill="#3732FF" rx="2"/>
+<text x="577" y="397" font-size="12" fill="#1A1A2E" font-weight="600">High-Tech</text>
+</svg></div><div class="tk"><span class="tl">⬣ Takeaway · Glissement du panier</span><p>La <b>part du Sport chute de 16% à 10%</b> (20→70 ans), l'<b>Électronique explose de 12% à 20%</b>. Les Seniors sont le cœur de cible <b>High-Tech / Maison Connectée</b>.</p></div></div>
+  <div class="cd-card"><div class="eye">Graphique 5 · Line chart</div><h3>Corrélation NPS → Lifetime Value</h3><div class="csub">Score NPS de 0 (détracteur) à 10 (promoteur) · zones colorées par segment NPS</div><div class="viz"><svg viewBox="0 0 680 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NPS vs LTV">
+<line class="grid-line" x1="58" y1="253.7" x2="656" y2="253.7"/>
+<text class="axis-label" x="52" y="257.7" text-anchor="end">280€</text>
+<line class="grid-line" x1="58" y1="177.1" x2="656" y2="177.1"/>
+<text class="axis-label" x="52" y="181.1" text-anchor="end">300€</text>
+<line class="grid-line" x1="58" y1="100.6" x2="656" y2="100.6"/>
+<text class="axis-label" x="52" y="104.6" text-anchor="end">320€</text>
+<line class="grid-line" x1="58" y1="24.0" x2="656" y2="24.0"/>
+<text class="axis-label" x="52" y="28.0" text-anchor="end">340€</text>
+<text class="axis-label" x="58.0" y="312" text-anchor="middle" font-weight="600">0</text>
+<text class="axis-label" x="117.8" y="312" text-anchor="middle" font-weight="600">1</text>
+<text class="axis-label" x="177.6" y="312" text-anchor="middle" font-weight="600">2</text>
+<text class="axis-label" x="237.4" y="312" text-anchor="middle" font-weight="600">3</text>
+<text class="axis-label" x="297.2" y="312" text-anchor="middle" font-weight="600">4</text>
+<text class="axis-label" x="357.0" y="312" text-anchor="middle" font-weight="600">5</text>
+<text class="axis-label" x="416.8" y="312" text-anchor="middle" font-weight="600">6</text>
+<text class="axis-label" x="476.6" y="312" text-anchor="middle" font-weight="600">7</text>
+<text class="axis-label" x="536.4" y="312" text-anchor="middle" font-weight="600">8</text>
+<text class="axis-label" x="596.2" y="312" text-anchor="middle" font-weight="600">9</text>
+<text class="axis-label" x="656.0" y="312" text-anchor="middle" font-weight="600">10</text>
+<rect x="58" y="24" width="358.8" height="268" fill="#E51A2D" opacity=".04"/>
+<rect x="416.8" y="24" width="119.6" height="268" fill="#FFC845" opacity=".06"/>
+<rect x="536.4" y="24" width="119.6" height="268" fill="#00A651" opacity=".06"/>
+<text x="237" y="286" text-anchor="middle" fill="#E51A2D" font-size="10" font-weight="700" opacity=".6">Détracteurs</text>
+<text x="477" y="286" text-anchor="middle" fill="#FFC845" font-size="10" font-weight="700" opacity=".7">Passifs</text>
+<text x="596" y="286" text-anchor="middle" fill="#00A651" font-size="10" font-weight="700" opacity=".7">Promoteurs</text>
+<path d="M 58.0 218.9 L 117.8 125.1 L 177.6 156.5 L 237.4 140.0 L 297.2 110.1 L 357.0 128.5 L 416.8 131.2 L 476.6 110.5 L 536.4 105.2 L 596.2 94.8 L 656.0 80.3" fill="none" stroke="#3732FF" stroke-width="2.5" stroke-linejoin="round"/>
+<circle cx="58.0" cy="218.9" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 0" data-value="289€ LTV moyenne"/>
+<text class="value-label" x="58.0" y="208.9" text-anchor="middle" font-size="10">289€</text>
+<circle cx="117.8" cy="125.1" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 1" data-value="314€ LTV moyenne"/>
+<text class="value-label" x="117.8" y="115.1" text-anchor="middle" font-size="10">314€</text>
+<circle cx="177.6" cy="156.5" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 2" data-value="305€ LTV moyenne"/>
+<text class="value-label" x="177.6" y="146.5" text-anchor="middle" font-size="10">305€</text>
+<circle cx="237.4" cy="140.0" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 3" data-value="310€ LTV moyenne"/>
+<text class="value-label" x="237.4" y="130.0" text-anchor="middle" font-size="10">310€</text>
+<circle cx="297.2" cy="110.1" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 4" data-value="318€ LTV moyenne"/>
+<text class="value-label" x="297.2" y="100.1" text-anchor="middle" font-size="10">318€</text>
+<circle cx="357.0" cy="128.5" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 5" data-value="313€ LTV moyenne"/>
+<text class="value-label" x="357.0" y="118.5" text-anchor="middle" font-size="10">313€</text>
+<circle cx="416.8" cy="131.2" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 6" data-value="312€ LTV moyenne"/>
+<text class="value-label" x="416.8" y="121.2" text-anchor="middle" font-size="10">312€</text>
+<circle cx="476.6" cy="110.5" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 7" data-value="317€ LTV moyenne"/>
+<text class="value-label" x="476.6" y="100.5" text-anchor="middle" font-size="10">317€</text>
+<circle cx="536.4" cy="105.2" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 8" data-value="319€ LTV moyenne"/>
+<text class="value-label" x="536.4" y="95.2" text-anchor="middle" font-size="10">319€</text>
+<circle cx="596.2" cy="94.8" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 9" data-value="322€ LTV moyenne"/>
+<text class="value-label" x="596.2" y="84.8" text-anchor="middle" font-size="10">322€</text>
+<circle cx="656.0" cy="80.3" r="5" fill="#3732FF" stroke="white" stroke-width="2" data-label="NPS 10" data-value="325€ LTV moyenne"/>
+<text class="value-label" x="656.0" y="70.3" text-anchor="middle" font-size="10">325€</text>
+<line class="axis-line" x1="58" y1="292" x2="656" y2="292"/>
+<line class="axis-line" x1="58" y1="24" x2="58" y2="292"/>
+<text class="axis-title" x="340" y="334" text-anchor="middle">Score NPS (0-10)</text>
+<text class="axis-title" x="14" y="158" text-anchor="middle" transform="rotate(-90 14 158)">LTV moyenne (€)</text>
+</svg></div><div class="tk"><span class="tl">⬣ Takeaway · Satisfaction = fidélité</span><p>La LTV croît de 289€ (NPS=0) à 325€ (NPS=10), soit <b>+13%</b>. Les <b>Promoteurs (NPS ≥ 9)</b> sont significativement plus rentables.</p></div></div>
+</div>
+
+<!-- AXE 3 — QUOI -->
+<div class="axis-s" id="axe-3">
+  <div class="axis-h"><div class="axis-n">03</div><div class="axis-c"><span class="at">Axe 3 · Le "QUOI"</span><h2>La campagne marketing <em>crée</em> de la valeur, partout</h2><p class="aq">Les canaux payants sont-ils rentables ? La dernière campagne, a-t-elle vraiment fait la différence ?</p></div></div>
+  <div class="cd-card"><div class="eye">Graphique 6 · Grouped bar chart</div><h3>Impact de la campagne sur la LTV — 6 marchés stratégiques</h3><div class="csub">Comparaison LTV avec / sans exposition · focus USA, UK, France, Allemagne, Japon, Chine</div><div class="viz"><svg viewBox="0 0 1280 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Impact campagne par pays">
+<line class="grid-line" x1="70" y1="296.0" x2="1240" y2="296.0"/>
+<text class="axis-label" x="62" y="300.0" text-anchor="end">100€</text>
+<line class="grid-line" x1="70" y1="232.0" x2="1240" y2="232.0"/>
+<text class="axis-label" x="62" y="236.0" text-anchor="end">200€</text>
+<line class="grid-line" x1="70" y1="168.0" x2="1240" y2="168.0"/>
+<text class="axis-label" x="62" y="172.0" text-anchor="end">300€</text>
+<line class="grid-line" x1="70" y1="104.0" x2="1240" y2="104.0"/>
+<text class="axis-label" x="62" y="108.0" text-anchor="end">400€</text>
+<line class="grid-line" x1="70" y1="40.0" x2="1240" y2="40.0"/>
+<text class="axis-label" x="62" y="44.0" text-anchor="end">500€</text>
+<rect x="109.9" y="175.2" width="54.6" height="184.8" fill="#8E8EA9" rx="2" opacity=".85" data-label="États-Unis · Sans campagne" data-value="289€"/>
+<rect x="170.5" y="122.2" width="54.6" height="237.8" fill="#FF6600" rx="2" data-label="États-Unis · Avec campagne" data-value="372€" data-count="+29% uplift"/>
+<text class="value-label" x="137.2" y="170.2" text-anchor="middle" fill="#8E8EA9">289</text>
+<text class="value-label" x="197.8" y="117.2" text-anchor="middle" fill="#FF6600">372</text>
+<rect x="139.5" y="90.2" width="56" height="20" rx="10" fill="#FFE6D9"/>
+<text x="167.5" y="104.2" text-anchor="middle" fill="#FF6600" font-size="12" font-weight="700" font-family="JetBrains Mono">+29%</text>
+<text class="axis-label" x="167.5" y="382.0" text-anchor="middle" font-weight="700" fill="#1A1A2E">États-Unis</text>
+<rect x="304.9" y="170.1" width="54.6" height="189.9" fill="#8E8EA9" rx="2" opacity=".85" data-label="Royaume-Uni · Sans campagne" data-value="297€"/>
+<rect x="365.5" y="121.6" width="54.6" height="238.4" fill="#FF6600" rx="2" data-label="Royaume-Uni · Avec campagne" data-value="372€" data-count="+26% uplift"/>
+<text class="value-label" x="332.2" y="165.1" text-anchor="middle" fill="#8E8EA9">297</text>
+<text class="value-label" x="392.8" y="116.6" text-anchor="middle" fill="#FF6600">372</text>
+<rect x="334.5" y="89.6" width="56" height="20" rx="10" fill="#FFE6D9"/>
+<text x="362.5" y="103.6" text-anchor="middle" fill="#FF6600" font-size="12" font-weight="700" font-family="JetBrains Mono">+26%</text>
+<text class="axis-label" x="362.5" y="382.0" text-anchor="middle" font-weight="700" fill="#1A1A2E">Royaume-Uni</text>
+<rect x="499.9" y="172.1" width="54.6" height="187.9" fill="#8E8EA9" rx="2" opacity=".85" data-label="France · Sans campagne" data-value="294€"/>
+<rect x="560.5" y="123.0" width="54.6" height="237.0" fill="#FF6600" rx="2" data-label="France · Avec campagne" data-value="370€" data-count="+26% uplift"/>
+<text class="value-label" x="527.2" y="167.1" text-anchor="middle" fill="#8E8EA9">294</text>
+<text class="value-label" x="587.8" y="118.0" text-anchor="middle" fill="#FF6600">370</text>
+<rect x="529.5" y="91.0" width="56" height="20" rx="10" fill="#FFE6D9"/>
+<text x="557.5" y="105.0" text-anchor="middle" fill="#FF6600" font-size="12" font-weight="700" font-family="JetBrains Mono">+26%</text>
+<text class="axis-label" x="557.5" y="382.0" text-anchor="middle" font-weight="700" fill="#1A1A2E">France</text>
+<rect x="694.9" y="164.4" width="54.6" height="195.6" fill="#8E8EA9" rx="2" opacity=".85" data-label="Allemagne · Sans campagne" data-value="306€"/>
+<rect x="755.5" y="116.4" width="54.6" height="243.6" fill="#FF6600" rx="2" data-label="Allemagne · Avec campagne" data-value="381€" data-count="+25% uplift"/>
+<text class="value-label" x="722.2" y="159.4" text-anchor="middle" fill="#8E8EA9">306</text>
+<text class="value-label" x="782.8" y="111.4" text-anchor="middle" fill="#FF6600">381</text>
+<rect x="724.5" y="84.4" width="56" height="20" rx="10" fill="#FFE6D9"/>
+<text x="752.5" y="98.4" text-anchor="middle" fill="#FF6600" font-size="12" font-weight="700" font-family="JetBrains Mono">+25%</text>
+<text class="axis-label" x="752.5" y="382.0" text-anchor="middle" font-weight="700" fill="#1A1A2E">Allemagne</text>
+<rect x="889.9" y="173.4" width="54.6" height="186.6" fill="#8E8EA9" rx="2" opacity=".85" data-label="Japon · Sans campagne" data-value="292€"/>
+<rect x="950.5" y="124.4" width="54.6" height="235.6" fill="#FF6600" rx="2" data-label="Japon · Avec campagne" data-value="368€" data-count="+26% uplift"/>
+<text class="value-label" x="917.2" y="168.4" text-anchor="middle" fill="#8E8EA9">292</text>
+<text class="value-label" x="977.8" y="119.4" text-anchor="middle" fill="#FF6600">368</text>
+<rect x="919.5" y="92.4" width="56" height="20" rx="10" fill="#FFE6D9"/>
+<text x="947.5" y="106.4" text-anchor="middle" fill="#FF6600" font-size="12" font-weight="700" font-family="JetBrains Mono">+26%</text>
+<text class="axis-label" x="947.5" y="382.0" text-anchor="middle" font-weight="700" fill="#1A1A2E">Japon</text>
+<rect x="1084.9" y="182.1" width="54.6" height="177.9" fill="#8E8EA9" rx="2" opacity=".85" data-label="Chine · Sans campagne" data-value="278€"/>
+<rect x="1145.5" y="124.6" width="54.6" height="235.4" fill="#FF6600" rx="2" data-label="Chine · Avec campagne" data-value="368€" data-count="+32% uplift"/>
+<text class="value-label" x="1112.2" y="177.1" text-anchor="middle" fill="#8E8EA9">278</text>
+<text class="value-label" x="1172.8" y="119.6" text-anchor="middle" fill="#FF6600">368</text>
+<rect x="1114.5" y="92.6" width="56" height="20" rx="10" fill="#FFE6D9"/>
+<text x="1142.5" y="106.6" text-anchor="middle" fill="#FF6600" font-size="12" font-weight="700" font-family="JetBrains Mono">+32%</text>
+<text class="axis-label" x="1142.5" y="382.0" text-anchor="middle" font-weight="700" fill="#1A1A2E">Chine</text>
+<line class="axis-line" x1="70" y1="360" x2="1240" y2="360"/>
+<text class="axis-title" x="14" y="200" text-anchor="middle" transform="rotate(-90 14 200)">LTV moyenne (€)</text>
+<rect x="90" y="400" width="14" height="14" fill="#8E8EA9" rx="2"/><text x="112" y="411" font-size="13" font-weight="600" fill="#1A1A2E">Sans campagne</text>
+<rect x="270" y="400" width="14" height="14" fill="#FF6600" rx="2"/><text x="292" y="411" font-size="13" font-weight="600" fill="#1A1A2E">Avec campagne</text>
+</svg></div><div class="tk"><span class="tl">⬣ Takeaway · Efficacité prouvée</span><p>La campagne augmente la LTV de <b>+25% à +32%</b> sur <b>tous les marchés</b>. Uplift moyen <b>+27%</b> — un <b>levier universel</b>, donc industrialisable.</p></div></div>
+  <div class="cd-card"><div class="eye">Graphique 7 · Horizontal bar chart</div><h3>LTV moyenne par canal d'acquisition</h3><div class="csub">9 canaux classés par LTV · canaux payants (bleu) vs organiques (gris)</div><div class="viz"><svg viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LTV par canal">
+<rect x="110" y="12" width="10" height="10" fill="#3732FF" rx="2"/><text x="126" y="21" font-size="11" font-weight="600" fill="#1A1A2E">Canaux payants</text>
+<rect x="250" y="12" width="10" height="10" fill="#8E8EA9" rx="2"/><text x="266" y="21" font-size="11" font-weight="600" fill="#1A1A2E">Canaux organiques</text>
+<line class="grid-line" x1="110.0" y1="44" x2="110.0" y2="384"/>
+<text class="axis-label" x="110.0" y="402" text-anchor="middle">0€</text>
+<line class="grid-line" x1="233.8" y1="44" x2="233.8" y2="384"/>
+<text class="axis-label" x="233.8" y="402" text-anchor="middle">100€</text>
+<line class="grid-line" x1="357.6" y1="44" x2="357.6" y2="384"/>
+<text class="axis-label" x="357.6" y="402" text-anchor="middle">200€</text>
+<line class="grid-line" x1="481.4" y1="44" x2="481.4" y2="384"/>
+<text class="axis-label" x="481.4" y="402" text-anchor="middle">300€</text>
+<line class="grid-line" x1="605.2" y1="44" x2="605.2" y2="384"/>
+<text class="axis-label" x="605.2" y="402" text-anchor="middle">400€</text>
+<rect class="bar-hover" x="110" y="51.9" width="470.7" height="21.9" fill="#3732FF" rx="4" opacity=".85" data-label="Display" data-value="380€" data-count="1,445 clients"><title>Display — 380€ · 1,445 clients</title></rect>
+<text class="axis-label" x="102" y="66.9" text-anchor="end" font-weight="700" fill="#1A1A2E" font-size="12">Display</text>
+<text class="value-label" x="588.7" y="66.9" fill="#3732FF" font-size="13" font-weight="800">380€</text>
+<rect class="bar-hover" x="110" y="89.7" width="467.0" height="21.9" fill="#3732FF" rx="4" opacity=".85" data-label="Social Ads" data-value="377€" data-count="3,969 clients"><title>Social Ads — 377€ · 3,969 clients</title></rect>
+<text class="axis-label" x="102" y="104.7" text-anchor="end" font-weight="700" fill="#1A1A2E" font-size="12">Social Ads</text>
+<text class="value-label" x="585.0" y="104.7" fill="#3732FF" font-size="13" font-weight="800">377€</text>
+<rect class="bar-hover" x="110" y="127.5" width="466.3" height="21.9" fill="#3732FF" rx="4" opacity=".85" data-label="Search Ads" data-value="377€" data-count="5,339 clients"><title>Search Ads — 377€ · 5,339 clients</title></rect>
+<text class="axis-label" x="102" y="142.4" text-anchor="end" font-weight="700" fill="#1A1A2E" font-size="12">Search Ads</text>
+<text class="value-label" x="584.3" y="142.4" fill="#3732FF" font-size="13" font-weight="800">377€</text>
+<rect class="bar-hover" x="110" y="165.3" width="463.7" height="21.9" fill="#3732FF" rx="4" opacity=".85" data-label="Email" data-value="374€" data-count="2,916 clients"><title>Email — 374€ · 2,916 clients</title></rect>
+<text class="axis-label" x="102" y="180.2" text-anchor="end" font-weight="700" fill="#1A1A2E" font-size="12">Email</text>
+<text class="value-label" x="581.7" y="180.2" fill="#3732FF" font-size="13" font-weight="800">374€</text>
+<rect class="bar-hover" x="110" y="203.0" width="457.5" height="21.9" fill="#3732FF" rx="4" opacity=".85" data-label="Affilié" data-value="370€" data-count="1,141 clients"><title>Affilié — 370€ · 1,141 clients</title></rect>
+<text class="axis-label" x="102" y="218.0" text-anchor="end" font-weight="700" fill="#1A1A2E" font-size="12">Affilié</text>
+<text class="value-label" x="575.5" y="218.0" fill="#3732FF" font-size="13" font-weight="800">370€</text>
+<rect class="bar-hover" x="110" y="240.8" width="371.4" height="21.9" fill="#8E8EA9" rx="4" opacity=".85" data-label="Referral" data-value="300€" data-count="6,693 clients"><title>Referral — 300€ · 6,693 clients</title></rect>
+<text class="axis-label" x="102" y="255.8" text-anchor="end" font-weight="700" fill="#1A1A2E" font-size="12">Referral</text>
+<text class="value-label" x="489.4" y="255.8" fill="#8E8EA9" font-size="13" font-weight="800">300€</text>
+<rect class="bar-hover" x="110" y="278.6" width="369.9" height="21.9" fill="#8E8EA9" rx="4" opacity=".85" data-label="Organique" data-value="299€" data-count="20,115 clients"><title>Organique — 299€ · 20,115 clients</title></rect>
+<text class="axis-label" x="102" y="293.6" text-anchor="end" font-weight="700" fill="#1A1A2E" font-size="12">Organique</text>
+<text class="value-label" x="487.9" y="293.6" fill="#8E8EA9" font-size="13" font-weight="800">299€</text>
+<rect class="bar-hover" x="110" y="316.4" width="365.7" height="21.9" fill="#8E8EA9" rx="4" opacity=".85" data-label="Direct" data-value="295€" data-count="14,670 clients"><title>Direct — 295€ · 14,670 clients</title></rect>
+<text class="axis-label" x="102" y="331.3" text-anchor="end" font-weight="700" fill="#1A1A2E" font-size="12">Direct</text>
+<text class="value-label" x="483.7" y="331.3" fill="#8E8EA9" font-size="13" font-weight="800">295€</text>
+<rect class="bar-hover" x="110" y="354.2" width="365.4" height="21.9" fill="#8E8EA9" rx="4" opacity=".85" data-label="Partenaire" data-value="295€" data-count="2,240 clients"><title>Partenaire — 295€ · 2,240 clients</title></rect>
+<text class="axis-label" x="102" y="369.1" text-anchor="end" font-weight="700" fill="#1A1A2E" font-size="12">Partenaire</text>
+<text class="value-label" x="483.4" y="369.1" fill="#8E8EA9" font-size="13" font-weight="800">295€</text>
+<line class="axis-line" x1="110" y1="384" x2="630" y2="384"/>
+<line class="axis-line" x1="110" y1="44" x2="110" y2="384"/>
+</svg></div><div class="tk"><span class="tl">⬣ Takeaway · ROI des canaux payants</span><p>Les canaux payants génèrent une LTV de <b>376€</b> contre <b>297€</b> pour les organiques — soit <b>+27%</b>. Le coût d'acquisition est compensé par un client de meilleure qualité.</p></div></div>
+  <div class="cd-card"><div class="eye">Graphique 8 · Area chart</div><h3>Engagement on-site : pages visitées vs Lifetime Value</h3><div class="csub">Chaque point = moyenne LTV pour un nombre de pages · taille = volume clients · barres orange = volume relatif</div><div class="viz"><svg viewBox="0 0 680 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pages visitées vs LTV">
+<defs><linearGradient id="g8f" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3732FF" stop-opacity=".15"/><stop offset="100%" stop-color="#3732FF" stop-opacity=".02"/></linearGradient></defs>
+<line class="grid-line" x1="58" y1="285.1" x2="650" y2="285.1"/>
+<text class="axis-label" x="52" y="289.1" text-anchor="end">250€</text>
+<line class="grid-line" x1="58" y1="242.3" x2="650" y2="242.3"/>
+<text class="axis-label" x="52" y="246.3" text-anchor="end">300€</text>
+<line class="grid-line" x1="58" y1="199.4" x2="650" y2="199.4"/>
+<text class="axis-label" x="52" y="203.4" text-anchor="end">350€</text>
+<line class="grid-line" x1="58" y1="156.6" x2="650" y2="156.6"/>
+<text class="axis-label" x="52" y="160.6" text-anchor="end">400€</text>
+<line class="grid-line" x1="58" y1="113.7" x2="650" y2="113.7"/>
+<text class="axis-label" x="52" y="117.7" text-anchor="end">450€</text>
+<line class="grid-line" x1="58" y1="70.9" x2="650" y2="70.9"/>
+<text class="axis-label" x="52" y="74.9" text-anchor="end">500€</text>
+<line class="grid-line" x1="58" y1="28.0" x2="650" y2="28.0"/>
+<text class="axis-label" x="52" y="32.0" text-anchor="end">550€</text>
+<text class="axis-label" x="58.0" y="348" text-anchor="middle" font-weight="600">0</text>
+<text class="axis-label" x="176.4" y="348" text-anchor="middle" font-weight="600">3</text>
+<text class="axis-label" x="294.8" y="348" text-anchor="middle" font-weight="600">6</text>
+<text class="axis-label" x="413.2" y="348" text-anchor="middle" font-weight="600">9</text>
+<text class="axis-label" x="531.6" y="348" text-anchor="middle" font-weight="600">12</text>
+<text class="axis-label" x="650.0" y="348" text-anchor="middle" font-weight="600">15</text>
+<path d="M 58.0 289.6 L 97.5 280.1 L 136.9 261.7 L 176.4 242.8 L 215.9 227.1 L 255.3 210.1 L 294.8 190.9 L 334.3 168.6 L 373.7 159.7 L 413.2 140.4 L 452.7 116.1 L 492.1 117.8 L 531.6 102.1 L 571.1 84.9 L 610.5 54.0 L 650.0 59.2 L 650.0 328.0 L 58.0 328.0 Z" fill="url(#g8f)"/>
+<path d="M 58.0 289.6 L 97.5 280.1 L 136.9 261.7 L 176.4 242.8 L 215.9 227.1 L 255.3 210.1 L 294.8 190.9 L 334.3 168.6 L 373.7 159.7 L 413.2 140.4 L 452.7 116.1 L 492.1 117.8 L 531.6 102.1 L 571.1 84.9 L 610.5 54.0 L 650.0 59.2" fill="none" stroke="#3732FF" stroke-width="2.5" stroke-linejoin="round"/>
+<rect x="54.0" y="288.0" width="8" height="40.0" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="58.0" cy="289.6" r="8.0" fill="#3732FF" stroke="white" stroke-width="2" data-label="0 pages visitées" data-value="245€ LTV" data-count="9,089 clients"><title>0 pages · 245€ · 9,089 clients</title></circle>
+<text class="value-label" x="58.0" y="275.6" text-anchor="middle" font-size="11">245€</text>
+<rect x="93.5" y="314.2" width="8" height="13.8" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="97.5" cy="280.1" r="5.6" fill="#3732FF" stroke="white" stroke-width="2" data-label="1 pages visitées" data-value="256€ LTV" data-count="3,135 clients"><title>1 pages · 256€ · 3,135 clients</title></circle>
+<rect x="132.9" y="300.7" width="8" height="27.3" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="136.9" cy="261.7" r="8.0" fill="#3732FF" stroke="white" stroke-width="2" data-label="2 pages visitées" data-value="277€ LTV" data-count="6,210 clients"><title>2 pages · 277€ · 6,210 clients</title></circle>
+<rect x="172.4" y="291.0" width="8" height="37.0" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="176.4" cy="242.8" r="8.0" fill="#3732FF" stroke="white" stroke-width="2" data-label="3 pages visitées" data-value="299€ LTV" data-count="8,423 clients"><title>3 pages · 299€ · 8,423 clients</title></circle>
+<text class="value-label" x="176.4" y="228.8" text-anchor="middle" font-size="11">299€</text>
+<rect x="211.9" y="289.9" width="8" height="38.1" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="215.9" cy="227.1" r="8.0" fill="#3732FF" stroke="white" stroke-width="2" data-label="4 pages visitées" data-value="318€ LTV" data-count="8,674 clients"><title>4 pages · 318€ · 8,674 clients</title></circle>
+<rect x="251.3" y="295.0" width="8" height="33.0" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="255.3" cy="210.1" r="8.0" fill="#3732FF" stroke="white" stroke-width="2" data-label="5 pages visitées" data-value="338€ LTV" data-count="7,507 clients"><title>5 pages · 338€ · 7,507 clients</title></circle>
+<text class="value-label" x="255.3" y="196.1" text-anchor="middle" font-size="11">338€</text>
+<rect x="290.8" y="302.5" width="8" height="25.5" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="294.8" cy="190.9" r="7.8" fill="#3732FF" stroke="white" stroke-width="2" data-label="6 pages visitées" data-value="360€ LTV" data-count="5,809 clients"><title>6 pages · 360€ · 5,809 clients</title></circle>
+<rect x="330.3" y="310.8" width="8" height="17.2" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="334.3" cy="168.6" r="6.3" fill="#3732FF" stroke="white" stroke-width="2" data-label="7 pages visitées" data-value="386€ LTV" data-count="3,924 clients"><title>7 pages · 386€ · 3,924 clients</title></circle>
+<text class="value-label" x="334.3" y="156.3" text-anchor="middle" font-size="11">386€</text>
+<rect x="369.7" y="316.9" width="8" height="11.1" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="373.7" cy="159.7" r="5.1" fill="#3732FF" stroke="white" stroke-width="2" data-label="8 pages visitées" data-value="396€ LTV" data-count="2,521 clients"><title>8 pages · 396€ · 2,521 clients</title></circle>
+<rect x="409.2" y="321.4" width="8" height="6.6" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="413.2" cy="140.4" r="4.3" fill="#3732FF" stroke="white" stroke-width="2" data-label="9 pages visitées" data-value="419€ LTV" data-count="1,507 clients"><title>9 pages · 419€ · 1,507 clients</title></circle>
+<rect x="448.7" y="324.2" width="8" height="3.8" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="452.7" cy="116.1" r="3.7" fill="#3732FF" stroke="white" stroke-width="2" data-label="10 pages visitées" data-value="447€ LTV" data-count="875 clients"><title>10 pages · 447€ · 875 clients</title></circle>
+<text class="value-label" x="452.7" y="106.4" text-anchor="middle" font-size="11">447€</text>
+<rect x="488.1" y="326.1" width="8" height="1.9" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="492.1" cy="117.8" r="3.4" fill="#3732FF" stroke="white" stroke-width="2" data-label="11 pages visitées" data-value="445€ LTV" data-count="432 clients"><title>11 pages · 445€ · 432 clients</title></circle>
+<rect x="527.6" y="327.0" width="8" height="1.0" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="531.6" cy="102.1" r="3.2" fill="#3732FF" stroke="white" stroke-width="2" data-label="12 pages visitées" data-value="464€ LTV" data-count="237 clients"><title>12 pages · 464€ · 237 clients</title></circle>
+<rect x="567.1" y="327.5" width="8" height="0.5" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="571.1" cy="84.9" r="3.1" fill="#3732FF" stroke="white" stroke-width="2" data-label="13 pages visitées" data-value="484€ LTV" data-count="107 clients"><title>13 pages · 484€ · 107 clients</title></circle>
+<rect x="606.5" y="327.8" width="8" height="0.2" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="610.5" cy="54.0" r="3.0" fill="#3732FF" stroke="white" stroke-width="2" data-label="14 pages visitées" data-value="520€ LTV" data-count="45 clients"><title>14 pages · 520€ · 45 clients</title></circle>
+<rect x="646.0" y="327.9" width="8" height="0.1" fill="#FF6600" opacity=".12" rx="1"/>
+<circle cx="650.0" cy="59.2" r="3.0" fill="#3732FF" stroke="white" stroke-width="2" data-label="15 pages visitées" data-value="514€ LTV" data-count="33 clients"><title>15 pages · 514€ · 33 clients</title></circle>
+<text class="value-label" x="650.0" y="50.2" text-anchor="middle" font-size="11">514€</text>
+<line class="axis-line" x1="58" y1="328" x2="650" y2="328"/>
+<line class="axis-line" x1="58" y1="28" x2="58" y2="328"/>
+<text class="axis-title" x="340" y="372" text-anchor="middle">Nombre de pages visitées</text>
+<text class="axis-title" x="14" y="178" text-anchor="middle" transform="rotate(-90 14 178)">LTV moyenne (€)</text>
+<g transform="translate(70,36)"><rect x="0" y="0" width="185" height="42" fill="#FFE6D9" rx="4"/>
+<text x="10" y="16" fill="#FF6600" font-size="10" font-weight="700" font-family="JetBrains Mono">+110% UPLIFT</text>
+<text x="10" y="32" fill="#1A1A2E" font-size="11" font-weight="600">0 pages → 15 pages</text></g>
+</svg></div><div class="tk"><span class="tl">⬣ Takeaway · L'engagement paie</span><p>La LTV passe de <b>245€ (0 pages) à 514€ (15 pages)</b>, soit <b>+110%</b>. Chaque page supplémentaire ajoute ~+18€ de LTV. Investir dans le contenu on-site et les mécaniques de rétention est directement monétisable.</p></div></div>
+</div>
+
+<!-- RECOMMANDATIONS -->
+<div class="reco" id="recos">
+  <div class="re">§ 04 · So What ?</div>
+  <h2>Trois recommandations stratégiques</h2>
+  <p class="rl">De l'analyse à l'action : voici où concentrer les prochains 12 mois d'investissement pour convertir l'insight en croissance rentable.</p>
+  <div class="reco-grid">
+    <div class="rc"><div class="rn">01</div><div class="rt">Géographie</div><h3>Recentrer le budget d'acquisition sur l'OCDE</h3><p>Plafonner les investissements dans les pays à PIB &lt; 30k$ et réallouer vers les 30 marchés matures. Chaque euro y est rémunéré <b>+11%</b> en LTV, avec un comportement plus prédictible.</p><span class="rp">+11% LTV uplift</span></div>
+    <div class="rc"><div class="rn">02</div><div class="rt">Cible · Démographie</div><h3>Pivoter le marketing vers les Seniors 50-70 ans</h3><p>Adapter l'UX, le ton de communication, et lancer un programme fidélité « Silver ». Ce segment génère jusqu'à <b>+71%</b> de LTV et achète les catégories les plus margées.</p><span class="rp">+71% LTV vs jeunes</span></div>
+    <div class="rc"><div class="rn">03</div><div class="rt">Offre · Activation</div><h3>Pousser High-Tech &amp; Maison sur cible Senior via canaux payants</h3><p>Industrialiser les campagnes Display + Social Ads (<b>+27%</b> LTV vs organique) sur Électronique et Maison vers les 50-70 ans. Triple convergence : segment le plus rentable × catégorie la plus margée × uplift campagne prouvé.</p><span class="rp">+27% via campagne</span></div>
+  </div>
+</div>
+
+</main>
+
+<footer class="cd-footer"><div class="cd-footer-inner">
+  <div class="footer-grid">
+    <div class="footer-col"><h4>Cdiscount</h4><ul><li><a href="#">Qui sommes-nous ?</a></li><li><a href="#">Recrutement</a></li><li><a href="#">Nos engagements</a></li><li><a href="#">Presse</a></li><li><a href="#">Programme de fidélité</a></li></ul></div>
+    <div class="footer-col"><h4>Aide &amp; Contact</h4><ul><li><a href="#">Service client</a></li><li><a href="#">Suivi de commande</a></li><li><a href="#">Retours &amp; remboursements</a></li><li><a href="#">FAQ</a></li><li><a href="#">Accessibilité</a></li></ul></div>
+    <div class="footer-col"><h4>Nos services</h4><ul><li><a href="#">Cdiscount à volonté</a></li><li><a href="#">Marketplace</a></li><li><a href="#">Carte Cdiscount</a></li><li><a href="#">Cdiscount Énergie</a></li><li><a href="#">Cdiscount Mobile</a></li></ul></div>
+    <div class="footer-col"><h4>Informations légales</h4><ul><li><a href="#">CGV</a></li><li><a href="#">Mentions légales</a></li><li><a href="#">Données personnelles</a></li><li><a href="#">Cookies</a></li><li><a href="#">Médiation</a></li></ul></div>
+  </div>
+  <div class="footer-badges">
+    <div class="footer-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>Paiement sécurisé</div>
+    <div class="footer-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4z"/></svg>Livraison rapide</div>
+    <div class="footer-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Satisfait ou remboursé</div>
+    <div class="footer-badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 0 0-1.38-3.56A8.03 8.03 0 0 1 18.92 8z"/></svg>188 pays</div>
+  </div>
+  <div class="footer-bottom"><div><span class="fb-logo">Cdiscount</span> <span style="margin:0 8px;opacity:.4">·</span> Projet Dataiku CLV · Groupe D · Analyse complète</div><div>Portfolio · <a href="https://joliment.fr" target="_blank">joliment.fr</a> · 2025</div></div>
+</div></footer>
+
+<!-- Tooltip -->
+<div id="tt" style="position:fixed;pointer-events:none;z-index:9999;background:#1A1A2E;color:#fff;padding:8px 14px;border-radius:6px;font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.2);opacity:0;transition:opacity .15s;max-width:260px;line-height:1.4;font-family:'Open Sans',sans-serif">
+  <div id="tt-label" style="font-size:11px;color:#8E8EA9;margin-bottom:2px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em"></div>
+  <div id="tt-value" style="font-size:18px;font-weight:800;color:#FF6600"></div>
+  <div id="tt-extra" style="font-size:11px;color:#8E8EA9;margin-top:2px"></div>
+</div>
+
+<style>
+/* Interactivity */
+.viz rect[data-label],.viz circle[data-label]{cursor:pointer;transition:opacity .2s,filter .2s,transform .15s}
+.viz rect[data-label]:hover{opacity:1!important;filter:brightness(1.15) drop-shadow(0 2px 8px rgba(55,50,255,.3))}
+.viz circle[data-label]:hover{transform-origin:center;filter:drop-shadow(0 2px 8px rgba(55,50,255,.4))}
+/* Scroll animation */
+.cd-card,.kpi-c,.ctx-pill,.rc,.ds-card{opacity:0;transform:translateY(24px);transition:opacity .5s ease-out,transform .5s ease-out}
+.cd-card.vis,.kpi-c.vis,.ctx-pill.vis,.rc.vis,.ds-card.vis{opacity:1;transform:translateY(0)}
+/* Stagger KPIs */
+.kpi-c:nth-child(2){transition-delay:.06s}.kpi-c:nth-child(3){transition-delay:.12s}
+.kpi-c:nth-child(4){transition-delay:.18s}.kpi-c:nth-child(5){transition-delay:.24s}.kpi-c:nth-child(6){transition-delay:.3s}
+/* Stagger recos */
+.rc:nth-child(2){transition-delay:.1s}.rc:nth-child(3){transition-delay:.2s}
+/* Bar animation */
+.viz rect.bar-anim{transition:width .6s cubic-bezier(.22,1,.36,1)}
+/* Hover on cards */
+.cd-card:hover{border-color:var(--cd-blue);box-shadow:0 8px 24px rgba(55,50,255,.08)!important}
+</style>
+
+<script>
+// Tooltip
+const tt=document.getElementById('tt'),ttL=document.getElementById('tt-label'),
+      ttV=document.getElementById('tt-value'),ttX=document.getElementById('tt-extra');
+document.querySelectorAll('.viz [data-label]').forEach(el=>{
+  el.addEventListener('mouseenter',e=>{
+    ttL.textContent=el.dataset.label||'';
+    ttV.textContent=el.dataset.value||'';
+    ttX.textContent=el.dataset.count||el.dataset.extra||'';
+    tt.style.opacity='1';
+  });
+  el.addEventListener('mousemove',e=>{
+    const x=Math.min(e.clientX+14,window.innerWidth-270);
+    const y=e.clientY-60;
+    tt.style.left=x+'px';tt.style.top=Math.max(8,y)+'px';
+  });
+  el.addEventListener('mouseleave',()=>{tt.style.opacity='0'});
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target)}});
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.cd-card,.kpi-c,.ctx-pill,.rc,.ds-card').forEach(el=>obs.observe(el));
+
+// Bar width animation on scroll
+const barObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.viz rect[width]').forEach(r=>{
+        const w=r.getAttribute('width');
+        if(parseFloat(w)>20){
+          const orig=w;r.setAttribute('width','0');r.classList.add('bar-anim');
+          requestAnimationFrame(()=>requestAnimationFrame(()=>r.setAttribute('width',orig)));
+        }
+      });
+      barObs.unobserve(e.target);
+    }
+  });
+},{threshold:.2});
+document.querySelectorAll('.cd-card').forEach(el=>barObs.observe(el));
+</script>
+
+</body>
+</html>
