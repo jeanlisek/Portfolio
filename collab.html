@@ -1,193 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Collab — jl. · joliment.fr</title>
-  <meta name="description" content="Un espace pour connecter des builders et construire ensemble. Rejoins un projet ou propose le tien sur joliment.fr." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Collab — By Joliment</title>
+  <meta name="description" content="Des projets ouverts à contribution — et un formulaire pour proposer le tien." />
+  <link rel="canonical" href="https://joliment.fr/collab.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="By Joliment" />
+  <meta property="og:title" content="Collab — By Joliment" />
+  <meta property="og:description" content="Des projets ouverts à contribution — et un formulaire pour proposer le tien." />
+  <meta property="og:url" content="https://joliment.fr/collab.html" />
+  <meta property="og:image" content="https://joliment.fr/media/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="By Joliment — Jean-Li Sek, Data & IA" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Collab — By Joliment" />
+  <meta name="twitter:description" content="Des projets ouverts à contribution — et un formulaire pour proposer le tien." />
+  <meta name="twitter:image" content="https://joliment.fr/media/og-image.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/site.css" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+  <script src="js/image-slot.js?v=5"></script>
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script src="js/i18n.js?v=5"></script>
+  <script src="js/data.js?v=5"></script>
+  <script src="js/shell.js?v=5"></script>
 </head>
 <body>
-
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">jl<span class="dot">.</span></a>
-    <div class="nav-links">
-      <a href="projects.html">projets</a>
-      <a href="blog.html">blog</a>
-      <a href="collab.html" class="nav-link-active">collab</a>
-      <a href="about.html">à propos</a>
-      <a href="contact.html" class="nav-cta">me contacter</a>
-    </div>
-    <button class="nav-burger" id="burger"><span></span><span></span></button>
-  </nav>
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="projects.html">projets</a>
-    <a href="blog.html">blog</a>
-    <a href="collab.html">collab</a>
-    <a href="about.html">à propos</a>
-    <a href="contact.html">me contacter</a>
-  </div>
-
-  <!-- PAGE HEADER -->
-  <div class="collab-hero">
-    <div class="container">
-      <span class="section-label">espace collaboratif</span>
-      <h1>
-        Construire<br/><em>ensemble</em>
-      </h1>
-      <p class="collab-hero-desc">
-        Une idée ? Un projet ? L'envie de construire avec d'autres ?<br/>C'est fait pour ça.
-      </p>
-    </div>
-  </div>
-
-  <!-- PROJETS EN COURS -->
-  <section class="section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">projets ouverts</span>
-        <h2 class="section-title">Ce qui cherche<br/><em>des bras</em></h2>
-      </div>
-
-      <div class="collab-projects-list">
-
-        <div class="collab-project-card">
-          <div>
-            <div class="card-tags">
-              <span class="tag">ia</span>
-              <span class="tag">automatisation</span>
-              <span class="tag">saas</span>
-            </div>
-            <h3>Outil de veille IA pour PME</h3>
-            <p>Un outil pour aider des PME à suivre leur secteur automatiquement — articles, brevets, signaux faibles. En cours de conception.</p>
-            <p class="collab-project-seek"><em>On cherche :</em> quelqu'un de curieux sur l'IA et/ou le product.</p>
-          </div>
-          <div class="collab-project-meta">
-            <span class="status-badge status-open">ouvert</span>
-            <span class="collab-project-slots">1-2 personnes</span>
-            <a href="contact.html" class="btn-primary btn-sm">Rejoindre</a>
-          </div>
-        </div>
-
-        <div class="collab-project-card">
-          <div>
-            <div class="card-tags">
-              <span class="tag">web</span>
-              <span class="tag">communauté</span>
-              <span class="tag">no-code</span>
-            </div>
-            <h3>joliment.fr — ce site</h3>
-            <p>Ce site lui-même évolue — vers une vraie communauté de builders.</p>
-            <p class="collab-project-seek"><em>On cherche :</em> designer, dev front, ou simplement quelqu'un avec de bonnes idées.</p>
-          </div>
-          <div class="collab-project-meta">
-            <span class="status-badge status-open">ouvert</span>
-            <span class="collab-project-slots">ponctuel</span>
-            <a href="contact.html" class="btn-primary btn-sm">Rejoindre</a>
-          </div>
-        </div>
-
-        <div class="collab-project-card">
-          <div>
-            <div class="card-tags">
-              <span class="tag">finance</span>
-              <span class="tag">data</span>
-              <span class="tag">python</span>
-            </div>
-            <h3>Dashboard Financier v2</h3>
-            <p>La prochaine version du dashboard financier — de vraies stratégies quantitatives, pas juste du suivi.</p>
-            <p class="collab-project-seek"><em>On cherche :</em> quelqu'un avec un intérêt pour la finance et des bases en Python ou data.</p>
-          </div>
-          <div class="collab-project-meta">
-            <span class="status-badge status-soon">bientôt</span>
-            <span class="collab-project-slots">1 personne</span>
-            <a href="contact.html" class="btn-ghost btn-sm">Me contacter</a>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- PROPOSE TON PROJET -->
-      <div class="propose-section">
-        <div class="section-header">
-          <span class="section-label">propose le tien</span>
-          <h2 class="section-title">Tu as un projet ?<br/><em>Parle-nous.</em></h2>
-        </div>
-
-        <div class="propose-form">
-          <h3>Soumettre un projet</h3>
-          <p>Décris ton idée en quelques lignes. On te répond dans les 48h.</p>
-
-          <form id="collabForm">
-            <div class="form-grid">
-              <div class="form-field">
-                <label>Ton prénom</label>
-                <input type="text" name="prenom" placeholder="Alex" />
-              </div>
-              <div class="form-field">
-                <label>Ton email</label>
-                <input type="email" name="email" placeholder="alex@email.com" />
-              </div>
-              <div class="form-field">
-                <label>Nom du projet</label>
-                <input type="text" name="nom_projet" placeholder="Mon super projet" />
-              </div>
-              <div class="form-field">
-                <label>Type de projet</label>
-                <select name="type_projet">
-                  <option value="">Choisir...</option>
-                  <option>Startup / Produit</option>
-                  <option>Outil / Side project</option>
-                  <option>Projet créatif</option>
-                  <option>Recherche / École</option>
-                  <option>Autre</option>
-                </select>
-              </div>
-              <div class="form-field full">
-                <label>Description</label>
-                <textarea name="description" placeholder="C'est quoi le projet ? Où en es-tu ? Qu'est-ce que tu cherches ?"></textarea>
-              </div>
-              <div class="form-field full">
-                <label>Profils recherchés</label>
-                <input type="text" name="profils" placeholder="ex: dev front, designer, quelqu'un de curieux sur l'IA..." />
-              </div>
-            </div>
-
-            <button type="submit" class="btn-primary">Envoyer ma proposition →</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-left">
-          <span class="footer-logo">jl<span class="dot">.</span></span>
-          <p>build · learn · collab</p>
-        </div>
-        <div class="footer-social">
-          <a href="https://www.instagram.com/byjoliment" target="_blank">Instagram ↗</a>
-          <a href="https://www.linkedin.com/company/joliment" target="_blank">LinkedIn ↗</a>
-          <a href="https://github.com/jeanlisek" target="_blank">GitHub ↗</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 By Joliment</span>
-        <span>Fait avec intention.</span>
-      </div>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase-forms.js"></script>
-  <script src="main.js"></script>
-  <script src="chatbot.js"></script>
-  <script src="analytics.js"></script>
+  <div id="root"></div>
+  <script src="js/page-collab.js?v=5"></script>
+  <script src="js/analytics.js?v=5" defer></script>
+  <script src="js/chatbot.js?v=5" defer></script>
 </body>
 </html>

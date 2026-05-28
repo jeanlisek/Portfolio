@@ -1,0 +1,1194 @@
+/* ─────────────────────────────────────────────────────────────
+   By Joliment — site stylesheet (shared across pages)
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --jl-bg: #050505;
+  --jl-card: #141414;
+  --jl-card-2: #1a1a1a;
+  --jl-card-3: #1f1f1f;
+  --jl-ink: #ffffff;
+  --jl-ink-2: rgba(255, 255, 255, 0.7);
+  --jl-ink-3: rgba(255, 255, 255, 0.5);
+  --jl-ink-4: rgba(255, 255, 255, 0.3);
+  --jl-line: rgba(255, 255, 255, 0.06);
+  --jl-line-2: rgba(255, 255, 255, 0.1);
+  --jl-mint: #b1eaa3;
+  --jl-mint-dim: rgba(177, 234, 163, 0.6);
+  --jl-mint-glow: rgba(177, 234, 163, 0.18);
+  --jl-mint-soft: rgba(177, 234, 163, 0.1);
+
+  --font-sans: "Inter", -apple-system, system-ui, sans-serif;
+  --font-italic: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+  /* aliases — used by the imported chatbot + cookie banner CSS from ../style.css */
+  --bg: var(--jl-bg);
+  --surface: var(--jl-card);
+  --border: var(--jl-line);
+  --border-hover: var(--jl-line-2);
+  --text: var(--jl-ink);
+  --text-muted: var(--jl-ink-3);
+  --accent: var(--jl-mint);
+  --accent-dark: #7ab874;
+  --radius: 12px;
+  --font-display: var(--font-italic);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--jl-bg);
+  color: var(--jl-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--jl-mint); color: #0a0a0a; }
+
+/* ── Layout shell (Spotify-style) ─────────────────────────── */
+.jl-app {
+  position: fixed;
+  inset: 12px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 12px;
+}
+
+.jl-sidebar {
+  background: var(--jl-card);
+  border-radius: 12px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.jl-sidebar::-webkit-scrollbar { width: 6px; }
+.jl-sidebar::-webkit-scrollbar-thumb { background: var(--jl-line-2); border-radius: 999px; }
+
+.jl-main {
+  background: var(--jl-card);
+  border-radius: 12px;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.jl-main::-webkit-scrollbar { width: 8px; }
+.jl-main::-webkit-scrollbar-thumb { background: var(--jl-line-2); border-radius: 999px; }
+.jl-main::-webkit-scrollbar-track { background: transparent; }
+
+.jl-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 116px;
+  padding: 16px 28px 0;
+  background: linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(20,20,20,0.7) 60%, rgba(20,20,20,0));
+  backdrop-filter: blur(6px);
+}
+
+.jl-body {
+  padding: 0 28px 28px;
+}
+
+/* ── Logo mark ──────────────────────────────────────────── */
+.jl-logo-mark {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 22px;
+}
+.jl-logo-mark .b1 { width: 7px; height: 14px; background: var(--jl-ink); border-radius: 1.5px; }
+.jl-logo-mark .b2 { width: 7px; height: 22px; background: var(--jl-ink); border-radius: 1.5px; }
+.jl-logo-mark .pt { width: 6px; height: 6px; background: var(--jl-mint); border-radius: 1px; align-self: flex-end; margin-bottom: 2px; }
+
+/* ── Sidebar elements ───────────────────────────────────── */
+.jl-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.jl-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.jl-nav a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: var(--jl-ink-2);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: background 0.15s, color 0.15s;
+}
+.jl-nav a:hover { color: var(--jl-ink); background: rgba(255,255,255,0.03); }
+.jl-nav a.active {
+  color: var(--jl-ink);
+  background: rgba(255,255,255,0.06);
+  font-weight: 600;
+}
+.jl-nav a .ic { font-size: 13px; width: 16px; color: inherit; opacity: 0.7; }
+.jl-nav a.active .ic { color: var(--jl-mint); opacity: 1; }
+
+.jl-sidebar-spacer { flex: 1; min-height: 12px; }
+
+.jl-widget {
+  background: var(--jl-card-2);
+  border: 1px solid var(--jl-line);
+  border-radius: 10px;
+  padding: 14px;
+}
+.jl-widget-eyebrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: var(--jl-mint);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.jl-widget-eyebrow .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--jl-mint);
+}
+
+/* ── Topbar elements ────────────────────────────────────── */
+.jl-topbar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.jl-arrow {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: var(--jl-ink);
+  font-size: 14px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s;
+}
+.jl-arrow:hover { background: rgba(0,0,0,0.85); }
+.jl-search {
+  background: #0a0a0a;
+  border: 1px solid var(--jl-line-2);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--jl-ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 260px;
+}
+.jl-topbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.jl-avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--jl-mint);
+  color: #0a0a0a;
+  font-weight: 700;
+  font-size: 13px;
+  display: grid;
+  place-items: center;
+}
+
+.jl-chips {
+  margin-top: 12px;
+  margin-left: 84px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.jl-chip {
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--jl-line);
+  color: var(--jl-ink-2);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.jl-chip:hover { background: rgba(255,255,255,0.07); color: var(--jl-ink); }
+.jl-chip.active {
+  background: var(--jl-mint-soft);
+  color: var(--jl-mint);
+  border-color: rgba(177,234,163,0.3);
+}
+
+/* ── Type ───────────────────────────────────────────────── */
+.jl-eyebrow {
+  font-size: 11.5px;
+  color: var(--jl-ink-3);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.jl-italic {
+  font-family: var(--font-italic);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--jl-mint);
+  letter-spacing: -0.005em;
+}
+.jl-h1 {
+  font-size: 76px;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  margin: 0;
+}
+.jl-h2 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  margin: 0;
+}
+.jl-page-title {
+  font-size: 96px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  margin: 0;
+  text-wrap: balance;
+}
+.jl-section-head {
+  margin-top: 32px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+}
+.jl-section-head .right {
+  font-size: 12px;
+  color: var(--jl-ink-3);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.jl-section-head .right:hover { color: var(--jl-mint); }
+.jl-section-head .sub {
+  margin: 10px 0 0;
+  font-size: 13.5px;
+  color: var(--jl-ink-2);
+  max-width: 600px;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+
+/* ── Buttons / pills ────────────────────────────────────── */
+.jl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s, background 0.15s;
+}
+.jl-btn-primary { background: var(--jl-mint); color: #0a0a0a; }
+.jl-btn-primary:hover { background: #c8f3ba; }
+.jl-btn-ghost {
+  background: rgba(255,255,255,0.08);
+  color: var(--jl-ink);
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(6px);
+  font-weight: 500;
+}
+.jl-btn-ghost:hover { background: rgba(255,255,255,0.12); }
+.jl-btn-quiet {
+  padding: 11px 18px;
+  background: transparent;
+  color: var(--jl-ink);
+  border: 1px solid rgba(255,255,255,0.18);
+  font-size: 13px;
+  font-weight: 500;
+}
+.jl-btn-quiet:hover { background: rgba(255,255,255,0.04); border-color: var(--jl-mint); }
+
+/* ── Footer ─────────────────────────────────────────────── */
+.jl-footer {
+  margin-top: 28px;
+  border-top: 1px solid var(--jl-line);
+  padding-top: 28px;
+}
+.jl-footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 32px;
+}
+.jl-footer h6 {
+  font-size: 10.5px;
+  color: var(--jl-ink-3);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.jl-footer-bot {
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid var(--jl-line);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--jl-ink-4);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+/* ── Cards ──────────────────────────────────────────────── */
+.jl-card {
+  background: var(--jl-card-2);
+  border: 1px solid var(--jl-line);
+  border-radius: 8px;
+  padding: 14px;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+  cursor: pointer;
+}
+.jl-card:hover {
+  background: var(--jl-card-3);
+  border-color: rgba(177,234,163,0.2);
+  transform: translateY(-2px);
+}
+.jl-card-noh:hover { transform: none; cursor: default; }
+
+/* ── Tag pills ──────────────────────────────────────────── */
+.jl-tag {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--jl-line);
+  color: var(--jl-ink-2);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.jl-tag-mint {
+  background: var(--jl-mint-soft);
+  color: var(--jl-mint);
+  border-color: rgba(177,234,163,0.3);
+}
+.jl-tag-mint .dot { background: var(--jl-mint); }
+.jl-tag .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--jl-ink-3); }
+
+/* ── Scroll cue ─────────────────────────────────────────── */
+.jl-scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10.5px;
+  color: var(--jl-ink-3);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.jl-scroll-cue .line {
+  display: inline-block;
+  width: 22px; height: 1px;
+  background: linear-gradient(to right, var(--jl-mint), transparent);
+  animation: jlPulse 2s ease-in-out infinite;
+}
+@keyframes jlPulse {
+  0%, 100% { opacity: 0.3; transform: translateX(0); }
+  50% { opacity: 1; transform: translateX(4px); }
+}
+
+/* ── Page-specific layouts ──────────────────────────────── */
+
+/* Hero with background photo */
+.jl-hero {
+  height: 380px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  background: var(--jl-card-2);
+}
+.jl-hero > image-slot {
+  position: absolute;
+  inset: 0;
+}
+.jl-hero-inner {
+  position: relative;
+  z-index: 2;
+  padding: 36px 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+/* Hero scrim — softer gradient over the whole photo, no hard seam */
+.jl-hero-scrim-full {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(8,10,12,0.86) 0%, rgba(8,10,12,0.72) 35%, rgba(8,10,12,0.42) 65%, rgba(8,10,12,0.38) 100%);
+  pointer-events: none;
+}
+/* deprecated — kept empty for backwards compat */
+.jl-hero-scrim-left { display: none; }
+.jl-hero-tagline {
+  font-size: 17px;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.88);
+  max-width: 600px;
+  letter-spacing: -0.005em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  margin: 20px 0 0;
+}
+.jl-hero-title {
+  font-size: 76px;
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  margin: 16px 0 0;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+.jl-hero-eyebrow {
+  font-size: 12px;
+  color: var(--jl-mint);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+image-slot { display: block; width: 100%; height: 100%; }
+
+/* ── Hero photo carousel — cross-fading travel photos ──── */
+.jl-hero-photos {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.jl-hero-photos > div {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.6s ease-in-out;
+}
+.jl-hero-photos > div.on { opacity: 1; }
+.jl-hero-photos image-slot { width: 100%; height: 100%; }
+
+/* ===========================================================================
+   IMPORTED FROM ../style.css — chatbot widget + cookie banner
+   ========================================================================== */
+#jl-chatbot {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.chatbot-toggle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+.chatbot-toggle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 32px rgba(0,0,0,0.55);
+}
+
+.chatbot-window {
+  position: absolute;
+  bottom: 62px;
+  right: 0;
+  width: 340px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.55);
+  opacity: 0;
+  transform: translateY(12px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  transform-origin: bottom right;
+}
+.chatbot-window.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+.chatbot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.chatbot-header-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chatbot-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--bg);
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.chatbot-header-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  display: block;
+  line-height: 1.2;
+}
+.chatbot-header-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(232,227,220,0.4);
+  display: block;
+  line-height: 1.2;
+}
+.chatbot-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.chatbot-mute {
+  background: none;
+  border: none;
+  color: var(--text);
+  opacity: 0.4;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: opacity 0.15s;
+  display: flex;
+  align-items: center;
+}
+.chatbot-mute:hover { opacity: 1; }
+.chatbot-mute.muted { opacity: 1; color: var(--accent); }
+.chatbot-mute.muted svg path:last-child,
+.chatbot-mute.muted svg path:nth-child(2) { display: none; }
+.chatbot-close {
+  background: none;
+  border: none;
+  color: var(--text);
+  opacity: 0.4;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 4px;
+  line-height: 1;
+  transition: opacity 0.15s;
+}
+.chatbot-close:hover { opacity: 1; }
+
+.chatbot-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 300px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.chatbot-messages::-webkit-scrollbar { width: 4px; }
+.chatbot-messages::-webkit-scrollbar-track { background: transparent; }
+.chatbot-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.chatbot-msg {
+  max-width: 88%;
+  padding: 10px 13px;
+  border-radius: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.chatbot-msg--bot {
+  background: rgba(200,184,154,0.07);
+  border: 1px solid var(--border);
+  color: var(--text);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.chatbot-msg--user {
+  background: var(--accent);
+  color: var(--bg);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.chatbot-msg--loading {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 13px 16px;
+}
+.chatbot-cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(168,213,162,0.08);
+  border: 1px solid rgba(168,213,162,0.4);
+  color: var(--accent);
+  padding: 8px 13px;
+  border-radius: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.chatbot-cta:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.chatbot-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+  animation: chatDot 1.2s infinite;
+  display: inline-block;
+}
+.chatbot-dot:nth-child(2) { animation-delay: 0.18s; }
+.chatbot-dot:nth-child(3) { animation-delay: 0.36s; }
+@keyframes chatDot {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+.chatbot-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.chatbot-input-wrap input {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 11px;
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.2s;
+  min-width: 0;
+}
+.chatbot-input-wrap input::placeholder { color: rgba(232,227,220,0.28); }
+.chatbot-input-wrap input:focus { border-color: rgba(200,184,154,0.45); }
+
+.chatbot-mic {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+}
+.chatbot-mic:hover { background: rgba(255,255,255,0.09); }
+.chatbot-mic.recording {
+  background: rgba(220, 60, 60, 0.18);
+  border-color: rgba(220, 60, 60, 0.5);
+  color: #e05555;
+  animation: micPulse 1s ease-in-out infinite;
+}
+@keyframes micPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 60, 60, 0.3); }
+  50% { box-shadow: 0 0 0 5px rgba(220, 60, 60, 0); }
+}
+.chatbot-send {
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg);
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.chatbot-send:hover { opacity: 0.82; }
+.chatbot-send:disabled { opacity: 0.35; cursor: not-allowed; }
+
+@media (max-width: 480px) {
+  #jl-chatbot { bottom: 16px; right: 16px; }
+  .chatbot-window { width: calc(100vw - 32px); }
+}
+
+/* ===== COOKIE BANNER ====================================================== */
+.cookie-banner {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  max-width: 460px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  z-index: 10000;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.6);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.cookie-banner--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.cookie-banner-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+.cookie-banner-text strong {
+  color: var(--text);
+  font-weight: 500;
+}
+.cookie-banner-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.cookie-banner-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 9px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.cookie-banner-btn--ghost {
+  background: transparent;
+  color: var(--text-muted);
+}
+.cookie-banner-btn--ghost:hover {
+  border-color: var(--border-hover);
+  color: var(--text);
+}
+.cookie-banner-btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+.cookie-banner-btn--primary:hover {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
+}
+.cookie-settings-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-left: 16px;
+  transition: color 0.2s;
+}
+.cookie-settings-link:hover {
+  color: var(--text);
+}
+@media (max-width: 768px) {
+  .cookie-banner {
+    bottom: 96px;
+    left: 12px;
+    right: 12px;
+    max-width: none;
+    padding: 14px 16px;
+  }
+  .cookie-banner-actions {
+    justify-content: stretch;
+  }
+  .cookie-banner-btn {
+    flex: 1;
+  }
+  .cookie-settings-link {
+    display: block;
+    margin: 8px 0 0 0;
+  }
+}
+
+/* ===========================================================================
+   RESPONSIVE — adapts the desktop-first design to tablet + mobile
+   Strategy: override key inline grid-template-columns via attribute selectors
+   so we don't have to refactor every JSX page.
+   ========================================================================== */
+
+/* Mobile menu toggle — hamburger in topbar (shown <900px) */
+.jl-hamburger {
+  display: none;
+  width: 36px; height: 36px;
+  border: 1px solid var(--jl-line-2);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  color: var(--jl-ink);
+  padding: 0;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+.jl-hamburger:hover { background: rgba(255,255,255,0.08); }
+.jl-hamburger svg { width: 18px; height: 18px; }
+
+/* Backdrop when sidebar drawer is open on mobile */
+.jl-sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  z-index: 99;
+}
+
+/* ── TABLET (<= 1024px) ─────────────────────────────────── */
+@media (max-width: 1024px) {
+  .jl-app {
+    inset: 8px;
+    gap: 8px;
+    grid-template-columns: 200px 1fr;
+  }
+  .jl-topbar { padding: 14px 22px 0; height: 100px; }
+  .jl-body { padding: 0 22px 22px; }
+
+  /* 4-col grids → 2-col */
+  .jl-body [style*="grid-template-columns: repeat(4"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Hero title 92 → 64 */
+  .jl-body h1[style*="font-size: 92"] { font-size: 64px !important; }
+  .jl-body h1[style*="font-size: 72"] { font-size: 56px !important; }
+}
+
+/* ── MOBILE (<= 900px) ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .jl-hamburger { display: inline-flex; }
+
+  .jl-app {
+    inset: 6px;
+    gap: 0;
+    grid-template-columns: 1fr;  /* Sidebar becomes overlay */
+  }
+
+  /* Sidebar: slide-in drawer */
+  .jl-sidebar {
+    position: fixed;
+    top: 6px; bottom: 6px; left: 6px;
+    width: 260px;
+    z-index: 100;
+    transform: translateX(calc(-100% - 16px));
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  }
+  .jl-app.is-menu-open .jl-sidebar { transform: translateX(0); }
+  .jl-app.is-menu-open .jl-sidebar-backdrop { display: block; }
+
+  /* Topbar adjustments */
+  .jl-topbar { padding: 12px 16px 0; height: 92px; }
+  .jl-body { padding: 0 16px 20px; }
+
+  /* Search bar takes available space, becomes smaller */
+  .jl-search { font-size: 13px; padding: 8px 12px; }
+
+  /* 3-col grids → 1-col on mobile */
+  .jl-body [style*="grid-template-columns: repeat(3"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* 2-col grids (1fr 1fr, 1.1fr 1fr, 1.4fr 1fr, etc) → 1-col */
+  .jl-body [style*="grid-template-columns: 1fr 1fr"],
+  .jl-body [style*="grid-template-columns: 1.1fr"],
+  .jl-body [style*="grid-template-columns: 1.4fr"],
+  .jl-body [style*="grid-template-columns: 1.6fr"],
+  .jl-body [style*="grid-template-columns: 0.9fr"],
+  .jl-body [style*="grid-template-columns: 1fr 1.1fr"],
+  .jl-body [style*="grid-template-columns: 160px"],
+  .jl-body [style*="grid-template-columns: 140px"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Hero / page titles */
+  .jl-page-title { font-size: 48px !important; }
+  .jl-body h1[style*="font-size: 92"] { font-size: 48px !important; }
+  .jl-body h1[style*="font-size: 72"] { font-size: 42px !important; }
+  .jl-body h2[style*="font-size: 54"] { font-size: 36px !important; }
+  .jl-body h2[style*="font-size: 36"] { font-size: 28px !important; }
+
+  /* Big stat numbers */
+  .jl-body div[style*="font-size: 64"] { font-size: 44px !important; }
+  .jl-body div[style*="font-size: 72"] { font-size: 50px !important; }
+
+  /* Hero project metadata row — 4 cards stack to 2 */
+  /* Already covered by repeat(4) → repeat(2) above */
+
+  /* Hero project hero section — height auto */
+  .jl-body section[style*="height: 460"] {
+    min-height: 360px !important;
+    height: auto !important;
+  }
+  .jl-body section[style*="padding: 36px 40px"] {
+    padding: 24px 20px !important;
+  }
+  .jl-body section[style*="padding: 64px 40px"] {
+    padding: 40px 22px !important;
+  }
+  .jl-body section[style*="padding: 48px 60px"] {
+    padding: 32px 26px !important;
+  }
+
+  /* Cards padding reduction */
+  .jl-card { padding: 18px !important; }
+  .jl-card-noh { padding: 18px !important; }
+
+  /* Reduce gaps */
+  .jl-body [style*="gap: 32"] { gap: 18px !important; }
+  .jl-body [style*="gap: 24"] { gap: 14px !important; }
+
+  /* Stack the cookie banner properly */
+  /* Already handled by existing @media in cookie section above */
+}
+
+/* ── SMALL MOBILE (<= 480px) ────────────────────────────── */
+@media (max-width: 480px) {
+  .jl-topbar { padding: 10px 14px 0; height: 88px; }
+  .jl-body { padding: 0 14px 16px; }
+
+  /* 2-col grids in tablet override → 1-col now */
+  .jl-body [style*="grid-template-columns: repeat(2"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Page titles */
+  .jl-page-title { font-size: 38px !important; }
+  .jl-body h1[style*="font-size: 92"] { font-size: 38px !important; }
+  .jl-body h1[style*="font-size: 72"] { font-size: 34px !important; }
+  .jl-body h2 { font-size: 24px !important; }
+
+  /* Sidebar even narrower */
+  .jl-sidebar { width: calc(100vw - 60px); max-width: 260px; }
+
+  /* Stats numbers smaller */
+  .jl-body div[style*="font-size: 64"] { font-size: 36px !important; }
+  .jl-body div[style*="font-size: 72"] { font-size: 42px !important; }
+
+  /* Search bar — hide or minimize */
+  .jl-topbar-right .jl-btn { padding: 7px 12px !important; font-size: 12px !important; }
+
+  /* Hero CTA buttons stack */
+  .jl-body div[style*="display: flex"][style*="gap: 10px"] { flex-wrap: wrap; }
+
+  /* Pull quotes on projet pages — smaller */
+  .jl-body blockquote[style*="font-size: 28"] { font-size: 20px !important; }
+  .jl-body blockquote[style*="font-size: 36"] { font-size: 24px !important; }
+
+  /* Cards padding even smaller */
+  .jl-card { padding: 14px !important; }
+  .jl-card-noh { padding: 14px !important; }
+}
+
+/* ── RESPONSIVE — Phase 2 : class-targeted overrides ─────── */
+
+/* Tablet ≤ 1024px — class-level adjustments */
+@media (max-width: 1024px) {
+  .jl-page-title { font-size: 72px; }
+  .jl-hero-title { font-size: 60px; }
+  .jl-hero { height: 340px; }
+  .jl-search { min-width: 180px; }
+  .jl-topbar-row { gap: 10px; }
+  .jl-chips { margin-left: 0; }
+}
+
+/* Mobile ≤ 900px — class-level adjustments */
+@media (max-width: 900px) {
+  .jl-page-title { font-size: 52px; }
+  .jl-hero { height: auto; min-height: 420px; }
+  .jl-hero-inner { padding: 22px 20px; }
+  .jl-hero-title { font-size: 46px; }
+  .jl-hero-tagline { font-size: 15px; max-width: 100%; margin-top: 14px; }
+
+  /* Topbar — let search shrink, button compacts */
+  .jl-topbar-row { gap: 8px; }
+  .jl-search {
+    min-width: 0;
+    flex: 1;
+    padding: 7px 12px;
+  }
+  .jl-topbar-right { gap: 8px; }
+  .jl-topbar-right .jl-btn {
+    padding: 8px 14px !important;
+    font-size: 12.5px !important;
+  }
+  .jl-chips {
+    margin-top: 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .jl-chips::-webkit-scrollbar { display: none; }
+
+  /* Hero photo carousel scroll-cue at bottom of hero */
+  .jl-scroll-cue { display: none; }
+
+  /* Footer goes single column */
+  .jl-footer > div:first-child {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  .jl-footer-bot { flex-wrap: wrap; gap: 8px; }
+}
+
+/* Small mobile ≤ 480px */
+@media (max-width: 480px) {
+  .jl-page-title { font-size: 38px; }
+  .jl-hero-title { font-size: 36px; }
+  .jl-hero-tagline { font-size: 13.5px; }
+  .jl-hero { min-height: 360px; }
+  .jl-hero-inner { padding: 18px 16px; }
+
+  /* Topbar even tighter */
+  .jl-topbar-row { gap: 6px; }
+  .jl-topbar-right .jl-btn {
+    padding: 7px 11px !important;
+    font-size: 11.5px !important;
+  }
+
+  /* Search placeholder text might be too long — hide it visually */
+  .jl-search input::placeholder { font-size: 12px; }
+
+  /* All buttons stack vertically on tight space */
+  .jl-body div[style*="display: flex"][style*="gap: 10px"],
+  .jl-body div[style*="display: flex"][style*="gap: 14px"] {
+    flex-wrap: wrap;
+  }
+}
+
+/* ── RESPONSIVE — Phase 3 : edge cases ──────────────────── */
+@media (max-width: 900px) {
+  /* Hero tagline — disable <br> so text wraps naturally */
+  .jl-hero-tagline br { display: none; }
+
+  /* Architecture layer cards on projet pages — flex row → column */
+  .jl-body .jl-card.jl-card-noh[style*="align-items: center"][style*="gap: 20"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    text-align: left !important;
+  }
+  /* Architecture layer's right note — full width text-align left on mobile */
+  .jl-body .jl-card.jl-card-noh > div[style*="text-align: right"] {
+    text-align: left !important;
+    max-width: 100% !important;
+  }
+
+  /* Hero photo carousel indicator (PHOTOS · J.L.) at bottom — smaller */
+  .jl-hero-inner > div:last-child {
+    flex-wrap: wrap;
+  }
+
+  /* MediaCarousel tabs row on projet pages — scrollable */
+  .jl-body div[role="tablist"] {
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  .jl-body div[role="tablist"]::-webkit-scrollbar { display: none; }
+
+  /* Sidebar items text larger on mobile (easier tap target) */
+  .jl-sidebar nav a { font-size: 15px; padding: 12px 14px; }
+  .jl-widget { padding: 18px 16px; }
+
+  /* Hero "PHOTOS · J.L." position indicator — make sure it doesn't overlap content */
+  .jl-body .jl-hero > div[style*="bottom: 16"][style*="right: 18"] {
+    bottom: 10px !important;
+    right: 10px !important;
+    padding: 4px 8px !important;
+  }
+}
+
+/* The mobile menu drawer should always be on top of any chatbot widget */
+.jl-app.is-menu-open .jl-sidebar { z-index: 10000; }
+.jl-app.is-menu-open .jl-sidebar-backdrop { z-index: 9999; }

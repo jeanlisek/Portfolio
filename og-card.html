@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Cormorant+Garamond:ital,wght@1,600;1,700&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    display: flex; align-items: stretch;
+    font-family: "Inter", sans-serif; color: #fff;
+    background: radial-gradient(120% 120% at 0% 0%, #14201a 0%, #0a0a0a 60%);
+    position: relative;
+  }
+  .grid {
+    position: absolute; inset: 0; opacity: 0.05;
+    background-image:
+      linear-gradient(rgba(177,234,163,.7) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(177,234,163,.7) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .left { flex: 1; padding: 72px 64px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
+  .eyebrow { color: #b1eaa3; font-size: 20px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; margin-bottom: 26px; }
+  .title { font-size: 116px; font-weight: 800; letter-spacing: -.045em; line-height: .9; }
+  .title i { font-family: "Cormorant Garamond", serif; font-style: italic; font-weight: 700; color: #b1eaa3; }
+  .sub { margin-top: 30px; font-size: 32px; font-weight: 600; color: rgba(255,255,255,.82); letter-spacing: -.01em; }
+  .mantra { margin-top: 18px; font-size: 20px; font-weight: 600; color: rgba(255,255,255,.45); letter-spacing: .04em; }
+  .right { width: 430px; position: relative; z-index: 2; overflow: hidden; }
+  .right img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .right::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #0a0a0a 0%, transparent 28%); }
+  .dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #b1eaa3; box-shadow: 0 0 16px #b1eaa3; margin-right: 12px; vertical-align: middle; }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="left">
+    <div class="eyebrow"><span class="dot"></span>build · learn · collab</div>
+    <div class="title">By <i>Joliment</i>.</div>
+    <div class="sub">Jean-Li Sek — Data &amp; IA</div>
+    <div class="mantra">Projets · Agents IA · RAG · Automatisation · Data viz</div>
+  </div>
+  <div class="right"><img src="media/about-photo.JPG" alt="Jean-Li Sek" /></div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>404 — Page introuvable · By Joliment</title>
+  <meta name="description" content="Page introuvable — reviens à l'accueil ou explore les projets." />
+  <link rel="canonical" href="https://joliment.fr/404.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="By Joliment" />
+  <meta property="og:title" content="404 — Page introuvable · By Joliment" />
+  <meta property="og:description" content="Page introuvable — reviens à l'accueil ou explore les projets." />
+  <meta property="og:url" content="https://joliment.fr/404.html" />
+  <meta property="og:image" content="https://joliment.fr/media/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="By Joliment — Jean-Li Sek, Data & IA" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="404 — Page introuvable · By Joliment" />
+  <meta name="twitter:description" content="Page introuvable — reviens à l'accueil ou explore les projets." />
+  <meta name="twitter:image" content="https://joliment.fr/media/og-image.jpg" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/site.css" />
+  <style>
+    body.jl-404 {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      background: radial-gradient(ellipse at center, #0d0f0d 0%, var(--jl-bg) 70%);
+    }
+    .jl-404-card {
+      max-width: 640px; text-align: center;
+      padding: 56px 48px; border-radius: 16px;
+      background: linear-gradient(135deg, #1a1f1a 0%, #16241a 100%);
+      border: 1px solid rgba(177,234,163,0.18);
+    }
+    .jl-404-code {
+      font-family: var(--font-italic); font-style: italic;
+      font-size: 128px; font-weight: 400; line-height: 0.9;
+      color: var(--jl-mint);
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+    .jl-404-eyebrow {
+      font-size: 11px; color: var(--jl-mint); font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .jl-404-title {
+      font-size: 36px; font-weight: 700; line-height: 1.1;
+      letter-spacing: -0.03em; color: #fff;
+      margin: 0 0 14px;
+    }
+    .jl-404-desc {
+      font-size: 15px; color: var(--jl-ink-2);
+      line-height: 1.55; letter-spacing: -0.005em;
+      margin: 0 auto 32px; max-width: 440px;
+    }
+    .jl-404-actions {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    }
+    .jl-404-actions a {
+      padding: 12px 22px; border-radius: 999px;
+      font-size: 13.5px; font-weight: 600; letter-spacing: -0.005em;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .jl-404-actions a.primary {
+      background: var(--jl-mint); color: #0a0a0a;
+    }
+    .jl-404-actions a.ghost {
+      background: rgba(255,255,255,0.04); color: var(--jl-ink);
+      border: 1px solid var(--jl-line-2);
+    }
+    .jl-404-actions a.ghost:hover { background: rgba(255,255,255,0.08); }
+    @media (max-width: 600px) {
+      .jl-404-card { padding: 40px 28px; }
+      .jl-404-code { font-size: 88px; }
+      .jl-404-title { font-size: 28px; }
+    }
+  </style>
+</head>
+<body class="jl-404">
+  <div class="jl-404-card">
+    <div class="jl-404-code">404.</div>
+    <div class="jl-404-eyebrow" data-en="page not found">page introuvable</div>
+    <h1 class="jl-404-title" data-en='This page doesn&#39;t exist <span class="jl-italic">yet.</span>'>Cette page n'existe <span class="jl-italic">pas encore.</span></h1>
+    <p class="jl-404-desc" data-en="Either the link is broken, or this page was never built — which isn't out of the question either. Head back home or take a look at the projects.">
+      Soit le lien est cassé, soit cette page n'a jamais été construite — ce qui n'est pas exclu non plus.
+      Reviens à l'accueil ou jette un œil aux projets.
+    </p>
+    <div class="jl-404-actions">
+      <a href="index.html" class="primary" data-en="← Back home">← Retour à l'accueil</a>
+      <a href="projets.html" class="ghost" data-en="See the projects">Voir les projets</a>
+    </div>
+  </div>
+  <script>
+    (function () {
+      function detect() {
+        try { var s = localStorage.getItem("jl-lang"); if (s === "fr" || s === "en") return s; } catch (e) {}
+        var n = (navigator.language || navigator.userLanguage || "fr").toLowerCase();
+        return n.indexOf("en") === 0 ? "en" : "fr";
+      }
+      var L = detect();
+      document.documentElement.lang = L;
+      if (L === "en") {
+        document.title = "404 — Page not found · By Joliment";
+        var els = document.querySelectorAll("[data-en]");
+        for (var i = 0; i < els.length; i++) els[i].innerHTML = els[i].getAttribute("data-en");
+      }
+    })();
+  </script>
+  <script src="js/analytics.js?v=5" defer></script>
+</body>
+</html>

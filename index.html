@@ -1,381 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>jl. · joliment.fr</title>
-  <meta name="description" content="Build, learn, collab — joliment.fr est un espace pour partager des projets data & IA, des articles techniques et trouver des gens avec qui construire." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>By Joliment — build · learn · collab</title>
+  <meta name="description" content="Portfolio Data &amp; IA de Jean-Li Sek : projets concrets — agents IA, RAG, automatisation, data viz." />
+  <link rel="canonical" href="https://joliment.fr/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="By Joliment" />
+  <meta property="og:title" content="By Joliment — build · learn · collab" />
+  <meta property="og:description" content="Portfolio Data &amp; IA de Jean-Li Sek : projets concrets — agents IA, RAG, automatisation, data viz." />
+  <meta property="og:url" content="https://joliment.fr/" />
+  <meta property="og:image" content="https://joliment.fr/media/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="By Joliment — Jean-Li Sek, Data & IA" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="By Joliment — build · learn · collab" />
+  <meta name="twitter:description" content="Portfolio Data &amp; IA de Jean-Li Sek : projets concrets — agents IA, RAG, automatisation, data viz." />
+  <meta name="twitter:image" content="https://joliment.fr/media/og-image.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/site.css" />
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" integrity="sha384-DGyLxAyjq0f9SPpVevD6IgztCFlnMF6oW/XQGmfe+IsZ8TqEiDrcHkMLKI6fiB/Z" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" integrity="sha384-gTGxhz21lVGYNMcdJOyq01Edg0jhn/c22nsx0kyqP0TxaV5WVdsSH1fSDUf5YJj1" crossorigin="anonymous"></script>
+
+  <script src="js/image-slot.js?v=5"></script>
+
+  <script src="js/i18n.js?v=5"></script>
+  <script src="js/data.js?v=5"></script>
+  <script src="js/shell.js?v=5"></script>
 </head>
 <body>
+  <div id="root"></div>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">jl<span class="dot">.</span></a>
-    <div class="nav-links">
-      <a href="projects.html">projets</a>
-      <a href="blog.html">blog</a>
-      <a href="collab.html">collab</a>
-      <a href="about.html">à propos</a>
-      <a href="contact.html" class="nav-cta">me contacter</a>
-    </div>
-    <button class="nav-burger" id="burger">
-      <span></span><span></span>
-    </button>
-  </nav>
-
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="projects.html">projets</a>
-    <a href="blog.html">blog</a>
-    <a href="collab.html">collab</a>
-    <a href="about.html">à propos</a>
-    <a href="contact.html">me contacter</a>
-  </div>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="grain"></div>
-    </div>
-    <div class="hero-content">
-      <div class="hero-tag animate-in" style="--delay:0.1s">build · learn · collab</div>
-      <h1 class="hero-title animate-in" style="--delay:0.2s">
-        <span class="hero-by">By</span><br/><em>Joliment</em>
-      </h1>
-      <p class="hero-desc animate-in" style="--delay:0.4s">
-        Un endroit pour partager ce qui se construit ici, ce qu'on apprend,<br/>
-        et pour rencontrer des gens qui ont envie de faire des trucs ensemble.
-      </p>
-      <div class="hero-actions animate-in" style="--delay:0.6s">
-        <a href="projects.html" class="btn-primary">Voir les projets</a>
-        <a href="blog.html" class="btn-ghost">Lire le blog</a>
-      </div>
-      <a href="collab.html" class="hero-collab-link animate-in" style="--delay:0.8s">ou explorer l'espace collab →</a>
-    </div>
-    <div class="hero-scroll">
-      <span>scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-  <!-- FEATURED PROJECTS -->
-  <section class="section featured">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">projets récents</span>
-        <h2 class="section-title">Ce qui<br/><em>se construit</em></h2>
-      </div>
-
-      <div class="projects-grid">
-
-        <a href="projects.html#mirakl" class="project-card card-large">
-          <div class="card-inner">
-            <div class="card-top">
-              <div class="card-tags">
-                <span class="tag">agents ia</span>
-                <span class="tag">supply-chain</span>
-                <span class="tag">marketplace</span>
-                <span class="tag">hackathon</span>
-              </div>
-              <div class="card-arrow">↗</div>
-            </div>
-            <div class="card-body">
-              <h3>Hackathon - Mirakl</h3>
-              <p>Dashboard supply chain pour Mirakl Connect — 6 agents Dust spécialisés, NL2SQL via GPT‑4<span style="font-family:var(--font-display)">o</span>, alertes prédictives de rupture, suivi CO₂ et dashboards générés par rôle (CEO, Marketing, Éco…).</p>
-              <div class="card-distinction">🏆 Finaliste · Hackathon Mirakl</div>
-            </div>
-            <div class="card-number">01</div>
-          </div>
-        </a>
-
-        <a href="projects.html#synapse" class="project-card">
-          <div class="card-inner">
-            <div class="card-top">
-              <div class="card-tags">
-                <span class="tag">rag</span>
-                <span class="tag">nlp</span>
-                <span class="tag">ia</span>
-              </div>
-              <div class="card-arrow">↗</div>
-            </div>
-            <div class="card-body">
-              <h3>RAG - Projet Synapse</h3>
-              <p>Chatbot RAG sur thèses.fr — sectorisation par embeddings et retrieval sémantique.</p>
-            </div>
-            <div class="card-number">02</div>
-          </div>
-        </a>
-
-        <a href="projects.html#dust" class="project-card">
-          <div class="card-inner">
-            <div class="card-top">
-              <div class="card-tags">
-                <span class="tag">ia</span>
-                <span class="tag">agents</span>
-                <span class="tag">orchestration</span>
-              </div>
-              <div class="card-arrow">↗</div>
-            </div>
-            <div class="card-body">
-              <h3>Dust - Agent IA</h3>
-              <p>Hub agentique avec orchestration multi-agents sur Dust. Des agents IA spécialisés qui collaborent autour d'une tâche centrale.</p>
-            </div>
-            <div class="card-number">03</div>
-          </div>
-        </a>
-
-        <a href="projects.html#dashboard" class="project-card">
-          <div class="card-inner">
-            <div class="card-top">
-              <div class="card-tags">
-                <span class="tag">google sheets</span>
-                <span class="tag">finance</span>
-                <span class="tag">apps script</span>
-              </div>
-              <div class="card-arrow">↗</div>
-            </div>
-            <div class="card-body">
-              <h3>Dashboard Financier</h3>
-              <p>Portefeuille boursier suivi sous Google Sheets — performances en temps réel, objectif : battre le S&P500.</p>
-            </div>
-            <div class="card-number">04</div>
-          </div>
-        </a>
-
-        <a href="projects.html#payfit" class="project-card card-large">
-          <div class="card-inner">
-            <div class="card-top">
-              <div class="card-tags">
-                <span class="tag">hackathon</span>
-                <span class="tag">pipeline ia</span>
-                <span class="tag">agents ia</span>
-                <span class="tag">seo</span>
-                <span class="tag">geo</span>
-              </div>
-              <div class="card-arrow">↗</div>
-            </div>
-            <div class="card-body">
-              <h3>Hackathon - PayFit</h3>
-              <p>Pipeline de 9 agents IA orchestrés pour générer automatiquement des articles RH & Paie optimisés SEO/GEO à grande échelle. Conçu en 72h.</p>
-              <div class="card-distinction">🏆 Finaliste · Hackathon PayFit</div>
-            </div>
-            <div class="card-number">05</div>
-          </div>
-        </a>
-
-        <a href="projects.html#zigzag" class="project-card">
-          <div class="card-inner">
-            <div class="card-top">
-              <div class="card-tags">
-                <span class="tag">game dev</span>
-                <span class="tag">multiplayer</span>
-                <span class="tag">web</span>
-              </div>
-              <div class="card-arrow">↗</div>
-            </div>
-            <div class="card-body">
-              <h3>Vibe Coding - ZigZag</h3>
-              <p>Un jeu multijoueur en ligne construit de zéro avec des amis. De la conception à la mise en ligne.</p>
-            </div>
-            <div class="card-number">06</div>
-          </div>
-        </a>
-
-      </div>
-
-      <div class="section-cta">
-        <a href="projects.html" class="btn-outline">Voir tous les projets <span>→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- BLOG TEASER -->
-  <section class="section blog-teaser">
-    <div class="container">
-      <div class="blog-teaser-inner">
-        <div class="blog-teaser-left">
-          <span class="section-label">blog & découvertes</span>
-          <h2 class="section-title">Découvrir,<br/><em>transmettre</em></h2>
-          <p>Des articles pour ceux qui veulent comprendre et reproduire. Docker, n8n, IA, automatisation — ce qu'on apprend, on le documente.</p>
-          <a href="blog.html" class="btn-primary">Lire les articles</a>
-        </div>
-        <div class="blog-teaser-right">
-          <div class="blog-preview-card">
-            <span class="blog-tag">À venir</span>
-            <h4>Docker expliqué simplement — et comment l'installer chez toi</h4>
-            <p>Comprendre Docker, pourquoi c'est utile — et comment le faire tourner sur ta machine en moins de 10 minutes.</p>
-            <span class="blog-read">Bientôt disponible →</span>
-          </div>
-          <div class="blog-preview-card">
-            <span class="blog-tag">À venir</span>
-            <h4>n8n : automatise ta vie sans être développeur</h4>
-            <p>n8n c'est comme Make ou Zapier, mais en open-source et auto-hébergeable. Un outil qui change la façon de travailler.</p>
-            <span class="blog-read">Bientôt disponible →</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section class="section section--skills">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">compétences</span>
-        <h2 class="section-title">Ce que<br/><em>je maîtrise</em></h2>
-      </div>
-      <div class="skills-logos">
-        <!-- Langages data -->
-        <div class="skill-logo-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" />
-          <span>Python</span>
-        </div>
-        <div class="skill-logo-item">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C8B89A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/></svg>
-          <span>SQL</span>
-        </div>
-        <div class="skill-logo-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg" alt="R" />
-          <span>R</span>
-        </div>
-        <!-- IA spécialisé -->
-        <div class="skill-logo-item">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#C8B89A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
-          <span>RAG</span>
-        </div>
-        <div class="skill-logo-item">
-          <img src="https://cdn.simpleicons.org/anthropic/C8B89A" alt="Agents IA" />
-          <span>Agents IA</span>
-        </div>
-        <!-- Outils techniques -->
-        <div class="skill-logo-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg" alt="Neo4j" />
-          <span>Neo4j</span>
-        </div>
-        <div class="skill-logo-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker" />
-          <span>Docker</span>
-        </div>
-        <!-- Automation -->
-        <div class="skill-logo-item">
-          <img src="https://cdn.simpleicons.org/n8n/EA4B71" alt="Make / n8n" />
-          <span>Make / n8n</span>
-        </div>
-      </div>
-      <div class="section-cta">
-        <a href="about.html" class="btn-outline">Voir toutes les compétences <span>→</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="section section--testimonials">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">recommandations</span>
-        <h2 class="section-title">Ce qu'ils<br/><em>en disent</em></h2>
-      </div>
-      <div class="testimonials-carousel">
-        <div class="testimonials-track" id="testimonialsTrack">
-
-          <div class="testimonial-slide">
-            <div class="testimonial-card">
-              <blockquote class="testimonial-quote">Jean-Li s'est rapidement distingué par son sens de l'initiative et son engagement tout au long du Master.<br/>C'est le type de personne avec qui on apprécie travailler : attentif, impliqué, et toujours prêt à proposer des idées pertinentes.</blockquote>
-              <hr class="testimonial-divider"/>
-              <div class="testimonial-author">
-                <div class="testimonial-avatar">ML</div>
-                <div class="testimonial-info">
-                  <span class="testimonial-name">Matthieu L.</span>
-                  <span class="testimonial-role">Enseignant Python · M1 AI Applied to Business</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-slide">
-            <div class="testimonial-card">
-              <blockquote class="testimonial-quote">Jean-Li fait partie de ces étudiants qui dépassent rapidement le cadre du cours. Sur SQL comme sur Google Sheets, il transforme chaque notion vue en classe en un projet concret et abouti — toujours avec rigueur et une vraie curiosité pour aller chercher la réponse.</blockquote>
-              <hr class="testimonial-divider"/>
-              <div class="testimonial-author">
-                <div class="testimonial-avatar testimonial-avatar--photo"><img src="kevin-rosamont.jpeg" alt="Kevin Rosamont Prombo" /></div>
-                <div class="testimonial-info">
-                  <span class="testimonial-name">Kevin Rosamont Prombo</span>
-                  <span class="testimonial-role">Enseignant SQL & Google Sheets · M1 AI Applied to Business</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="testimonial-slide">
-            <div class="testimonial-card">
-              <blockquote class="testimonial-quote">Jean-Li est une véritable "machine" : il a porté le développement et la croissance d'Awake Partners avec une rigueur, une ingéniosité et un dynamisme à toute épreuve. Très orienté data et résultats, il a su apporter des solutions créatives et pragmatiques à chaque défi rencontré.</blockquote>
-              <hr class="testimonial-divider"/>
-              <div class="testimonial-author">
-                <div class="testimonial-avatar testimonial-avatar--logo"><img src="logo-awake.jpeg" alt="Awake Partners" /></div>
-                <div class="testimonial-info">
-                  <span class="testimonial-name">Élie Zemmour & Mathieu Turban</span>
-                  <span class="testimonial-role">Founding Partners · Awake Partners</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div class="testimonials-controls">
-          <button class="testimonials-btn" id="testimonialsPrev" aria-label="Précédent">←</button>
-          <div class="testimonials-dots" id="testimonialsDots">
-            <span class="testimonials-dot active"></span>
-            <span class="testimonials-dot"></span>
-            <span class="testimonials-dot"></span>
-          </div>
-          <button class="testimonials-btn" id="testimonialsNext" aria-label="Suivant">→</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- COLLAB TEASER -->
-  <section class="section collab-teaser">
-    <div class="container">
-      <div class="collab-inner">
-        <div class="collab-badge">nouveau</div>
-        <h2>Tu as un projet ?<br/><em>Construisons ensemble.</em></h2>
-        <p>Un espace pour connecter des builders, des idées, et des gens qui veulent créer quelque chose de concret. Rejoins un projet ou propose le tien.</p>
-        <a href="collab.html" class="btn-primary">Découvrir l'espace collab</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-left">
-          <span class="footer-logo">jl<span class="dot">.</span></span>
-          <p>build · learn · collab</p>
-        </div>
-        <div class="footer-social">
-          <a href="https://www.instagram.com/byjoliment" target="_blank">Instagram ↗</a>
-          <a href="https://www.linkedin.com/company/joliment" target="_blank">LinkedIn ↗</a>
-          <a href="https://github.com/jeanlisek" target="_blank">GitHub ↗</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 By Joliment</span>
-        <span>Fait avec intention.</span>
-      </div>
-    </div>
-  </footer>
-
-  <script src="main.js"></script>
-  <script src="chatbot.js"></script>
-  <script src="analytics.js"></script>
+  <script src="js/page-home.js?v=5"></script>
+  <script src="js/analytics.js?v=5" defer></script>
+  <script src="js/chatbot.js?v=5" defer></script>
 </body>
 </html>
