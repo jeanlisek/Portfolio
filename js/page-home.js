@@ -217,6 +217,9 @@ function AboutTeaser() {
   }, window.t("home.readAbout"))));
 }
 function ProjectsRow() {
+  // Curated homepage showcase (order independent of the full /projets list).
+  const featuredSlugs = ["mirakl", "synapse", "zigzag", "payfit"];
+  const featured = featuredSlugs.map(s => D.projets.find(p => p.slug === s)).filter(Boolean);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SectionHead, {
     eyebrow: window.t("home.recent"),
     title: window.t("projets.title1"),
@@ -232,7 +235,7 @@ function ProjectsRow() {
       gap: 14,
       marginTop: 12
     }
-  }, D.projets.slice(0, 4).map(p => /*#__PURE__*/React.createElement(ProjectCard, {
+  }, featured.map(p => /*#__PURE__*/React.createElement(ProjectCard, {
     key: p.slug,
     p: p
   }))));

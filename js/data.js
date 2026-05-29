@@ -85,7 +85,7 @@ window.JL = window.resolveI18n({
     {
       slug: "payfit", n: "04",
       title: "Hackathon PayFit",
-      sub: { fr: "9 agents Dust · Claude Sonnet", en: "9 Dust agents · Claude Sonnet" },
+      sub: { fr: "9 agents Dust orchestrés", en: "9 orchestrated Dust agents" },
       desc: { fr: "Pipeline RH & Paie : chaque agent spécialisé dans une étape (recherche, rédaction, vérification légale, optimisation SEO) pour produire des articles publiables directement, sans retouche humaine.", en: "HR & Payroll pipeline: each agent specialized in one step (research, writing, legal review, SEO optimization) to produce directly publishable articles, with no human edits." },
       tags: ["ia", "agents", "seo", "rh & paie", "hackathon"],
       badge: { fr: "Finaliste", en: "Finalist" },

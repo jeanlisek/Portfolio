@@ -126,11 +126,14 @@ function AboutTeaser() {
 }
 
 function ProjectsRow() {
+  // Curated homepage showcase (order independent of the full /projets list).
+  const featuredSlugs = ["mirakl", "synapse", "zigzag", "payfit"];
+  const featured = featuredSlugs.map(s => D.projets.find(p => p.slug === s)).filter(Boolean);
   return (
     <>
       <SectionHead eyebrow={window.t("home.recent")} title={window.t("projets.title1")} italic={window.t("home.building")} right={{ label: window.t("act.seeAll"), href: "projets.html" }} />
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14, marginTop: 12 }}>
-        {D.projets.slice(0, 4).map(p => <ProjectCard key={p.slug} p={p} />)}
+        {featured.map(p => <ProjectCard key={p.slug} p={p} />)}
       </div>
     </>
   );
