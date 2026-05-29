@@ -67,7 +67,7 @@
 
     // form states
     "form.sending":  { fr: "Envoi en cours…", en: "Sending…" },
-    "form.error":    { fr: "Erreur — réessaye", en: "Error — try again" },
+    "form.error":    { fr: "Erreur, réessaye", en: "Error, try again" },
 
     // filter chips
     "filter.all":      { fr: "tout", en: "all" },
@@ -91,9 +91,9 @@
     // HOME
     "home.tagline":  { fr: "Un endroit pour partager ce qui se construit ici, ce qu'on apprend,<br/>et pour rencontrer des gens qui ont envie de faire des trucs ensemble.", en: "A place to share what's being built here, what we learn,<br/>and to meet people who want to make things together." },
     "home.travelTitle": { fr: "Photos en reflet.", en: "Photos in reflection." },
-    "home.travelSub": { fr: "Une partie de ce qui se construit ici se pense ailleurs. Une collection de moments — verre, miroir, lumière qui rebondit.", en: "Part of what's built here is dreamt up elsewhere. A collection of moments — glass, mirror, bouncing light." },
+    "home.travelSub": { fr: "Une partie de ce qui se construit ici se pense ailleurs. Une collection de moments : verre, miroir, lumière qui rebondit.", en: "Part of what's built here is dreamt up elsewhere. A collection of moments: glass, mirror, bouncing light." },
     "home.travelAll": { fr: "Tout le carnet", en: "Full log" },
-    "home.blogSub":  { fr: "Des articles pour ceux qui veulent comprendre et reproduire. Docker, n8n, IA, automatisation — ce qu'on apprend, on le documente.", en: "Articles for those who want to understand and reproduce. Docker, n8n, AI, automation — what we learn, we document." },
+    "home.blogSub":  { fr: "Des articles pour ceux qui veulent comprendre et reproduire. Docker, n8n, IA, automatisation. Ce qu'on apprend, on le documente.", en: "Articles for those who want to understand and reproduce. Docker, n8n, AI, automation. What we learn, we document." },
     "home.recent":   { fr: "projets récents", en: "recent projects" },
     "home.building": { fr: "se construit", en: "being built" },
     "home.whoSpeaks":{ fr: "qui parle", en: "who's speaking" },
@@ -169,7 +169,7 @@
     "blog.eyebrow":   { fr: "blog & découvertes", en: "blog & discoveries" },
     "blog.title1":    { fr: "Découvrir,", en: "Discover," },
     "blog.title2":    { fr: "transmettre.", en: "share." },
-    "blog.intro":     { fr: "Des articles pour ceux qui veulent comprendre et reproduire. Docker, n8n, IA, scraping — ce qu'on apprend, on le documente.", en: "Articles for those who want to understand and reproduce. Docker, n8n, AI, scraping — what we learn, we document." },
+    "blog.intro":     { fr: "Des articles pour ceux qui veulent comprendre et reproduire. Docker, n8n, IA, scraping. Ce qu'on apprend, on le documente.", en: "Articles for those who want to understand and reproduce. Docker, n8n, AI, scraping. What we learn, we document." },
     "blog.principles":{ fr: "trois principes", en: "three principles" },
     "blog.howWrite1": { fr: "Comment on", en: "How we" },
     "blog.howWrite2": { fr: "écrit.", en: "write." },
@@ -200,7 +200,7 @@
     "collab.build1":  { fr: "Construire", en: "Build" },
     "collab.build2":  { fr: "ensemble.", en: "together." },
     "collab.heroDesc1": { fr: "Une idée ? Un projet ? L'envie de construire avec d'autres ?", en: "An idea? A project? The urge to build with others?" },
-    "collab.heroDesc2": { fr: "Ici on liste des projets ouverts à contribution — et un formulaire pour proposer le tien.", en: "Here we list projects open to contribution — and a form to pitch yours." },
+    "collab.heroDesc2": { fr: "Ici on liste des projets ouverts à contribution, et un formulaire pour proposer le tien.", en: "Here we list projects open to contribution, and a form to pitch yours." },
     "collab.network": { fr: "réseau actif", en: "active network" },
     "collab.nodesLine": { fr: "11 nœuds.", en: "11 nodes." },
     "collab.collabsItalic": { fr: "13 collaborations", en: "13 collaborations" },
@@ -227,7 +227,7 @@
     "collab.proposeYours": { fr: "propose ton projet", en: "pitch yours" },
     "collab.gotIdea": { fr: "Tu as une idée ?", en: "Got an idea?" },
     "collab.letsTalk":{ fr: "On en parle.", en: "Let's talk." },
-    "collab.formDesc":{ fr: "Décris ton idée en quelques lignes. On te répond dans les 48 heures. Pas de promesse — juste un vrai retour.", en: "Describe your idea in a few lines. We reply within 48 hours. No promises — just honest feedback." },
+    "collab.formDesc":{ fr: "Décris ton idée en quelques lignes. On te répond dans les 48 heures. Pas de promesse, juste un vrai retour.", en: "Describe your idea in a few lines. We reply within 48 hours. No promises, just honest feedback." },
     "collab.orEmail": { fr: "ou par email :", en: "or by email:" },
     "collab.fName":   { fr: "Toi (prénom + email)", en: "You (first name + email)" },
     "collab.fProject":{ fr: "Ton projet en une phrase", en: "Your project in one sentence" },

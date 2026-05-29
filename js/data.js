@@ -1,4 +1,4 @@
-// ── Shared site data — bilingual FR/EN, resolved at load via window.resolveI18n ──
+// ── Shared site data. Bilingual FR/EN, resolved at load via window.resolveI18n ──
 window.JL = window.resolveI18n({
   brand: {
     name: "joliment",
@@ -70,7 +70,7 @@ window.JL = window.resolveI18n({
       slug: "dust", n: "03",
       title: "Dust",
       sub: { fr: "Multi-agents orchestrés", en: "Orchestrated multi-agents" },
-      desc: { fr: "Hub agentique sur Dust : faire collaborer plusieurs agents IA spécialisés plutôt qu'un seul généraliste, coordonnés par un orchestrateur — base technique des projets IA suivants (Mirakl, PayFit).", en: "Agentic hub on Dust: having several specialized AI agents collaborate instead of one generalist, coordinated by an orchestrator — the technical foundation of the AI projects that followed (Mirakl, PayFit)." },
+      desc: { fr: "Hub agentique sur Dust : faire collaborer plusieurs agents IA spécialisés plutôt qu'un seul généraliste, coordonnés par un orchestrateur. Base technique des projets IA suivants (Mirakl, PayFit).", en: "Agentic hub on Dust: having several specialized AI agents collaborate instead of one generalist, coordinated by an orchestrator. The technical foundation of the AI projects that followed (Mirakl, PayFit)." },
       tags: ["ia", "agents", "orchestration", "dust"],
       sigil: "orchestration",
       meta: { fr: "2025 · Terminé", en: "2025 · Done" },
@@ -94,7 +94,7 @@ window.JL = window.resolveI18n({
       durationNote: "build · 72h",
       gradient: "linear-gradient(135deg, #482830 0%, #8a4858 100%)",
       role: { fr: "CTO · 8 personnes", en: "CTO · 8 people" },
-      stack: ["Dust", "Claude Sonnet", "Multi-agents", "Prompt engineering", "SEO"],
+      stack: ["Dust", "Multi-agents", "Prompt engineering", "SEO"],
       year: 2026,
       media: {
         deck: { kind: "iframe", src: "https://docs.google.com/presentation/d/1v8I7LnIgwaD9GxyT_sakakkhFcZudv7n/embed?start=false&loop=false&delayms=5000", caption: "[TEAM] PayFit — Pitch Deck" },
@@ -124,7 +124,7 @@ window.JL = window.resolveI18n({
       slug: "zigzag", n: "06",
       title: "ZigZag",
       sub: { fr: "Jeu multijoueur · from scratch", en: "Multiplayer game · from scratch" },
-      desc: { fr: "Un jeu multijoueur web en temps réel construit de zéro avec des amis : de la mécanique au déploiement, sans framework dédié — le projet qui a tout déclenché.", en: "A real-time multiplayer web game built from scratch with friends: from game mechanics to deployment, with no dedicated framework — the project that started it all." },
+      desc: { fr: "Un jeu multijoueur web en temps réel construit de zéro avec des amis : de la mécanique au déploiement, sans framework dédié. Le projet qui a tout déclenché.", en: "A real-time multiplayer web game built from scratch with friends: from game mechanics to deployment, with no dedicated framework. The project that started it all." },
       tags: ["game dev", "multiplayer", "web"],
       sigil: "game",
       meta: { fr: "2025 · Live", en: "2025 · Live" },
@@ -141,7 +141,7 @@ window.JL = window.resolveI18n({
       slug: "tableau", n: "07",
       title: "Data Viz Tableau",
       sub: { fr: "Olist Brasil · 99k commandes", en: "Olist Brasil · 99k orders" },
-      desc: { fr: "Dashboard Tableau sur Olist : 99 441 commandes e-commerce brésiliennes (2016-2018), 8 vues consolidées avec filtres liés — São Paulo 42%, livraison 97%, pic Black Friday nov. 2017.", en: "Tableau dashboard on Olist: 99,441 Brazilian e-commerce orders (2016-2018), 8 consolidated views with linked filters — São Paulo 42%, 97% delivered, Black Friday peak Nov. 2017." },
+      desc: { fr: "Dashboard Tableau sur Olist : 99 441 commandes e-commerce brésiliennes (2016-2018), 8 vues consolidées avec filtres liés. São Paulo 42%, livraison 97%, pic Black Friday nov. 2017.", en: "Tableau dashboard on Olist: 99,441 Brazilian e-commerce orders (2016-2018), 8 consolidated views with linked filters. São Paulo 42%, 97% delivered, Black Friday peak Nov. 2017." },
       tags: ["tableau desktop", "data visualisation", "e-commerce", "dashboard"],
       sigil: "viz",
       meta: { fr: "2026 · Terminé", en: "2026 · Done" },
@@ -175,7 +175,7 @@ window.JL = window.resolveI18n({
       slug: "dataiku", n: "09",
       title: "Dataiku Cdiscount",
       sub: { fr: "Pipeline data science", en: "Data science pipeline" },
-      desc: { fr: "Projet d'analyse Dataiku sur un dataset e-commerce réel de Cdiscount : exploration, nettoyage, modélisation, visualisation — insights actionnables orientés performances produits et comportements d'achat.", en: "Dataiku analysis project on a real Cdiscount e-commerce dataset: exploration, cleaning, modeling, visualization — actionable insights on product performance and buying behavior." },
+      desc: { fr: "Projet d'analyse Dataiku sur un dataset e-commerce réel de Cdiscount : exploration, nettoyage, modélisation, visualisation. Insights actionnables orientés performances produits et comportements d'achat.", en: "Dataiku analysis project on a real Cdiscount e-commerce dataset: exploration, cleaning, modeling, visualization. Actionable insights on product performance and buying behavior." },
       tags: ["dataiku", "analyse", "e-commerce", "data"],
       sigil: "ml",
       meta: { fr: "2026 · Terminé", en: "2026 · Done" },
@@ -208,7 +208,7 @@ window.JL = window.resolveI18n({
       slug: "make", n: "11",
       title: { fr: "Make · Automatisation", en: "Make · Automation" },
       sub: { fr: "Workflows no-code en prod", en: "No-code workflows in prod" },
-      desc: { fr: "Workflows no-code sur Make (ex-Integromat) pour connecter des applications, déclencher des actions automatiques et gérer des flux de données — gain de temps mesurable sur des process manuels.", en: "No-code workflows on Make (ex-Integromat) to connect apps, trigger automatic actions and manage data flows — measurable time saved on manual processes." },
+      desc: { fr: "Workflows no-code sur Make (ex-Integromat) pour connecter des applications, déclencher des actions automatiques et gérer des flux de données. Gain de temps mesurable sur des process manuels.", en: "No-code workflows on Make (ex-Integromat) to connect apps, trigger automatic actions and manage data flows. Measurable time saved on manual processes." },
       tags: ["make", "automatisation", "no-code", "workflows"],
       sigil: "flow",
       meta: { fr: "2025 · Terminé", en: "2025 · Done" },
@@ -221,7 +221,7 @@ window.JL = window.resolveI18n({
       slug: "kitchy", n: "12",
       title: "Hackathon Kitchy",
       sub: { fr: "Concept produit · pitch jury", en: "Product concept · jury pitch" },
-      desc: { fr: "Hackathon startup en mode contraint : concept produit Kitchy de A à Z — problème, proposition de valeur, prototype, pitch deck. De l'idée brute au pitch en moins de deux jours.", en: "Startup hackathon under constraint: the Kitchy product concept from A to Z — problem, value proposition, prototype, pitch deck. From raw idea to pitch in under two days." },
+      desc: { fr: "Hackathon startup en mode contraint : concept produit Kitchy de A à Z. Problème, proposition de valeur, prototype, pitch deck. De l'idée brute au pitch en moins de deux jours.", en: "Startup hackathon under constraint: the Kitchy product concept from A to Z. Problem, value proposition, prototype, pitch deck. From raw idea to pitch in under two days." },
       tags: ["hackathon", "startup", "produit"],
       sigil: "idea",
       meta: { fr: "2025 · 5 jours", en: "2025 · 5 days" },
@@ -239,17 +239,17 @@ window.JL = window.resolveI18n({
 
   pillars: [
     { title: { fr: "Reproductible", en: "Reproducible" }, body: { fr: "Chaque article inclut les étapes pour que tu puisses faire pareil sur ton ordi.", en: "Every article includes the steps so you can do the same on your own machine." } },
-    { title: { fr: "Honnête", en: "Honest" }, body: { fr: "On documente ce qu'on a vraiment compris — et ce qu'on n'a pas encore compris.", en: "We document what we actually understood — and what we haven't figured out yet." } },
+    { title: { fr: "Honnête", en: "Honest" }, body: { fr: "On documente ce qu'on a vraiment compris. Et ce qu'on n'a pas encore compris.", en: "We document what we actually understood. And what we haven't figured out yet." } },
     { title: { fr: "Concret", en: "Concrete" }, body: { fr: "Des outils réels, des cas d'usage réels, pas des exemples abstraits.", en: "Real tools, real use cases, no abstract examples." } },
   ],
 
   articles: [
-    { slug: "docker", title: { fr: "Docker expliqué simplement — et comment l'installer chez toi", en: "Docker explained simply — and how to install it at home" }, desc: { fr: "Comprendre Docker, pourquoi c'est utile — et comment le faire tourner sur ta machine en moins de 10 minutes.", en: "Understanding Docker, why it's useful — and how to run it on your machine in under 10 minutes." }, cat: "infrastructure · docker", read: { fr: "8 min", en: "8 min" }, soon: true, sigil: "terminal" },
-    { slug: "n8n", title: { fr: "n8n : automatise ta vie sans être développeur", en: "n8n: automate your life without being a developer" }, desc: { fr: "n8n c'est comme Make ou Zapier, mais open-source et auto-hébergeable. Installation et premier workflow utile — de zéro.", en: "n8n is like Make or Zapier, but open-source and self-hostable. Installation and a first useful workflow — from scratch." }, cat: "automatisation · n8n", read: { fr: "12 min", en: "12 min" }, soon: true, sigil: "nodes" },
-    { slug: "agents", title: { fr: "Les agents IA, c'est quoi concrètement ?", en: "AI agents — what are they, concretely?" }, desc: { fr: "Derrière le buzzword \"agentique\", il y a quelque chose de simple et de puissant. Ce que c'est, comment ça fonctionne, et comment en construire un.", en: "Behind the \"agentic\" buzzword lies something simple and powerful. What it is, how it works, and how to build one." }, cat: "ia · agents", read: { fr: "10 min", en: "10 min" }, soon: true, sigil: "agents" },
-    { slug: "dashboard-py", title: { fr: "Dashboard financier maison — Python, Google Sheets & App Script", en: "Home-made financial dashboard — Python, Google Sheets & App Script" }, desc: { fr: "Pas besoin d'un outil payant pour suivre ton portefeuille. Comment connecter Python, l'API Google Sheets et App Script pour un dashboard en temps réel.", en: "No paid tool needed to track your portfolio. How to connect Python, the Google Sheets API and App Script for a real-time dashboard." }, cat: { fr: "finance · outils", en: "finance · tools" }, read: { fr: "15 min", en: "15 min" }, soon: true, sigil: "finance" },
-    { slug: "scraping", title: { fr: "Scraper un site avec Python — l'exemple Discogs", en: "Scrape a site with Python — the Discogs example" }, desc: { fr: "Le web scraping c'est une compétence sous-estimée. Comment récupérer des milliers de données depuis Discogs et les analyser.", en: "Web scraping is an underrated skill. How to pull thousands of data points from Discogs and analyze them." }, cat: "python · scraping", read: { fr: "10 min", en: "10 min" }, soon: true, sigil: "terminal" },
-    { slug: "rag", title: { fr: "RAG — Construire un chatbot qui lit des thèses", en: "RAG — Building a chatbot that reads theses" }, desc: { fr: "Le Retrieval-Augmented Generation c'est l'un des patterns les plus utiles de l'IA actuelle. Walkthrough complet du projet Synapse, de l'embedding à la réponse finale.", en: "Retrieval-Augmented Generation is one of the most useful patterns in AI today. A full walkthrough of the Synapse project, from embedding to final answer." }, cat: "ia · rag", read: { fr: "14 min", en: "14 min" }, soon: true, sigil: "nodes" },
+    { slug: "docker", title: { fr: "Docker expliqué simplement. Et comment l'installer chez toi", en: "Docker explained simply. And how to install it at home" }, desc: { fr: "Comprendre Docker, pourquoi c'est utile. Et comment le faire tourner sur ta machine en moins de 10 minutes.", en: "Understanding Docker, why it's useful. And how to run it on your machine in under 10 minutes." }, cat: "infrastructure · docker", read: { fr: "8 min", en: "8 min" }, soon: true, sigil: "terminal" },
+    { slug: "n8n", title: { fr: "n8n : automatise ta vie sans être développeur", en: "n8n: automate your life without being a developer" }, desc: { fr: "n8n c'est comme Make ou Zapier, mais open-source et auto-hébergeable. Installation et premier workflow utile. De zéro.", en: "n8n is like Make or Zapier, but open-source and self-hostable. Installation and a first useful workflow. From scratch." }, cat: "automatisation · n8n", read: { fr: "12 min", en: "12 min" }, soon: true, sigil: "nodes" },
+    { slug: "agents", title: { fr: "Les agents IA, c'est quoi concrètement ?", en: "AI agents. What are they, concretely?" }, desc: { fr: "Derrière le buzzword \"agentique\", il y a quelque chose de simple et de puissant. Ce que c'est, comment ça fonctionne, et comment en construire un.", en: "Behind the \"agentic\" buzzword lies something simple and powerful. What it is, how it works, and how to build one." }, cat: "ia · agents", read: { fr: "10 min", en: "10 min" }, soon: true, sigil: "agents" },
+    { slug: "dashboard-py", title: { fr: "Dashboard financier maison. Python, Google Sheets & App Script", en: "Home-made financial dashboard. Python, Google Sheets & App Script" }, desc: { fr: "Pas besoin d'un outil payant pour suivre ton portefeuille. Comment connecter Python, l'API Google Sheets et App Script pour un dashboard en temps réel.", en: "No paid tool needed to track your portfolio. How to connect Python, the Google Sheets API and App Script for a real-time dashboard." }, cat: { fr: "finance · outils", en: "finance · tools" }, read: { fr: "15 min", en: "15 min" }, soon: true, sigil: "finance" },
+    { slug: "scraping", title: { fr: "Scraper un site avec Python. L'exemple Discogs", en: "Scrape a site with Python. The Discogs example" }, desc: { fr: "Le web scraping c'est une compétence sous-estimée. Comment récupérer des milliers de données depuis Discogs et les analyser.", en: "Web scraping is an underrated skill. How to pull thousands of data points from Discogs and analyze them." }, cat: "python · scraping", read: { fr: "10 min", en: "10 min" }, soon: true, sigil: "terminal" },
+    { slug: "rag", title: { fr: "RAG. Construire un chatbot qui lit des thèses", en: "RAG. Building a chatbot that reads theses" }, desc: { fr: "Le Retrieval-Augmented Generation c'est l'un des patterns les plus utiles de l'IA actuelle. Walkthrough complet du projet Synapse, de l'embedding à la réponse finale.", en: "Retrieval-Augmented Generation is one of the most useful patterns in AI today. A full walkthrough of the Synapse project, from embedding to final answer." }, cat: "ia · rag", read: { fr: "14 min", en: "14 min" }, soon: true, sigil: "nodes" },
   ],
 
   skillsGroups: [
@@ -284,7 +284,7 @@ window.JL = window.resolveI18n({
 
   testimonials: [
     { id: "ml", initials: "ML", n: "Matthieu L.", r: { fr: "Enseignant Python · M1 AI Applied to Business", en: "Python teacher · M1 AI Applied to Business" }, q: { fr: "Jean-Li s'est rapidement distingué par son sens de l'initiative et son engagement tout au long du Master. Attentif, impliqué, toujours prêt à proposer des idées pertinentes.", en: "Jean-Li quickly stood out for his initiative and his commitment throughout the Master's. Attentive, involved, always ready to bring up relevant ideas." } },
-    { id: "kp", initials: "KP", n: "Kevin Rosamont Prombo", r: { fr: "Enseignant SQL & Google Sheets · M1 AI Applied to Business", en: "SQL & Google Sheets teacher · M1 AI Applied to Business" }, q: { fr: "Jean-Li fait partie de ces étudiants qui dépassent rapidement le cadre du cours. Sur SQL comme sur Google Sheets, il transforme chaque notion vue en classe en un projet concret et abouti — toujours avec rigueur et une vraie curiosité pour aller chercher la réponse.", en: "Jean-Li is one of those students who quickly go beyond the scope of the course. On SQL as on Google Sheets, he turns every concept seen in class into a concrete, polished project — always with rigor and genuine curiosity to dig for the answer." }, src: "media/kevin-rosamont.jpeg" },
+    { id: "kp", initials: "KP", n: "Kevin Rosamont Prombo", r: { fr: "Enseignant SQL & Google Sheets · M1 AI Applied to Business", en: "SQL & Google Sheets teacher · M1 AI Applied to Business" }, q: { fr: "Jean-Li fait partie de ces étudiants qui dépassent rapidement le cadre du cours. Sur SQL comme sur Google Sheets, il transforme chaque notion vue en classe en un projet concret et abouti. Toujours avec rigueur et une vraie curiosité pour aller chercher la réponse.", en: "Jean-Li is one of those students who quickly go beyond the scope of the course. On SQL as on Google Sheets, he turns every concept seen in class into a concrete, polished project. Always with rigor and genuine curiosity to dig for the answer." }, src: "media/kevin-rosamont.jpeg" },
     { id: "te", initials: "TE", n: "Thomas Escot", r: { fr: "Enseignant Digital Marketing · Consultant SEO/GEO", en: "Digital Marketing teacher · SEO/GEO consultant" }, q: { fr: "J'ai eu Jean-Li en cours de Digital Marketing, dans le cadre d'un projet réel de stratégie SEO/GEO déployée de A à Z. Son travail m'a marqué par sa capacité à produire des recommandations à la fois techniquement solides et parfaitement ancrées dans les contraintes réelles du site. Mention spéciale pour l'outil d'automatisation développé avec son groupe : c'est exactement le niveau d'initiative et de maîtrise qu'on attend d'un profil qui se distingue.", en: "I taught Jean-Li in Digital Marketing, on a real SEO/GEO strategy project deployed end to end. His work struck me by its ability to produce recommendations that were both technically solid and perfectly grounded in the site's real constraints. Special mention for the automation tool built with his group: exactly the level of initiative and mastery you expect from a standout profile." }, src: "media/thomas-escot.jpeg" },
     { id: "ap", initials: "AP", n: "Élie Zemmour & Mathieu Turban", r: { fr: "Founding Partners · Awake Partners", en: "Founding Partners · Awake Partners" }, q: { fr: "Jean-Li est une véritable « machine » : il a porté le développement et la croissance d'Awake Partners avec une rigueur, une ingéniosité et un dynamisme à toute épreuve. Très orienté data et résultats, il a su apporter des solutions créatives et pragmatiques à chaque défi rencontré.", en: "Jean-Li is a real \"machine\": he drove the development and growth of Awake Partners with relentless rigor, ingenuity and energy. Very data- and results-driven, he brought creative, pragmatic solutions to every challenge faced." }, src: "media/logo-awake.jpeg" },
   ],
@@ -294,7 +294,7 @@ window.JL = window.resolveI18n({
       slug: "veille-ia",
       tags: ["ia", "automatisation", "saas"],
       title: { fr: "Outil de veille IA pour PME", en: "AI monitoring tool for SMBs" },
-      desc: { fr: "Un outil pour aider des PME à suivre leur secteur automatiquement — articles, brevets, signaux faibles. En cours de conception.", en: "A tool to help SMBs monitor their industry automatically — articles, patents, weak signals. Currently in design." },
+      desc: { fr: "Un outil pour aider des PME à suivre leur secteur automatiquement. Articles, brevets, signaux faibles. En cours de conception.", en: "A tool to help SMBs monitor their industry automatically. Articles, patents, weak signals. Currently in design." },
       seek: { fr: "quelqu'un de curieux sur l'IA et/ou le product.", en: "someone curious about AI and/or product." },
       status: "open",
       slots: { fr: "1–2 personnes", en: "1–2 people" },
@@ -304,7 +304,7 @@ window.JL = window.resolveI18n({
       slug: "joliment-v2",
       tags: ["web", "communauté", "no-code"],
       title: "joliment.fr v2",
-      desc: { fr: "Ce site lui-même évolue — vers une vraie communauté de builders. Édition collaborative, fil d'updates, espaces projet.", en: "This very site is evolving — toward a real community of builders. Collaborative editing, update feed, project spaces." },
+      desc: { fr: "Ce site lui-même évolue. Vers une vraie communauté de builders. Édition collaborative, fil d'updates, espaces projet.", en: "This very site is evolving. Toward a real community of builders. Collaborative editing, update feed, project spaces." },
       seek: { fr: "designer, dev front, ou simplement quelqu'un avec de bonnes idées.", en: "designer, front-end dev, or simply someone with good ideas." },
       status: "open",
       slots: { fr: "ponctuel", en: "occasional" },
@@ -314,7 +314,7 @@ window.JL = window.resolveI18n({
       slug: "dashboard-v2",
       tags: ["finance", "data", "python"],
       title: { fr: "Dashboard Financier v2", en: "Financial Dashboard v2" },
-      desc: { fr: "La prochaine version du dashboard financier — de vraies stratégies quantitatives, pas juste du suivi. Backtesting, alertes, signaux.", en: "The next version of the financial dashboard — real quant strategies, not just tracking. Backtesting, alerts, signals." },
+      desc: { fr: "La prochaine version du dashboard financier. De vraies stratégies quantitatives, pas juste du suivi. Backtesting, alertes, signaux.", en: "The next version of the financial dashboard. Real quant strategies, not just tracking. Backtesting, alerts, signals." },
       seek: { fr: "quelqu'un avec un intérêt pour la finance et des bases en Python ou data.", en: "someone interested in finance with basics in Python or data." },
       status: "soon",
       slots: { fr: "1 personne", en: "1 person" },
@@ -327,34 +327,34 @@ window.JL = window.resolveI18n({
     cite: "— John Lennon",
     name: "Jean-Li Sek",
     titleLine: { fr: "Data & IA · Builder · Apprenant à plein temps.", en: "Data & AI · Builder · Full-time learner." },
-    intro: { fr: "J'ai grandi avec l'idée qu'on peut apprendre à peu près n'importe quoi si on s'y met vraiment. Ce site, c'est la trace de tout ce que j'explore — pas pour impressionner, mais pour documenter le chemin et partager ce qui peut être utile.", en: "I grew up with the idea that you can learn just about anything if you really commit to it. This site is the trace of everything I explore — not to impress, but to document the journey and share what might be useful." },
+    intro: { fr: "J'ai grandi avec l'idée qu'on peut apprendre à peu près n'importe quoi si on s'y met vraiment. Ce site, c'est la trace de tout ce que j'explore. Pas pour impressionner, mais pour documenter le chemin et partager ce qui peut être utile.", en: "I grew up with the idea that you can learn just about anything if you really commit to it. This site is the trace of everything I explore. Not to impress, but to document the journey and share what might be useful." },
     longBio: [
-      { fr: "J'ai grandi avec l'idée qu'on peut apprendre à peu près n'importe quoi si on s'y met vraiment. Ce site c'est la trace de tout ce que j'ai exploré — pas pour impressionner, mais pour documenter ce chemin et partager ce qui peut être utile aux autres.", en: "I grew up with the idea that you can learn just about anything if you really commit to it. This site is the trace of everything I've explored — not to impress, but to document that journey and share what might be useful to others." },
+      { fr: "J'ai grandi avec l'idée qu'on peut apprendre à peu près n'importe quoi si on s'y met vraiment. Ce site c'est la trace de tout ce que j'ai exploré. Pas pour impressionner, mais pour documenter ce chemin et partager ce qui peut être utile aux autres.", en: "I grew up with the idea that you can learn just about anything if you really commit to it. This site is the trace of everything I've explored. Not to impress, but to document that journey and share what might be useful to others." },
       { fr: "Je travaille sur des sujets très variés : de la data science à l'automatisation, des agents IA à la finance quantitative, du développement web au conseil en transformation. Ce que j'aime, c'est quand ces domaines se croisent et créent quelque chose d'inattendu.", en: "I work across very varied topics: from data science to automation, from AI agents to quantitative finance, from web development to transformation consulting. What I love is when these fields cross and create something unexpected." },
       { fr: "En dehors du code et de la data, je joue de la guitare et du piano, je m'intéresse aux marchés financiers, et je suis convaincu qu'on apprend mieux en faisant qu'en regardant.", en: "Beyond code and data, I play guitar and piano, I follow the financial markets, and I'm convinced you learn better by doing than by watching." },
     ],
     formation: [
-      { period: { fr: "2025 — Aujourd'hui", en: "2025 — Present" }, body: "M1 AI Applied to Business" },
-      { period: "2024 — 2025", body: { fr: "L3 Économie Gestion — Parcours Finance Comptabilité Contrôle", en: "BSc 3 Economics & Management — Finance, Accounting & Control track" } },
-      { period: "2023 — 2024", body: { fr: "L2 Économie Gestion — Parcours général", en: "BSc 2 Economics & Management — General track" } },
-      { period: "2022 — 2023", body: { fr: "L1 — PluriPass (1ère année commune aux études de santé)", en: "BSc 1 — PluriPass (pre-med common first year)" }, faint: true },
+      { period: { fr: "2025. Aujourd'hui", en: "2025. Present" }, body: "M1 AI Applied to Business" },
+      { period: "2024. 2025", body: { fr: "L3 Économie Gestion. Parcours Finance Comptabilité Contrôle", en: "BSc 3 Economics & Management. Finance, Accounting & Control track" } },
+      { period: "2023. 2024", body: { fr: "L2 Économie Gestion. Parcours général", en: "BSc 2 Economics & Management. General track" } },
+      { period: "2022. 2023", body: { fr: "L1. PluriPass (1ère année commune aux études de santé)", en: "BSc 1. PluriPass (pre-med common first year)" }, faint: true },
     ],
     experiences: [
-      { period: { fr: "Mars 2026 — Aujourd'hui", en: "March 2026 — Present" }, body: { fr: "Consultant Data & IA (alternance)", en: "Data & AI Consultant (apprenticeship)" } },
-      { period: { fr: "Sept. 2025 — Fév. 2026", en: "Sept. 2025 — Feb. 2026" }, body: { fr: "Chef de Projet Communication & Marketing — Bras Droit Présidente", en: "Communication & Marketing Project Lead — Right hand to the President" }, faint: true },
-      { period: { fr: "2023 — Aujourd'hui", en: "2023 — Present" }, body: { fr: "Création de Joliment — auto-entreprise", en: "Founded Joliment — sole proprietorship" } },
+      { period: { fr: "Mars 2026. Aujourd'hui", en: "March 2026. Present" }, body: { fr: "Consultant Data & IA (alternance)", en: "Data & AI Consultant (apprenticeship)" } },
+      { period: { fr: "Sept. 2025. Fév. 2026", en: "Sept. 2025. Feb. 2026" }, body: { fr: "Chef de Projet Communication & Marketing. Bras Droit Présidente", en: "Communication & Marketing Project Lead. Right hand to the President" }, faint: true },
+      { period: { fr: "2023. Aujourd'hui", en: "2023. Present" }, body: { fr: "Création de Joliment. Auto-entreprise", en: "Founded Joliment. Sole proprietorship" } },
     ],
     interests: [
-      { fr: "Musique — guitare, piano, et tout ce qui m'accompagne au quotidien", en: "Music — guitar, piano, and everything that scores my day-to-day" },
-      { fr: "Voyages — les destinations qui dépaysent vraiment et changent la perspective", en: "Travel — destinations that truly shift you and change your perspective" },
-      { fr: "Sport — escalade, tennis, running", en: "Sport — climbing, tennis, running" },
-      { fr: "Photographie & vidéo — capturer ce qui mérite de rester", en: "Photography & video — capturing what deserves to last" },
+      { fr: "Musique. Guitare, piano, et tout ce qui m'accompagne au quotidien", en: "Music. Guitar, piano, and everything that scores my day-to-day" },
+      { fr: "Voyages. Les destinations qui dépaysent vraiment et changent la perspective", en: "Travel. Destinations that truly shift you and change your perspective" },
+      { fr: "Sport. Escalade, tennis, running", en: "Sport. Climbing, tennis, running" },
+      { fr: "Photographie & vidéo. Capturer ce qui mérite de rester", en: "Photography & video. Capturing what deserves to last" },
     ],
     currently: [
-      { fr: "Ce site — joliment.fr", en: "This site — joliment.fr" },
-      { fr: "Blog — premiers articles en cours", en: "Blog — first articles in progress" },
-      { fr: "Next trip — destination à confirmer", en: "Next trip — destination TBC" },
-      { fr: "Tenir bon — un jour à la fois", en: "Holding steady — one day at a time" },
+      { fr: "Ce site. Joliment.fr", en: "This site. Joliment.fr" },
+      { fr: "Blog. Premiers articles en cours", en: "Blog. First articles in progress" },
+      { fr: "Next trip. Destination à confirmer", en: "Next trip. Destination TBC" },
+      { fr: "Tenir bon. Un jour à la fois", en: "Holding steady. One day at a time" },
     ],
     supportDesc: { fr: "Joliment reverse une partie de ses revenus à deux associations qui nous tiennent à cœur.", en: "Joliment donates part of its revenue to two charities close to our hearts." },
     associations: [
@@ -364,7 +364,7 @@ window.JL = window.resolveI18n({
   },
 
   travelStops: [
-    { id: "trv-cph-1", src: "media/photos/02-iridescent-glass.jpeg", loc: "Copenhagen", sub: { fr: "Royal Library — vitrine iridescente", en: "Royal Library — iridescent glass" } },
+    { id: "trv-cph-1", src: "media/photos/02-iridescent-glass.jpeg", loc: "Copenhagen", sub: { fr: "Royal Library. Vitrine iridescente", en: "Royal Library. Iridescent glass" } },
     { id: "trv-cph-2", src: "media/photos/04-black-diamond.jpeg", loc: "Copenhagen", sub: { fr: "Black Diamond, sur l'eau", en: "Black Diamond, on the water" } },
     { id: "trv-cph-3", src: "media/photos/07-spire-frame.jpeg", loc: "Copenhagen", sub: { fr: "Vor Frelsers, encadrée", en: "Vor Frelsers, framed" } },
     { id: "trv-cph-4", src: "media/photos/03-copenhagen-by-heart.jpeg", loc: "Copenhagen", sub: { fr: "By Heart, en néon", en: "By Heart, in neon" } },
@@ -374,8 +374,8 @@ window.JL = window.resolveI18n({
   ],
 
   thisWeek: [
-    { day: { fr: "Lun. 19", en: "Mon. 19" }, text: { fr: "Article Docker — publication prévue jeudi.", en: "Docker article — publishing Thursday." } },
-    { day: { fr: "Mer. 21", en: "Wed. 21" }, text: { fr: "Synapse v2 — ajout de nouveaux corpus.", en: "Synapse v2 — adding new corpora." } },
+    { day: { fr: "Lun. 19", en: "Mon. 19" }, text: { fr: "Article Docker. Publication prévue jeudi.", en: "Docker article. Publishing Thursday." } },
+    { day: { fr: "Mer. 21", en: "Wed. 21" }, text: { fr: "Synapse v2. Ajout de nouveaux corpus.", en: "Synapse v2. Adding new corpora." } },
     { day: { fr: "Ven. 23", en: "Fri. 23" }, text: { fr: "Nouvelle position collab ouverte.", en: "New collab position opened." } },
   ],
 });

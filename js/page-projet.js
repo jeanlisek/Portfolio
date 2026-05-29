@@ -35,8 +35,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "Concevoir <strong>Mirakl Connect — Supply Brain</strong>, une plateforme d'orchestration où la <strong>CSR devient une contrainte d'exécution</strong> (runtime constraint) et où l'allocation stock obéit à un <strong>barycentre supply</strong> — l'équilibre optimal entre canaux, entrepôts et marges. Six agents IA simulent en continu coût, délai et CO₂ ; l'humain garde l'arbitrage final.",
-        en: "Design <strong>Mirakl Connect — Supply Brain</strong>, an orchestration platform where <strong>CSR becomes a runtime constraint</strong> and stock allocation follows a <strong>supply barycenter</strong> — the optimal balance between channels, warehouses and margins. Six AI agents continuously simulate cost, lead time and CO₂; the human keeps the final call."
+        fr: "Concevoir <strong>Mirakl Connect · Supply Brain</strong>, une plateforme d'orchestration où la <strong>CSR devient une contrainte d'exécution</strong> (runtime constraint) et où l'allocation stock obéit à un <strong>barycentre supply</strong>. L'équilibre optimal entre canaux, entrepôts et marges. Six agents IA simulent en continu coût, délai et CO₂ ; l'humain garde l'arbitrage final.",
+        en: "Design <strong>Mirakl Connect · Supply Brain</strong>, an orchestration platform where <strong>CSR becomes a runtime constraint</strong> and stock allocation follows a <strong>supply barycenter</strong>. The optimal balance between channels, warehouses and margins. Six AI agents continuously simulate cost, lead time and CO₂; the human keeps the final call."
       }
     }, {
       label: {
@@ -44,8 +44,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "<strong>Stack full opérationnelle en 72h</strong> — six agents Dust orchestrés, n8n exposant cinq outils MCP, Supabase avec 21 tables et 12 vues SQL temps réel, <strong>dashboard React 19 dynamique et personnalisable</strong> par profil (finance, ops, marketing, éco). Pitch livré devant les équipes Mirakl, architecture validée bout-en-bout sur des données simulées réalistes.",
-        en: "<strong>Fully operational stack in 72h</strong> — six orchestrated Dust agents, n8n exposing five MCP tools, Supabase with 21 tables and 12 real-time SQL views, <strong>a dynamic, customizable React 19 dashboard</strong> per role (finance, ops, marketing, eco). Pitched to the Mirakl teams, architecture validated end-to-end on realistic simulated data."
+        fr: "<strong>Stack full opérationnelle en 72h</strong>. Six agents Dust orchestrés, n8n exposant cinq outils MCP, Supabase avec 21 tables et 12 vues SQL temps réel, <strong>dashboard React 19 dynamique et personnalisable</strong> par profil (finance, ops, marketing, éco). Pitch livré devant les équipes Mirakl, architecture validée bout-en-bout sur des données simulées réalistes.",
+        en: "<strong>Fully operational stack in 72h</strong>. Six orchestrated Dust agents, n8n exposing five MCP tools, Supabase with 21 tables and 12 real-time SQL views, <strong>a dynamic, customizable React 19 dashboard</strong> per role (finance, ops, marketing, eco). Pitched to the Mirakl teams, architecture validated end-to-end on realistic simulated data."
       }
     }],
     archTitle: {
@@ -57,8 +57,8 @@ const DEEP = window.resolveI18n({
       en: "in 4 layers."
     },
     signature: {
-      fr: "Le dashboard est <strong>intent-driven</strong> — il se reconfigure en temps réel selon ce que l'utilisateur veut voir. <strong>Pas une UI figée à 4 profils</strong> : finance, ops, marketing, éco sont des points de départ, mais n'importe quelle vue (financière sur la supply, marketing sur la CSR, ad hoc…) est générée à la volée. <em>« Not a chatbot — a UI that listens. »</em>",
-      en: "The dashboard is <strong>intent-driven</strong> — it reconfigures in real time based on what the user wants to see. <strong>Not a fixed 4-profile UI</strong>: finance, ops, marketing, eco are starting points, but any view (financial on supply, marketing on CSR, ad hoc…) is generated on the fly. <em>« Not a chatbot — a UI that listens. »</em>"
+      fr: "Le dashboard est <strong>intent-driven</strong>. Il se reconfigure en temps réel selon ce que l'utilisateur veut voir. <strong>Pas une UI figée à 4 profils</strong> : finance, ops, marketing, éco sont des points de départ, mais n'importe quelle vue (financière sur la supply, marketing sur la CSR, ad hoc…) est générée à la volée. <em>« Not a chatbot. A UI that listens. »</em>",
+      en: "The dashboard is <strong>intent-driven</strong>. It reconfigures in real time based on what the user wants to see. <strong>Not a fixed 4-profile UI</strong>: finance, ops, marketing, eco are starting points, but any view (financial on supply, marketing on CSR, ad hoc…) is generated on the fly. <em>« Not a chatbot. A UI that listens. »</em>"
     },
     signatureImage: {
       src: "media/mirakl-architecture.png",
@@ -88,8 +88,8 @@ const DEEP = window.resolveI18n({
         en: "+ ad hoc view"
       }],
       note: {
-        fr: "Le dashboard se reconfigure en temps réel selon ce que l'utilisateur veut voir — n'importe quelle vue, pas seulement les 4 profils par défaut",
-        en: "The dashboard reconfigures in real time based on what the user wants to see — any view, not just the 4 default profiles"
+        fr: "Le dashboard se reconfigure en temps réel selon ce que l'utilisateur veut voir. N'importe quelle vue, pas seulement les 4 profils par défaut",
+        en: "The dashboard reconfigures in real time based on what the user wants to see. Any view, not just the 4 default profiles"
       },
       highlight: true
     }, {
@@ -159,8 +159,8 @@ const DEEP = window.resolveI18n({
         en: "Context"
       },
       html: {
-        fr: "thèses.fr recense des milliers de thèses académiques françaises — mais leur moteur de recherche classique est limité. <strong>La recherche par mots-clés ne capture pas le sens</strong> : deux thèses sur le même sujet peuvent utiliser des vocabulaires totalement différents.",
-        en: "thèses.fr lists thousands of French academic theses — but its classic search engine is limited. <strong>Keyword search doesn't capture meaning</strong>: two theses on the same topic may use completely different vocabularies."
+        fr: "thèses.fr recense des milliers de thèses académiques françaises. Mais leur moteur de recherche classique est limité. <strong>La recherche par mots-clés ne capture pas le sens</strong> : deux thèses sur le même sujet peuvent utiliser des vocabulaires totalement différents.",
+        en: "thèses.fr lists thousands of French academic theses. But its classic search engine is limited. <strong>Keyword search doesn't capture meaning</strong>: two theses on the same topic may use completely different vocabularies."
       }
     }, {
       label: {
@@ -168,8 +168,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "Construire un <strong>chatbot RAG (Retrieval-Augmented Generation)</strong> connecté à thèses.fr — sectoriser le corpus via embeddings, permettre une recherche sémantique précise et générer des réponses contextualisées à partir des sources réelles.",
-        en: "Build a <strong>RAG (Retrieval-Augmented Generation) chatbot</strong> connected to thèses.fr — sectorize the corpus via embeddings, enable precise semantic search and generate contextualized answers from the real sources."
+        fr: "Construire un <strong>chatbot RAG (Retrieval-Augmented Generation)</strong> connecté à thèses.fr. Sectoriser le corpus via embeddings, permettre une recherche sémantique précise et générer des réponses contextualisées à partir des sources réelles.",
+        en: "Build a <strong>RAG (Retrieval-Augmented Generation) chatbot</strong> connected to thèses.fr. Sectorize the corpus via embeddings, enable precise semantic search and generate contextualized answers from the real sources."
       }
     }, {
       label: {
@@ -177,8 +177,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "Chatbot <strong>opérationnel avec retrieval sémantique</strong> — les requêtes en langage naturel trouvent les thèses pertinentes même sans correspondance exacte de mots. Pipeline complet : ingestion → embeddings → retrieval → génération.",
-        en: "Chatbot <strong>operational with semantic retrieval</strong> — natural-language queries find the relevant theses even without exact word matches. Full pipeline: ingestion → embeddings → retrieval → generation."
+        fr: "Chatbot <strong>opérationnel avec retrieval sémantique</strong>. Les requêtes en langage naturel trouvent les thèses pertinentes même sans correspondance exacte de mots. Pipeline complet : ingestion → embeddings → retrieval → génération.",
+        en: "Chatbot <strong>operational with semantic retrieval</strong>. Natural-language queries find the relevant theses even without exact word matches. Full pipeline: ingestion → embeddings → retrieval → generation."
       }
     }],
     archTitle: {
@@ -190,8 +190,8 @@ const DEEP = window.resolveI18n({
       en: "RAG in 5 steps."
     },
     signature: {
-      fr: "Le <strong>retrieval sémantique</strong> : interroger des milliers de thèses en langage naturel, et trouver les bonnes — <strong>même sans correspondance exacte de mots-clés</strong>. Deux thèses sur le même sujet peuvent utiliser des vocabulaires opposés ; les embeddings capturent le sens, pas les chaînes de caractères.",
-      en: "<strong>Semantic retrieval</strong>: query thousands of theses in natural language, and find the right ones — <strong>even without exact keyword matches</strong>. Two theses on the same topic may use opposite vocabularies; embeddings capture meaning, not character strings."
+      fr: "Le <strong>retrieval sémantique</strong> : interroger des milliers de thèses en langage naturel, et trouver les bonnes. <strong>même sans correspondance exacte de mots-clés</strong>. Deux thèses sur le même sujet peuvent utiliser des vocabulaires opposés ; les embeddings capturent le sens, pas les chaînes de caractères.",
+      en: "<strong>Semantic retrieval</strong>: query thousands of theses in natural language, and find the right ones. <strong>even without exact keyword matches</strong>. Two theses on the same topic may use opposite vocabularies; embeddings capture meaning, not character strings."
     },
     layers: [{
       tier: "Ingestion",
@@ -277,8 +277,8 @@ const DEEP = window.resolveI18n({
         en: "Context"
       },
       html: {
-        fr: "Les LLMs seuls ont des limites sur des tâches complexes. L'idée : <strong>faire collaborer plusieurs agents spécialisés</strong> plutôt qu'un seul agent généraliste — chacun expert dans son domaine, coordonnés par un orchestrateur.",
-        en: "LLMs alone hit limits on complex tasks. The idea: <strong>have several specialized agents collaborate</strong> rather than one generalist agent — each expert in its domain, coordinated by an orchestrator."
+        fr: "Les LLMs seuls ont des limites sur des tâches complexes. L'idée : <strong>faire collaborer plusieurs agents spécialisés</strong> plutôt qu'un seul agent généraliste. Chacun expert dans son domaine, coordonnés par un orchestrateur.",
+        en: "LLMs alone hit limits on complex tasks. The idea: <strong>have several specialized agents collaborate</strong> rather than one generalist agent. Each expert in its domain, coordinated by an orchestrator."
       }
     }, {
       label: {
@@ -286,8 +286,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "Construire sur Dust un <strong>hub agentique</strong> où des agents IA spécialisés se passent du contexte et collaborent autour d'une tâche centrale — en exploitant les capacités natives de la plateforme.",
-        en: "Build on Dust an <strong>agentic hub</strong> where specialized AI agents pass context and collaborate around a central task — leveraging the platform's native capabilities."
+        fr: "Construire sur Dust un <strong>hub agentique</strong> où des agents IA spécialisés se passent du contexte et collaborent autour d'une tâche centrale. En exploitant les capacités natives de la plateforme.",
+        en: "Build on Dust an <strong>agentic hub</strong> where specialized AI agents pass context and collaborate around a central task. Leveraging the platform's native capabilities."
       }
     }, {
       label: {
@@ -295,8 +295,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "Architecture <strong>multi-agents opérationnelle</strong> — orchestration fluide, agents spécialisés autonomes, gain de qualité et de cohérence significatif par rapport à un agent unique. Base des projets IA suivants.",
-        en: "<strong>Operational multi-agent architecture</strong> — smooth orchestration, autonomous specialized agents, significant gain in quality and consistency over a single agent. Foundation for the AI projects that followed."
+        fr: "Architecture <strong>multi-agents opérationnelle</strong>. Orchestration fluide, agents spécialisés autonomes, gain de qualité et de cohérence significatif par rapport à un agent unique. Base des projets IA suivants.",
+        en: "<strong>Operational multi-agent architecture</strong>. Smooth orchestration, autonomous specialized agents, significant gain in quality and consistency over a single agent. Foundation for the AI projects that followed."
       }
     }],
     archTitle: {
@@ -308,8 +308,8 @@ const DEEP = window.resolveI18n({
       en: "multi-agent."
     },
     signature: {
-      fr: "<strong>Spécialisation plutôt que généralisation</strong> : un agent par tâche, coordonné par un orchestrateur, qui se passent du contexte. Le résultat dépasse de loin un agent unique généraliste — cette archi est devenue la <strong>base technique de Mirakl Supply Brain et du pipeline PayFit</strong>.",
-      en: "<strong>Specialization over generalization</strong>: one agent per task, coordinated by an orchestrator, passing context to each other. The result far surpasses a single generalist agent — this architecture became the <strong>technical foundation of Mirakl Supply Brain and the PayFit pipeline</strong>."
+      fr: "<strong>Spécialisation plutôt que généralisation</strong> : un agent par tâche, coordonné par un orchestrateur, qui se passent du contexte. Le résultat dépasse de loin un agent unique généraliste. Cette archi est devenue la <strong>base technique de Mirakl Supply Brain et du pipeline PayFit</strong>.",
+      en: "<strong>Specialization over generalization</strong>: one agent per task, coordinated by an orchestrator, passing context to each other. The result far surpasses a single generalist agent. This architecture became the <strong>technical foundation of Mirakl Supply Brain and the PayFit pipeline</strong>."
     },
     layers: [{
       tier: {
@@ -402,8 +402,8 @@ const DEEP = window.resolveI18n({
         en: "Context"
       },
       html: {
-        fr: "Hackathon PayFit — défi : <strong>générer du contenu RH & Paie de qualité à grande échelle</strong>. PayFit publie des centaines d'articles légaux et techniques. Le faire manuellement est lent, coûteux, et non scalable.",
-        en: "PayFit Hackathon — challenge: <strong>generate quality HR & Payroll content at scale</strong>. PayFit publishes hundreds of legal and technical articles. Doing it manually is slow, costly, and not scalable."
+        fr: "Hackathon PayFit. Défi : <strong>générer du contenu RH & Paie de qualité à grande échelle</strong>. PayFit publie des centaines d'articles légaux et techniques. Le faire manuellement est lent, coûteux, et non scalable.",
+        en: "PayFit Hackathon. Challenge: <strong>generate quality HR & Payroll content at scale</strong>. PayFit publishes hundreds of legal and technical articles. Doing it manually is slow, costly, and not scalable."
       }
     }, {
       label: {
@@ -411,8 +411,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "Concevoir un <strong>pipeline de 9 agents IA</strong> sur Dust avec Claude Sonnet — chaque agent spécialisé dans une étape de production (recherche, rédaction, vérification légale, optimisation SEO) pour produire des articles publiables directement.",
-        en: "Design a <strong>9 AI-agent pipeline</strong> on Dust with Claude Sonnet — each agent specialized in one production step (research, writing, legal review, SEO optimization) to produce directly publishable articles."
+        fr: "Concevoir un <strong>pipeline de 9 agents IA</strong> sur Dust, chaque agent spécialisé dans une étape de production (recherche, rédaction, vérification légale, optimisation SEO) pour produire des articles publiables directement.",
+        en: "Design a <strong>9 AI-agent pipeline</strong> on Dust, each agent specialized in one production step (research, writing, legal review, SEO optimization) to produce directly publishable articles."
       }
     }, {
       label: {
@@ -420,8 +420,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "Pipeline <strong>opérationnel en moins de 24h</strong> — articles RH & Paie générés, SEO-ready, légalement conformes et publiables sans retouche manuelle. <strong>Équipe finaliste</strong> du hackathon PayFit, architecture agentique distinguée par le jury.",
-        en: "Pipeline <strong>operational in under 24h</strong> — HR & Payroll articles generated, SEO-ready, legally compliant and publishable with no manual edits. <strong>Finalist team</strong> at the PayFit hackathon, agentic architecture singled out by the jury."
+        fr: "Pipeline <strong>opérationnel en moins de 24h</strong>. Articles RH & Paie générés, SEO-ready, légalement conformes et publiables sans retouche manuelle. <strong>Équipe finaliste</strong> du hackathon PayFit, architecture agentique distinguée par le jury.",
+        en: "Pipeline <strong>operational in under 24h</strong>. HR & Payroll articles generated, SEO-ready, legally compliant and publishable with no manual edits. <strong>Finalist team</strong> at the PayFit hackathon, agentic architecture singled out by the jury."
       }
     }],
     archTitle: {
@@ -518,8 +518,8 @@ const DEEP = window.resolveI18n({
         en: "3 passes max"
       }],
       note: {
-        fr: "Si score KO, CorrecteurPayFit réécrit les sections en échec — jusqu'à 3 itérations avant validation",
-        en: "If score fails, CorrecteurPayFit rewrites the failing sections — up to 3 iterations before validation"
+        fr: "Si score KO, CorrecteurPayFit réécrit les sections en échec. Jusqu'à 3 itérations avant validation",
+        en: "If score fails, CorrecteurPayFit rewrites the failing sections. Up to 3 iterations before validation"
       },
       highlight: true
     }, {
@@ -558,8 +558,8 @@ const DEEP = window.resolveI18n({
         en: "Context"
       },
       html: {
-        fr: "Intérêt pour la finance et l'investissement — mais aucun outil existant ne correspondait à la vision voulue : <strong>simple, automatisé, et orienté données</strong>. Besoin d'un dashboard personnel construit sur mesure directement dans Google Sheets.",
-        en: "An interest in finance and investing — but no existing tool matched the desired vision: <strong>simple, automated, and data-driven</strong>. The need for a personal dashboard built to measure directly in Google Sheets."
+        fr: "Intérêt pour la finance et l'investissement. Mais aucun outil existant ne correspondait à la vision voulue : <strong>simple, automatisé, et orienté données</strong>. Besoin d'un dashboard personnel construit sur mesure directement dans Google Sheets.",
+        en: "An interest in finance and investing. But no existing tool matched the desired vision: <strong>simple, automated, and data-driven</strong>. The need for a personal dashboard built to measure directly in Google Sheets."
       }
     }, {
       label: {
@@ -567,8 +567,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "Créer un <strong>portefeuille financier automatisé</strong> via Google Sheets et Apps Script — actualisation des données en temps réel, suivi des performances, et stratégie orientée pour surpasser le S&P500.",
-        en: "Create an <strong>automated financial portfolio</strong> via Google Sheets and Apps Script — real-time data refresh, performance tracking, and a strategy aimed at beating the S&P500."
+        fr: "Créer un <strong>portefeuille financier automatisé</strong> via Google Sheets et Apps Script. Actualisation des données en temps réel, suivi des performances, et stratégie orientée pour surpasser le S&P500.",
+        en: "Create an <strong>automated financial portfolio</strong> via Google Sheets and Apps Script. Real-time data refresh, performance tracking, and a strategy aimed at beating the S&P500."
       }
     }, {
       label: {
@@ -576,8 +576,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "Un outil de pilotage <strong>opérationnel et automatisé</strong> — données mises à jour sans intervention manuelle, visualisation claire des positions et performances, stratégie d'allocation data-driven.",
-        en: "An <strong>operational, automated</strong> steering tool — data updated with no manual intervention, clear visualization of positions and performance, a data-driven allocation strategy."
+        fr: "Un outil de pilotage <strong>opérationnel et automatisé</strong>. Données mises à jour sans intervention manuelle, visualisation claire des positions et performances, stratégie d'allocation data-driven.",
+        en: "An <strong>operational, automated</strong> steering tool. Data updated with no manual intervention, clear visualization of positions and performance, a data-driven allocation strategy."
       }
     }],
     archTitle: {
@@ -671,8 +671,8 @@ const DEEP = window.resolveI18n({
         en: "Context"
       },
       html: {
-        fr: "Avec des amis, on voulait créer quelque chose de concret ensemble — <strong>un jeu en ligne jouable</strong>, construit from scratch, sans expérience préalable en game dev. Zéro template, zéro framework dédié : juste du code.",
-        en: "With friends, we wanted to create something real together — <strong>a playable online game</strong>, built from scratch, with no prior game-dev experience. Zero template, zero dedicated framework: just code."
+        fr: "Avec des amis, on voulait créer quelque chose de concret ensemble. <strong>un jeu en ligne jouable</strong>, construit from scratch, sans expérience préalable en game dev. Zéro template, zéro framework dédié : juste du code.",
+        en: "With friends, we wanted to create something real together. <strong>a playable online game</strong>, built from scratch, with no prior game-dev experience. Zero template, zero dedicated framework: just code."
       }
     }, {
       label: {
@@ -680,8 +680,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "Concevoir, développer et déployer un <strong>jeu multijoueur web</strong> en temps réel — de la mécanique de jeu à l'hébergement en production, en passant par les interactions en temps réel entre joueurs.",
-        en: "Design, build and deploy a real-time <strong>multiplayer web game</strong> — from game mechanics to production hosting, including real-time interactions between players."
+        fr: "Concevoir, développer et déployer un <strong>jeu multijoueur web</strong> en temps réel. De la mécanique de jeu à l'hébergement en production, en passant par les interactions en temps réel entre joueurs.",
+        en: "Design, build and deploy a real-time <strong>multiplayer web game</strong>. From game mechanics to production hosting, including real-time interactions between players."
       }
     }, {
       label: {
@@ -689,8 +689,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "Un jeu <strong>en ligne et jouable</strong> sur zig-zag.fun. Première vraie expérience de build en équipe — de l'idée à la mise en prod. Le projet qui a tout déclenché.",
-        en: "A game <strong>online and playable</strong> at zig-zag.fun. The first real team-build experience — from idea to production. The project that started it all."
+        fr: "Un jeu <strong>en ligne et jouable</strong> sur zig-zag.fun. Première vraie expérience de build en équipe. De l'idée à la mise en prod. Le projet qui a tout déclenché.",
+        en: "A game <strong>online and playable</strong> at zig-zag.fun. The first real team-build experience. From idea to production. The project that started it all."
       }
     }],
     archTitle: {
@@ -702,8 +702,8 @@ const DEEP = window.resolveI18n({
       en: "web from scratch."
     },
     signature: {
-      fr: "<strong>From scratch, zéro framework dédié.</strong> Pas de Phaser, pas d'Unity Web — juste du JavaScript natif côté client, Node côté serveur, WebSocket pour synchroniser. Le projet qui a tout déclenché : première vraie expérience d'un cycle complet de build en équipe (idée → prod).",
-      en: "<strong>From scratch, zero dedicated framework.</strong> No Phaser, no Unity Web — just native JavaScript on the client, Node on the server, WebSocket to sync. The project that started it all: the first real experience of a full team-build cycle (idea → prod)."
+      fr: "<strong>From scratch, zéro framework dédié.</strong> Pas de Phaser, pas d'Unity Web. Juste du JavaScript natif côté client, Node côté serveur, WebSocket pour synchroniser. Le projet qui a tout déclenché : première vraie expérience d'un cycle complet de build en équipe (idée → prod).",
+      en: "<strong>From scratch, zero dedicated framework.</strong> No Phaser, no Unity Web. Just native JavaScript on the client, Node on the server, WebSocket to sync. The project that started it all: the first real experience of a full team-build cycle (idea → prod)."
     },
     quotes: {
       afterResults: {
@@ -793,8 +793,8 @@ const DEEP = window.resolveI18n({
         en: "Context"
       },
       html: {
-        fr: "Dataset public Olist — <strong>99 441 commandes e-commerce brésiliennes</strong> réparties sur 3 tables CSV (orders, customers, payments), couvrant la période 2016-2018.",
-        en: "Public Olist dataset — <strong>99,441 Brazilian e-commerce orders</strong> spread across 3 CSV tables (orders, customers, payments), covering 2016-2018."
+        fr: "Dataset public Olist. <strong>99 441 commandes e-commerce brésiliennes</strong> réparties sur 3 tables CSV (orders, customers, payments), couvrant la période 2016-2018.",
+        en: "Public Olist dataset. <strong>99,441 Brazilian e-commerce orders</strong> spread across 3 CSV tables (orders, customers, payments), covering 2016-2018."
       }
     }, {
       label: {
@@ -802,8 +802,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "Concevoir un <strong>dashboard analytique complet sur Tableau Desktop</strong> — jointure multi-tables, création de champs calculés, production de 8 vues distinctes (cartes, séries temporelles, bar charts) consolidées avec filtres liés cross-vues.",
-        en: "Design a <strong>complete analytical dashboard in Tableau Desktop</strong> — multi-table joins, calculated fields, 8 distinct views (maps, time series, bar charts) consolidated with cross-view linked filters."
+        fr: "Concevoir un <strong>dashboard analytique complet sur Tableau Desktop</strong>. Jointure multi-tables, création de champs calculés, production de 8 vues distinctes (cartes, séries temporelles, bar charts) consolidées avec filtres liés cross-vues.",
+        en: "Design a <strong>complete analytical dashboard in Tableau Desktop</strong>. Multi-table joins, calculated fields, 8 distinct views (maps, time series, bar charts) consolidated with cross-view linked filters."
       }
     }, {
       label: {
@@ -824,8 +824,8 @@ const DEEP = window.resolveI18n({
       en: "analysis."
     },
     signature: {
-      fr: "<strong>3 CSV joints, 8 vues consolidées, filtres liés cross-vues.</strong> Pas juste un dashboard cosmétique : champs calculés (DATEDIFF, type de paiement, segmentation géo), carte choroplèthe sur le Brésil, et insights chiffrés qui sortent direct — São Paulo concentre 42% des commandes, 97% de taux de livraison, pic Black Friday novembre 2017.",
-      en: "<strong>3 joined CSVs, 8 consolidated views, cross-view linked filters.</strong> Not just a cosmetic dashboard: calculated fields (DATEDIFF, payment type, geo segmentation), a choropleth map of Brazil, and hard numbers that come straight out — São Paulo holds 42% of orders, 97% delivery rate, Black Friday peak November 2017."
+      fr: "<strong>3 CSV joints, 8 vues consolidées, filtres liés cross-vues.</strong> Pas juste un dashboard cosmétique : champs calculés (DATEDIFF, type de paiement, segmentation géo), carte choroplèthe sur le Brésil, et insights chiffrés qui sortent direct. São Paulo concentre 42% des commandes, 97% de taux de livraison, pic Black Friday novembre 2017.",
+      en: "<strong>3 joined CSVs, 8 consolidated views, cross-view linked filters.</strong> Not just a cosmetic dashboard: calculated fields (DATEDIFF, payment type, geo segmentation), a choropleth map of Brazil, and hard numbers that come straight out. São Paulo holds 42% of orders, 97% delivery rate, Black Friday peak November 2017."
     },
     layers: [{
       tier: "Sources",
@@ -918,8 +918,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "Exploiter la base de données via SQL pour en extraire des <strong>insights actionnables</strong> — identifier les zones, profils et conditions à risque, puis restituer les résultats dans un outil de pilotage interactif.",
-        en: "Leverage the database via SQL to extract <strong>actionable insights</strong> — identify high-risk zones, profiles and conditions, then deliver the results in an interactive steering tool."
+        fr: "Exploiter la base de données via SQL pour en extraire des <strong>insights actionnables</strong>. Identifier les zones, profils et conditions à risque, puis restituer les résultats dans un outil de pilotage interactif.",
+        en: "Leverage the database via SQL to extract <strong>actionable insights</strong>. Identify high-risk zones, profiles and conditions, then deliver the results in an interactive steering tool."
       }
     }, {
       label: {
@@ -927,8 +927,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "Dashboard interactif <strong>déployé sur Vercel</strong> — visualisation des tendances par zone, période et type d'accident. Recommandations structurées prêtes à être transmises à des décideurs.",
-        en: "Interactive dashboard <strong>deployed on Vercel</strong> — visualization of trends by zone, period and accident type. Structured recommendations ready to hand to decision-makers."
+        fr: "Dashboard interactif <strong>déployé sur Vercel</strong>. Visualisation des tendances par zone, période et type d'accident. Recommandations structurées prêtes à être transmises à des décideurs.",
+        en: "Interactive dashboard <strong>deployed on Vercel</strong>. Visualization of trends by zone, period and accident type. Structured recommendations ready to hand to decision-makers."
       }
     }],
     archTitle: {
@@ -940,8 +940,8 @@ const DEEP = window.resolveI18n({
       en: "to dashboard."
     },
     signature: {
-      fr: "<strong>De la donnée publique brute à un outil de pilotage déployé.</strong> SQL pour extraire les patterns (zones, profils, conditions), Python pour transformer, Vercel pour héberger — bout-en-bout, depuis le CSV data.gouv.fr jusqu'au dashboard interactif accessible à un décideur.",
-      en: "<strong>From raw public data to a deployed steering tool.</strong> SQL to extract the patterns (zones, profiles, conditions), Python to transform, Vercel to host — end-to-end, from the data.gouv.fr CSV to the interactive dashboard a decision-maker can use."
+      fr: "<strong>De la donnée publique brute à un outil de pilotage déployé.</strong> SQL pour extraire les patterns (zones, profils, conditions), Python pour transformer, Vercel pour héberger. Bout-en-bout, depuis le CSV data.gouv.fr jusqu'au dashboard interactif accessible à un décideur.",
+      en: "<strong>From raw public data to a deployed steering tool.</strong> SQL to extract the patterns (zones, profiles, conditions), Python to transform, Vercel to host. End-to-end, from the data.gouv.fr CSV to the interactive dashboard a decision-maker can use."
     },
     layers: [{
       tier: "Source",
@@ -1028,8 +1028,8 @@ const DEEP = window.resolveI18n({
         en: "Context"
       },
       html: {
-        fr: "Projet d'analyse sur un <strong>dataset e-commerce réel fourni par Cdiscount</strong> — l'un des leaders français. Utilisation de Dataiku, plateforme de data science collaborative, pour mener l'analyse de bout en bout.",
-        en: "Analysis project on a <strong>real e-commerce dataset provided by Cdiscount</strong> — one of France's leaders. Using Dataiku, the collaborative data science platform, to run the analysis end-to-end."
+        fr: "Projet d'analyse sur un <strong>dataset e-commerce réel fourni par Cdiscount</strong>. L'un des leaders français. Utilisation de Dataiku, plateforme de data science collaborative, pour mener l'analyse de bout en bout.",
+        en: "Analysis project on a <strong>real e-commerce dataset provided by Cdiscount</strong>. One of France's leaders. Using Dataiku, the collaborative data science platform, to run the analysis end-to-end."
       }
     }, {
       label: {
@@ -1037,8 +1037,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "Explorer les données Cdiscount, construire des <strong>modèles d'analyse et de classification</strong>, et restituer des insights actionnables dans une logique métier orientée e-commerce — compréhension des comportements d'achat et des performances produits.",
-        en: "Explore the Cdiscount data, build <strong>analysis and classification models</strong>, and deliver actionable insights with an e-commerce business lens — understanding buying behavior and product performance."
+        fr: "Explorer les données Cdiscount, construire des <strong>modèles d'analyse et de classification</strong>, et restituer des insights actionnables dans une logique métier orientée e-commerce. Compréhension des comportements d'achat et des performances produits.",
+        en: "Explore the Cdiscount data, build <strong>analysis and classification models</strong>, and deliver actionable insights with an e-commerce business lens. Understanding buying behavior and product performance."
       }
     }, {
       label: {
@@ -1046,8 +1046,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "<strong>Pipeline de données complet dans Dataiku</strong> — exploration, nettoyage, modélisation et visualisation. Restitution structurée des insights avec recommandations orientées business pour optimiser les performances produits.",
-        en: "<strong>Complete data pipeline in Dataiku</strong> — exploration, cleaning, modeling and visualization. Structured delivery of insights with business-oriented recommendations to optimize product performance."
+        fr: "<strong>Pipeline de données complet dans Dataiku</strong>. Exploration, nettoyage, modélisation et visualisation. Restitution structurée des insights avec recommandations orientées business pour optimiser les performances produits.",
+        en: "<strong>Complete data pipeline in Dataiku</strong>. Exploration, cleaning, modeling and visualization. Structured delivery of insights with business-oriented recommendations to optimize product performance."
       }
     }],
     archTitle: {
@@ -1059,8 +1059,8 @@ const DEEP = window.resolveI18n({
       en: "pipeline."
     },
     signature: {
-      fr: "<strong>Bout-en-bout dans Dataiku</strong> : exploration, nettoyage, feature engineering, modélisation ML, visualisation — sur un dataset e-commerce <strong>réel Cdiscount</strong>. Pas un kaggle synthétique, mais des données opérationnelles d'un leader français du e-commerce.",
-      en: "<strong>End-to-end in Dataiku</strong>: exploration, cleaning, feature engineering, ML modeling, visualization — on a <strong>real Cdiscount</strong> e-commerce dataset. Not a synthetic Kaggle set, but operational data from a French e-commerce leader."
+      fr: "<strong>Bout-en-bout dans Dataiku</strong> : exploration, nettoyage, feature engineering, modélisation ML, visualisation. Sur un dataset e-commerce <strong>réel Cdiscount</strong>. Pas un kaggle synthétique, mais des données opérationnelles d'un leader français du e-commerce.",
+      en: "<strong>End-to-end in Dataiku</strong>: exploration, cleaning, feature engineering, ML modeling, visualization. On a <strong>real Cdiscount</strong> e-commerce dataset. Not a synthetic Kaggle set, but operational data from a French e-commerce leader."
     },
     layers: [{
       tier: "Source",
@@ -1141,8 +1141,8 @@ const DEEP = window.resolveI18n({
         en: "Context"
       },
       html: {
-        fr: "Passion pour la musique et les vinyles — et une question : <strong>est-ce que le format physique a une valeur objective sur le marché secondaire ?</strong> Discogs, la plus grande marketplace de vinyles, contenait la réponse dans ses données.",
-        en: "A passion for music and vinyl — and a question: <strong>does physical format hold objective value on the resale market?</strong> Discogs, the largest vinyl marketplace, held the answer in its data."
+        fr: "Passion pour la musique et les vinyles. Et une question : <strong>est-ce que le format physique a une valeur objective sur le marché secondaire ?</strong> Discogs, la plus grande marketplace de vinyles, contenait la réponse dans ses données.",
+        en: "A passion for music and vinyl. And a question: <strong>does physical format hold objective value on the resale market?</strong> Discogs, the largest vinyl marketplace, held the answer in its data."
       }
     }, {
       label: {
@@ -1150,8 +1150,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "<strong>Scraper Discogs via Python</strong> pour constituer un dataset sur les prix, formats et genres musicaux — puis analyser les corrélations entre format physique, rareté et valeur perçue sur le marché.",
-        en: "<strong>Scrape Discogs via Python</strong> to build a dataset on prices, formats and music genres — then analyze the correlations between physical format, rarity and perceived market value."
+        fr: "<strong>Scraper Discogs via Python</strong> pour constituer un dataset sur les prix, formats et genres musicaux. Puis analyser les corrélations entre format physique, rareté et valeur perçue sur le marché.",
+        en: "<strong>Scrape Discogs via Python</strong> to build a dataset on prices, formats and music genres. Then analyze the correlations between physical format, rarity and perceived market value."
       }
     }, {
       label: {
@@ -1159,8 +1159,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "Dataset constitué, <strong>analyse de corrélation complète</strong> — insights sur les formats les plus valorisés, les genres les plus côtés et les patterns de prix sur le marché du vinyle d'occasion.",
-        en: "Dataset built, <strong>full correlation analysis</strong> — insights on the most-valued formats, the most-rated genres and the price patterns on the second-hand vinyl market."
+        fr: "Dataset constitué, <strong>analyse de corrélation complète</strong>. Insights sur les formats les plus valorisés, les genres les plus côtés et les patterns de prix sur le marché du vinyle d'occasion.",
+        en: "Dataset built, <strong>full correlation analysis</strong>. Insights on the most-valued formats, the most-rated genres and the price patterns on the second-hand vinyl market."
       }
     }],
     archTitle: {
@@ -1251,8 +1251,8 @@ const DEEP = window.resolveI18n({
         en: "Context"
       },
       html: {
-        fr: "Des tâches répétitives qui consomment du temps — envois d'emails, synchronisation de données, notifications automatiques. <strong>Make permet de les automatiser visuellement, sans écrire une ligne de code.</strong>",
-        en: "Repetitive tasks that eat up time — email sends, data syncing, automatic notifications. <strong>Make lets you automate them visually, without writing a single line of code.</strong>"
+        fr: "Des tâches répétitives qui consomment du temps. Envois d'emails, synchronisation de données, notifications automatiques. <strong>Make permet de les automatiser visuellement, sans écrire une ligne de code.</strong>",
+        en: "Repetitive tasks that eat up time. Email sends, data syncing, automatic notifications. <strong>Make lets you automate them visually, without writing a single line of code.</strong>"
       }
     }, {
       label: {
@@ -1269,8 +1269,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "Plusieurs <strong>workflows actifs en production</strong> — gain de temps mesurable sur des processus manuels, zéro intervention humaine sur les tâches automatisées. Expérience directement transférable à n'importe quel contexte métier.",
-        en: "Several <strong>workflows live in production</strong> — measurable time saved on manual processes, zero human intervention on the automated tasks. Experience directly transferable to any business context."
+        fr: "Plusieurs <strong>workflows actifs en production</strong>. Gain de temps mesurable sur des processus manuels, zéro intervention humaine sur les tâches automatisées. Expérience directement transférable à n'importe quel contexte métier.",
+        en: "Several <strong>workflows live in production</strong>. Measurable time saved on manual processes, zero human intervention on the automated tasks. Experience directly transferable to any business context."
       }
     }],
     archTitle: {
@@ -1282,8 +1282,8 @@ const DEEP = window.resolveI18n({
       en: "in production."
     },
     signature: {
-      fr: "<strong>Zéro ligne de code, workflows en prod.</strong> Make connecte les apps entre elles via webhooks et APIs REST — déclencheurs, transformations, conditions, branches. Une fois un workflow déployé, plus aucune intervention humaine sur la tâche.",
-      en: "<strong>Zero lines of code, workflows in prod.</strong> Make connects apps together via webhooks and REST APIs — triggers, transformations, conditions, branches. Once a workflow is deployed, no more human intervention on the task."
+      fr: "<strong>Zéro ligne de code, workflows en prod.</strong> Make connecte les apps entre elles via webhooks et APIs REST. Déclencheurs, transformations, conditions, branches. Une fois un workflow déployé, plus aucune intervention humaine sur la tâche.",
+      en: "<strong>Zero lines of code, workflows in prod.</strong> Make connects apps together via webhooks and REST APIs. Triggers, transformations, conditions, branches. Once a workflow is deployed, no more human intervention on the task."
     },
     layers: [{
       tier: "Triggers",
@@ -1361,8 +1361,8 @@ const DEEP = window.resolveI18n({
         en: "Context"
       },
       html: {
-        fr: "Hackathon startup en mode contraint — imaginer, construire et pitcher un concept produit viable devant un jury. <strong>Kitchy est né de ce défi</strong> : trouver une idée, former une équipe, et aller au bout.",
-        en: "Startup hackathon under constraint — imagine, build and pitch a viable product concept to a jury. <strong>Kitchy was born from this challenge</strong>: find an idea, form a team, and see it through."
+        fr: "Hackathon startup en mode contraint. Imaginer, construire et pitcher un concept produit viable devant un jury. <strong>Kitchy est né de ce défi</strong> : trouver une idée, former une équipe, et aller au bout.",
+        en: "Startup hackathon under constraint. Imagine, build and pitch a viable product concept to a jury. <strong>Kitchy was born from this challenge</strong>: find an idea, form a team, and see it through."
       }
     }, {
       label: {
@@ -1370,8 +1370,8 @@ const DEEP = window.resolveI18n({
         en: "Goal"
       },
       html: {
-        fr: "Concevoir le <strong>concept produit Kitchy de A à Z</strong> — identifier un problème réel, définir la proposition de valeur, prototyper une solution et construire un pitch deck convaincant pour le jury.",
-        en: "Design the <strong>Kitchy product concept from A to Z</strong> — identify a real problem, define the value proposition, prototype a solution and build a convincing pitch deck for the jury."
+        fr: "Concevoir le <strong>concept produit Kitchy de A à Z</strong>. Identifier un problème réel, définir la proposition de valeur, prototyper une solution et construire un pitch deck convaincant pour le jury.",
+        en: "Design the <strong>Kitchy product concept from A to Z</strong>. Identify a real problem, define the value proposition, prototype a solution and build a convincing pitch deck for the jury."
       }
     }, {
       label: {
@@ -1379,8 +1379,8 @@ const DEEP = window.resolveI18n({
         en: "Result"
       },
       html: {
-        fr: "<strong>Pitch réalisé devant jury</strong>, deck produit complet. Expérience intense de build en équipe sous contrainte de temps — de l'idée brute à la présentation finale en moins de deux jours.",
-        en: "<strong>Pitched to the jury</strong>, complete product deck. An intense team-build experience under time pressure — from raw idea to final presentation in under two days."
+        fr: "<strong>Pitch réalisé devant jury</strong>, deck produit complet. Expérience intense de build en équipe sous contrainte de temps. De l'idée brute à la présentation finale en moins de deux jours.",
+        en: "<strong>Pitched to the jury</strong>, complete product deck. An intense team-build experience under time pressure. From raw idea to final presentation in under two days."
       }
     }],
     archTitle: {
@@ -2431,10 +2431,10 @@ function ProjetApp() {
         cursor: "zoom-in",
         display: "block"
       },
-      "aria-label": `Photo ${i + 1} — ${p.title}`
+      "aria-label": `Photo ${i + 1}. ${p.title}`
     }, /*#__PURE__*/React.createElement("img", {
       src: src,
-      alt: `${p.title} — moment ${i + 1}`,
+      alt: `${p.title}. Moment ${i + 1}`,
       loading: "lazy",
       style: {
         width: "100%",
