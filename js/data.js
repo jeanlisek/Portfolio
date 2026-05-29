@@ -27,7 +27,7 @@ window.JL = window.resolveI18n({
       slug: "mirakl", n: "01",
       title: "Hackathon Mirakl",
       sub: { fr: "6 agents Dust · Supply Brain", en: "6 Dust agents · Supply Brain" },
-      desc: { fr: "Mirakl Connect — Supply Brain : piloter une marketplace cross-canaux sans rupture ni surstock, conforme CSRD 2026. Cas d'usage Nordika Studio (200 SKUs sur Amazon FR/IT/DE et Google Shopping), avec 6 agents Dust orchestrés et un dashboard React personnalisable par profil.", en: "Mirakl Connect — Supply Brain: steering a cross-channel marketplace with no stockouts or overstock, CSRD 2026 compliant. Nordika Studio use case (200 SKUs across Amazon FR/IT/DE and Google Shopping), with 6 orchestrated Dust agents and a React dashboard customizable per role." },
+      desc: { fr: "Piloter une marketplace cross-canaux sans rupture ni surstock, conforme CSRD 2026. Cas d'usage Nordika Studio (200 SKUs sur Amazon FR/IT/DE et Google Shopping), avec 6 agents Dust orchestrés et un dashboard React personnalisable par profil.", en: "Steering a cross-channel marketplace with no stockouts or overstock, CSRD 2026 compliant. Nordika Studio use case (200 SKUs across Amazon FR/IT/DE and Google Shopping), with 6 orchestrated Dust agents and a React dashboard customizable per role." },
       tags: ["agents ia", "supply-chain", "marketplace", "hackathon"],
       badge: { fr: "Finaliste", en: "Finalist" },
       sigil: "bars",
